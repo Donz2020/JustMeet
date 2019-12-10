@@ -1,6 +1,12 @@
 package it.unicam.ids.justmeet;
 
-public enum PostCategory {
-
+public class PostCategory {
+//TODO
+	
+	
+	String Name;
+	
+	String Description;
+	
 	
 }

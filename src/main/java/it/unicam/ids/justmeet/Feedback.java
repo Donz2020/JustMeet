@@ -1,5 +1,11 @@
 package it.unicam.ids.justmeet;
 
+/**
+ * Questa classe ha bisigno di un evento e di un utente.
+ * Rappresenta una valutazione relativa ad un evento
+ * @author Andrea
+ *
+ */
 public class Feedback {
 
 	int UserHash;

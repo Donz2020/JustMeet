@@ -1,5 +1,11 @@
 package it.unicam.ids.justmeet;
 
+/**
+ * Ogni istanza di questa classe rappresenta un luogo
+ * indicandolo con le sue cordinate.
+ * @author Andrea
+ *
+ */
 public class Location {
 	
 	float Latitude;

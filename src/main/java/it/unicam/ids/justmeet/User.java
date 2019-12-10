@@ -1,16 +1,24 @@
 package it.unicam.ids.justmeet;
 
-class User implements IUser {
+/**
+ * Ogni istanza è un utente fisico
+ * che verrà differenziato in base al ruolo
+ * @author Andrea
+ *
+ */
+class User implements IPhysicalUser {
 	
-	int Id;
+	String Email;
 	
 	String Name;
 	
 	String LastName;
 	
-	protected User(int Id, String Name, String LastName)
+	UserRole Role;
+	
+	protected User(String Email, String Name, String LastName)
 	{
-		this.Id = Id;
+		this.Email = Email;
 		this.Name = Name;
 		this.LastName = LastName;
 	}
@@ -18,6 +26,16 @@ class User implements IUser {
 	@Override
 	public String GetDetails() {
 		return String.format("%s %s", Name, LastName);
+	}
+
+	@Override
+	public String GetUniqueID() {
+		return Email;
+	}
+
+	@Override
+	public UserRole GetRole() {
+		return Role;
 	}
 
 }

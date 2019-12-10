@@ -1,5 +1,10 @@
 package it.unicam.ids.justmeet;
-
+/**
+ * Ogni istanza è un utente commerciale 
+ * che generalmente pubblica eventi a scopo di lucro.
+ * @author Andrea
+ *
+ */
 class BusinessUser implements IUser {
 
 	String Name;
@@ -16,6 +21,12 @@ class BusinessUser implements IUser {
 	@Override
 	public String GetDetails() {
 		return String.format("%s", Name);
+	}
+
+
+	@Override
+	public String GetUniqueID() {
+		return VATNumber;
 	}
 
 }
