@@ -8,7 +8,7 @@ package it.unicam.ids.justmeet;
  */
 class User implements IPhysicalUser {
 	
-	String Email;
+	String Email; //aggiornare uml
 	
 	String Name;
 	
