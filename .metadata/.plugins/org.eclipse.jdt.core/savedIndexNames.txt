@@ -1,3 +1,0 @@
-INDEX VERSION 1.127+Z:\Documents\codiceSorgente\JustMeet\.metadata\.plugins\org.eclipse.jdt.core
-1342631739.index
-2422315568.index
