@@ -3,6 +3,8 @@ package it.unicam.ids.justmeet.rest;
 import java.util.Date;
 import java.util.HashSet;
 
+//TODO aggiungere metodo DeleteSubscribers()
+
 /**
  * Ogni istanza di questa classe rappresenta un evento creato du un {@code IUser}.
  * @author Andrea
