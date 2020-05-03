@@ -23,7 +23,7 @@ public class Feedback {
 		this.Type = Type;
 	}
 	
-	public boolean AddAdditionText(String Text)
+	public boolean AddAdditionalText(String Text)
 	{
 		if(Text.length() > 0 && Text.length() <= 120){
 			this.Text = Text;
