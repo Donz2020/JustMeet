@@ -1,14 +1,14 @@
 package it.unicam.ids.justmeet.rest;
 
 /**
- * Ogni istanza è un utente fisico
- * che verrà differenziato in base al ruolo
+ * Ogni istanza ï¿½ un utente fisico
+ * che verrï¿½ differenziato in base al ruolo
  * @author Andrea
  *
  */
 class User implements IPhysicalUser {
 	
-	String Email; //aggiornare uml
+	String Email;
 	
 	String Name;
 	

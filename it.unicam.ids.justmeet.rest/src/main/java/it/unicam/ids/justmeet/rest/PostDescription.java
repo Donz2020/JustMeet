@@ -15,6 +15,7 @@ public class PostDescription {
 	
 	public PostDescription(PostCategory Type, boolean Free, String Text)
 	{
+		if(Text == null || Text.length() == 0) throw new IllegalArgumentException();
 		this.Type = Type;
 		this.Free = Free;
 		this.Text = Text;

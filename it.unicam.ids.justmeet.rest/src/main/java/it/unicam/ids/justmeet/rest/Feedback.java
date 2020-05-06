@@ -16,18 +16,34 @@ public class Feedback {
 	
 	String Text;
 	
-	public Feedback(int UserHash, int PostHash, FeedbackType Type)
+	public Feedback(IPhysicalUser PhysicalUser, Post ReferredPost, FeedbackType Type)
 	{
-		this.UserHash = UserHash;
-		this.PostHash = PostHash;
+		if (PhysicalUser == null || ReferredPost == null ) throw new NullPointerException();
+		UserHash = PhysicalUser.hashCode();
+		PostHash = ReferredPost.hashCode();
 		this.Type = Type;
 	}
 	
 	public boolean AddAdditionalText(String Text)
 	{
-		if(Text.length() > 0 && Text.length() <= 120){
+		if(Text != null && Text.length() > 0 && Text.length() <= 120){
 			this.Text = Text;
 			return true;
 		} else return false;
 	}
+
+	public int GetUserHash(){
+		return UserHash;
+	}
+	public int GetPostHash(){
+		return PostHash;
+	}
+	public FeedbackType GetType(){
+		return Type;
+	}
+	public String GetText(){
+		return Text;
+	}
+
+
 }

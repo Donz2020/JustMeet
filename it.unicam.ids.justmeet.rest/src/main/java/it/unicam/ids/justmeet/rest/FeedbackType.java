@@ -6,9 +6,21 @@ package it.unicam.ids.justmeet.rest;
  */
 public enum FeedbackType {
 
-	REALLYBAD,
-	BAD,
-	DISCRETE,
-	GOOD,
-	REALLYGOOD
+	REALLYBAD(0),
+	BAD(1),
+	DISCRETE(2),
+	GOOD(3),
+	REALLYGOOD(4);
+
+	private final int Value;
+
+	private FeedbackType (int Value){
+		this.Value = Value;
+	}
+
+	public int GetValue(){
+		return  Value;
+	}
+
 }
+

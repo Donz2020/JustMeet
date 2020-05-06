@@ -12,7 +12,7 @@ public class Location {
 	
 	float Longitude;
 	
-	String Name;
+	String Name; 		//possibile duplicazione nome
 	
 	public Location(float Latitude, float Longitude, String Name)
 	{
@@ -24,6 +24,10 @@ public class Location {
 	public float[] GetCoordinates()
 	{
 		return new float[] { Latitude, Longitude};
+	}
+
+	public String GetName() {
+		return Name;
 	}
 
 }

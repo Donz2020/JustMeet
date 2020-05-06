@@ -1,6 +1,6 @@
 package it.unicam.ids.justmeet.rest;
 /**
- * Ogni istanza è un utente commerciale 
+ * Ogni istanza Ã¨ un utente commerciale
  * che generalmente pubblica eventi a scopo di lucro.
  * @author Andrea
  *
