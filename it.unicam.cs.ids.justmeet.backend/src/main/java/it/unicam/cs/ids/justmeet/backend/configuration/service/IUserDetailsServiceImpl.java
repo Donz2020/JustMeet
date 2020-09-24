@@ -20,7 +20,7 @@ public class IUserDetailsServiceImpl implements IUserDetailsService {
     @Override
     public UserDetails loadUserByUniqueID(String uniqueID) throws UsernameNotFoundException {
         IUser user = userRepository.findById(uniqueID)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found" + uniqueID));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User Not Found %s",uniqueID)));
             return build(user);
     }
 

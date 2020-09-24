@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+
+//Not used
 public interface IUserDetailsService extends UserDetailsService {
 
     UserDetails loadUserByUniqueID(String uniqueID) throws UsernameNotFoundException;

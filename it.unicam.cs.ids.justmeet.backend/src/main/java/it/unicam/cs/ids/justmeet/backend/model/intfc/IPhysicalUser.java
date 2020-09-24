@@ -9,7 +9,7 @@ public interface IPhysicalUser extends IUser{
 
     void setRole(Set<UserRole> roles);
 
-    String getCognome();
+    String getSurname();
 
-    void setCognome(String cognome);
+    void setSurname(String surname);
 }

@@ -1,18 +1,16 @@
-package it.unicam.cs.ids.justmeet.backend.controller;
+package it.unicam.cs.ids.justmeet.backend.controller.login;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.JwtUtils;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsImpl;
-import it.unicam.cs.ids.justmeet.backend.model.BusinessUser;
-import it.unicam.cs.ids.justmeet.backend.model.PhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
-import it.unicam.cs.ids.justmeet.backend.payload.request.LoginRequest;
-import it.unicam.cs.ids.justmeet.backend.payload.request.SignupRequest;
+import it.unicam.cs.ids.justmeet.backend.payload.request.AuthRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.JwtResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
+import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,7 +40,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -60,45 +58,59 @@ public class AuthController {
                 roles));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.findById(signUpRequest.getUsername()).get() != null) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
+    private boolean findById(@Valid @RequestBody AuthRequest signUpRequest) {
+        return !userRepository.findById(signUpRequest.getUsername()).isEmpty();
+    }
 
-        // Create new user's account
-        IPhysicalUser user = new PhysicalUser();
-        user.setUniqueID(signUpRequest.getUsername());
-        user.setPassword(signUpRequest.getPassword());
+    private ResponseEntity<?> signupErr(String username) {
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse(String.format("Error: %s is already taken!", username)));
+    }
 
-        //Set<String> strRoles = signUpRequest.getRoles();
-        Set<UserRole> roles = new HashSet<>();
-        roles.add(new UserRole(EnumUserRole.STD));
+    private IUser buildUser(IUser user, String username, String password) {
+        user.setUniqueID(username);
+        user.setPassword(password);
+        return user;
+    }
 
-        user.setRole(roles);
+    private void saveUser(IUser user) {
         userRepository.save(user);
+    }
 
+    private ResponseEntity<?> successReg() {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-
-    @PostMapping("/signupBusiness")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.findById(signUpRequest.getUsername()).get() != null) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+    @PostMapping("/register")
+    public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody AuthRequest signUpRequest) {
+        if (findById(signUpRequest)) {
+            return signupErr(signUpRequest.getUsername());
         }
 
         // Create new user's account
-        IUser user = new BusinessUser();
-        user.setUniqueID(signUpRequest.getUsername());
-        user.setPassword(signUpRequest.getPassword());
+        IPhysicalUser user = Utils.newPhysicalUserInst();
 
-        userRepository.save(user);
+        Set<UserRole> roles = new HashSet<>();
+        roles.add(new UserRole(EnumUserRole.STD));
+        user.setRole(roles);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        saveUser(buildUser(user, signUpRequest.getUsername(), signUpRequest.getPassword()));
+
+        return successReg();
+    }
+
+
+    @PostMapping("/registerBusiness")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest signUpRequest) {
+        if (findById(signUpRequest)) {
+            return signupErr(signUpRequest.getUsername());
+        }
+
+        // Create new user's account
+        IUser user = Utils.newBusinessUserInst();
+        saveUser(buildUser(user, signUpRequest.getUsername(), signUpRequest.getPassword()));
+
+        return successReg();
     }
 }

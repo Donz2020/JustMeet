@@ -5,18 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 public enum EnumUserRole {
-    ADMIN(1),
-    MOD(2),
-    STD(3),
-    VRF(4);
-
-
-    private int value;
-
-    private EnumUserRole(int value) {
-        this.value = value;
-    }
-
-    public int getValue() { return value; }
+    ADMIN,
+    MOD,
+    STD,
+    VRF
 }
 

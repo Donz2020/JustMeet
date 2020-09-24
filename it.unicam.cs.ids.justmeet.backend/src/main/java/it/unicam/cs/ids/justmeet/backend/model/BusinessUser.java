@@ -2,6 +2,7 @@ package it.unicam.cs.ids.justmeet.backend.model;
 
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
+import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
@@ -16,6 +17,10 @@ public class BusinessUser extends User implements IUser {
     @Size(min = 8, max = 12)
     private String VATNumber;
 
+    public BusinessUser() {
+        setActive(false);
+    }
+
     public String getDetails() {
         return String.format("%s", super.name);
     }
@@ -25,7 +30,10 @@ public class BusinessUser extends User implements IUser {
     }
 
     public void setUniqueID(String VATNumber) {
-        this.VATNumber = VATNumber;
+        if(Utils.isValidVATNumber(VATNumber))
+            this.VATNumber = VATNumber;
+        else
+            throw new IllegalArgumentException();
     }
 
     public Set<UserRole> getRole() {

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.justmeet.backend.payload.response;
 
 public class MessageResponse {
+
 	private String message;
 
 	public MessageResponse(String message) {

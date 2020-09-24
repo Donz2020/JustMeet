@@ -12,7 +12,6 @@ public class Location {
         return new float[]{latitude,longitude};
     }
 
-
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
