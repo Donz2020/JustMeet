@@ -17,7 +17,7 @@ public class PhysicalUser extends User implements IPhysicalUser {
     @NotBlank
     private String cognome;
 
-    @DBRef
+    //@DBRef
     private Set<UserRole> roles = new HashSet<>();
 
     @Override

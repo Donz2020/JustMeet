@@ -2,16 +2,17 @@ package it.unicam.cs.ids.justmeet.backend.controller;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.JwtUtils;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsImpl;
+import it.unicam.cs.ids.justmeet.backend.model.BusinessUser;
 import it.unicam.cs.ids.justmeet.backend.model.PhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
+import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.LoginRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.SignupRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.JwtResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
-import it.unicam.cs.ids.justmeet.backend.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,14 +39,9 @@ public class AuthController {
     UserRepository userRepository;
 
     @Autowired
-    UserRoleRepository roleRepository;
-
-    @Autowired
     JwtUtils jwtUtils;
 
-    final String rolesString[] = {new UserRole(EnumUserRole.VRF).getId(), new UserRole(EnumUserRole.STD).getId()};
-
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -65,17 +61,11 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUniqueID(signUpRequest.getUsername())) {
+    public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userRepository.findById(signUpRequest.getUsername()).get() != null) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
-        }
-
-        if (userRepository.existsByUniqueID(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
         }
 
         // Create new user's account
@@ -83,29 +73,30 @@ public class AuthController {
         user.setUniqueID(signUpRequest.getUsername());
         user.setPassword(signUpRequest.getPassword());
 
-        Set<String> strRoles = signUpRequest.getRoles();
+        //Set<String> strRoles = signUpRequest.getRoles();
         Set<UserRole> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            UserRole userRole = roleRepository.findByName(new UserRole(EnumUserRole.STD).getId())
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                if(role == rolesString[0]) {
-                    UserRole adminRole = roleRepository.findByName(rolesString[0])
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(adminRole);
-                }
-                else if (role == rolesString[1]) {
-                        UserRole userRole = roleRepository.findByName(rolesString[1])
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
+        roles.add(new UserRole(EnumUserRole.STD));
 
         user.setRole(roles);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+
+    @PostMapping("/signupBusiness")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userRepository.findById(signUpRequest.getUsername()).get() != null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        // Create new user's account
+        IUser user = new BusinessUser();
+        user.setUniqueID(signUpRequest.getUsername());
+        user.setPassword(signUpRequest.getPassword());
+
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
