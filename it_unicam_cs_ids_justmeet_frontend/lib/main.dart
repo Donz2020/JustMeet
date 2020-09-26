@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:it_unicam_cs_ids_justmeet_frontend/pages/login.dart';
+import 'package:it_unicam_cs_ids_justmeet_frontend/pages/register.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +28,11 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'HomePage'),
+      routes: <String, WidgetBuilder> {
+        '/login': (BuildContext context) => login(), // mappa /login
+        '/register': (BuildContext context) => register(),
+      },
     );
   }
 }
