@@ -89,13 +89,8 @@ public class AuthController {
         }
 
         // Create new user's account
-        IPhysicalUser user = Utils.newPhysicalUserInst();
-
-        Set<UserRole> roles = new HashSet<>();
-        roles.add(new UserRole(EnumUserRole.STD));
-        user.setRole(roles);
-
-        saveUser(buildUser(user, signUpRequest.getUsername(), signUpRequest.getPassword()));
+        saveUser(buildUser(Utils.newPhysicalUserInst(), signUpRequest.getUsername(),
+                signUpRequest.getPassword()));
 
         return successReg();
     }
@@ -108,8 +103,8 @@ public class AuthController {
         }
 
         // Create new user's account
-        IUser user = Utils.newBusinessUserInst();
-        saveUser(buildUser(user, signUpRequest.getUsername(), signUpRequest.getPassword()));
+        saveUser(buildUser(Utils.newBusinessUserInst(), signUpRequest.getUsername(),
+                signUpRequest.getPassword()));
 
         return successReg();
     }

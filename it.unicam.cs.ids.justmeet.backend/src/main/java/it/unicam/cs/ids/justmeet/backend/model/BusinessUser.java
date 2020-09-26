@@ -37,8 +37,6 @@ public class BusinessUser extends User implements IUser {
     }
 
     public Set<UserRole> getRole() {
-        Set<UserRole> role = new HashSet<UserRole>();
-        role.add(new UserRole(EnumUserRole.VRF));
-        return role;
+        return Utils.buildRoles(EnumUserRole.VRF);
     }
 }

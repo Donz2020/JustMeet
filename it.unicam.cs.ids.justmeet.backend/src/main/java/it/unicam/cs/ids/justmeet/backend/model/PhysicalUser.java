@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.justmeet.backend.model;
 
+import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.data.annotation.Id;
@@ -24,6 +25,7 @@ public class PhysicalUser extends User implements IPhysicalUser {
 
     public PhysicalUser() {
         super.setActive(true);
+        setRole(Utils.buildRoles(EnumUserRole.STD));
     }
 
     @Override

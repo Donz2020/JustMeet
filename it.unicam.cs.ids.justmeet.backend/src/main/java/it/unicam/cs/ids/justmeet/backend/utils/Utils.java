@@ -2,9 +2,13 @@ package it.unicam.cs.ids.justmeet.backend.utils;
 
 import it.unicam.cs.ids.justmeet.backend.model.BusinessUser;
 import it.unicam.cs.ids.justmeet.backend.model.PhysicalUser;
+import it.unicam.cs.ids.justmeet.backend.model.UserRole;
+import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,5 +36,13 @@ public abstract class Utils {
     public static boolean isValidVATNumber(String vatNumber) {
         return matchRegex(vatNumber,
                 "^[A-Za-z]{2,4}(?=.{2,12}$)[-_\\s0-9]*(?:[a-zA-Z][-_\\s0-9]*){0,2}$");
+    }
+
+    public static Set<UserRole> buildRoles(EnumUserRole... roles){
+        Set<UserRole> temp = new HashSet<>();
+        for (EnumUserRole r: roles) {
+            temp.add(new UserRole(r));
+        }
+        return temp;
     }
 }
