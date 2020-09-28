@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:it_unicam_cs_ids_justmeet_frontend/pages/register.dart';
+import 'package:http/http.dart' as http;
+import '../main.dart';
+
 
 class login extends StatefulWidget {
   final String title;
@@ -7,10 +9,25 @@ class login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _State();
 }
+  Future<String> attemptLogIn(String username, String password) async {
+  var res = await http.post(
+      "$SERVER_IP/api/auth/login",
+      body: {
+        "username": username,
+        "password": password
+      }
+  );
+  if(res.statusCode == 200) return res.body;
+  return null;
+}
+
+
+
 
 class _State extends State<login> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +86,7 @@ class _State extends State<login> {
                       color: Colors.blue,
                       child: Text('Login'),
                       onPressed: () {
-                        print(nameController.text);
-                        print(passwordController.text);
+                        attemptLogIn(nameController.toString(), passwordController.toString());
                       },
                     )),
                 Container(

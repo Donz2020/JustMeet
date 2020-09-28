@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+
+import '../main.dart';
 
 
 class register extends StatefulWidget {
@@ -7,6 +11,20 @@ class register extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _State();
 }
+
+Future<int> attemptSignUp(String username, String password) async {
+  var res = await http.post(
+      '$SERVER_IP/api/auth/register',
+      body: {
+        "username": username,
+        "password": password
+      }
+  );
+  return res.statusCode;
+
+}
+
+
 
 class _State extends State<register> {
   TextEditingController nameController = TextEditingController();
@@ -27,7 +45,7 @@ class _State extends State<register> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'JustMeet Login',
+                      'JustMeet Register',
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,
