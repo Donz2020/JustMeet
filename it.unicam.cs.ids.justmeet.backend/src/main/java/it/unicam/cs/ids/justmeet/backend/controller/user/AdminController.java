@@ -6,6 +6,7 @@ import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.ActRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.RoleEditRequest;
+import it.unicam.cs.ids.justmeet.backend.payload.request.UserRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/editRole")
+    @PostMapping(path ="/editRole", consumes = "application/json")
     public ResponseEntity<?> editPhysicalUserRole(@Valid @RequestBody RoleEditRequest roleEditRequest) {
 
         IPhysicalUser user = (IPhysicalUser) userRepository.findById(roleEditRequest.getUsername()).get();
@@ -48,7 +49,7 @@ public class AdminController {
         return response(user);
     }
 
-    @PostMapping("/editStatus")
+    @PostMapping(path ="/editStatus", consumes = "application/json")
     public ResponseEntity<?> editUserStatus(@Valid @RequestBody ActRequest actRequest) {
 
         IUser user = userRepository.findById(actRequest.getUsername()).get();
@@ -58,5 +59,10 @@ public class AdminController {
         return response(user);
     }
 
+    @PostMapping(path = "/delete", consumes = "application/json")
+    public ResponseEntity<?> deleteUser(@Valid @RequestBody UserRequest userRequest) {
+        userRepository.delete(userRepository.findById(userRequest.getUsername()).get());
+        return ResponseEntity.ok(new MessageResponse("Deleted"));
+    }
 
 }

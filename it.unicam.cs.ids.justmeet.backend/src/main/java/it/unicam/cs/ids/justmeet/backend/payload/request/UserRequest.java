@@ -2,7 +2,7 @@ package it.unicam.cs.ids.justmeet.backend.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
-public abstract class UserRequest {
+public class UserRequest {
 
     @NotBlank
     private String username;
