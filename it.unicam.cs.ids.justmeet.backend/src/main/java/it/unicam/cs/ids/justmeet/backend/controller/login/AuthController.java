@@ -39,7 +39,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login", consumes = "application/json")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -82,7 +82,7 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @PostMapping("/register")
+    @PostMapping(path = "/register", consumes = "application/json")
     public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody AuthRequest signUpRequest) {
         if (findById(signUpRequest)) {
             return signupErr(signUpRequest.getUsername());
@@ -96,7 +96,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/registerBusiness")
+    @PostMapping(path = "/registerBusiness", consumes = "application/json")
     public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest signUpRequest) {
         if (findById(signUpRequest)) {
             return signupErr(signUpRequest.getUsername());

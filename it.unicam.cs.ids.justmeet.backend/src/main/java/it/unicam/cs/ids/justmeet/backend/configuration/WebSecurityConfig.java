@@ -4,6 +4,8 @@ import it.unicam.cs.ids.justmeet.backend.configuration.jwt.AuthEntryPointJwt;
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.AuthTokenFilter;;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsService;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.model.UserRole;
+import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,7 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/auth/**").permitAll()
                 //.antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 

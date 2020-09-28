@@ -1,22 +1,11 @@
 package it.unicam.cs.ids.justmeet.backend.payload.request;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-public class AuthRequest {
-    @NotBlank
-    private String username;
+public class AuthRequest extends UserRequest{
 
     @NotBlank
     private String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
