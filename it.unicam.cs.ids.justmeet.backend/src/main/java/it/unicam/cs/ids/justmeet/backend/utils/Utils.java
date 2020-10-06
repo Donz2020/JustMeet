@@ -6,6 +6,8 @@ import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +38,14 @@ public abstract class Utils {
     public static boolean isValidVATNumber(String vatNumber) {
         return matchRegex(vatNumber,
                 "^[A-Za-z]{2,4}(?=.{2,12}$)[-_\\s0-9]*(?:[a-zA-Z][-_\\s0-9]*){0,2}$");
+    }
+
+    public static SimpleGrantedAuthority generateAuthority(EnumUserRole userRole) {
+        return new SimpleGrantedAuthority(new UserRole(userRole).toString());
+    }
+
+    public static boolean isPhysicalUser(IUser user) {
+        return !user.getRole().stream().anyMatch(n -> n.getName() == EnumUserRole.VRF);
     }
 
 }

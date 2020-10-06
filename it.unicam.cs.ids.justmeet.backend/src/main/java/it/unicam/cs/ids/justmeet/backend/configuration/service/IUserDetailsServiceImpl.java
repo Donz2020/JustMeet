@@ -4,13 +4,13 @@ import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("IUserDetailsServiceImpl")
-public class IUserDetailsServiceImpl implements IUserDetailsService {
+public class IUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
@@ -19,7 +19,6 @@ public class IUserDetailsServiceImpl implements IUserDetailsService {
         return IUserDetailsImpl.build(user);
     }
 
-    @Override
     @Transactional
     public UserDetails loadUserByUniqueID(String uniqueID) throws UsernameNotFoundException {
         IUser user = userRepository.findById(uniqueID)
@@ -33,7 +32,6 @@ public class IUserDetailsServiceImpl implements IUserDetailsService {
         return loadUserByUniqueID(uniqueID);
     }
 
-    @Override
     public UserDetails loadUserByUserInstance(IUser user) throws UsernameNotFoundException {
         return loadUserByUniqueID(user.getUniqueID());
     }

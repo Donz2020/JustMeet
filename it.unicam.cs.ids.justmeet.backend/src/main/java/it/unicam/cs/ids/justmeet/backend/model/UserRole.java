@@ -35,6 +35,10 @@ public class UserRole {
         this.name = name;
     }
 
+    public String getString() {
+        return name.name();
+    }
+
     public static Set<UserRole> fromString(Set<String> id) {
         Set<UserRole> roles = new HashSet<>();
         for (String s: id)
@@ -48,5 +52,10 @@ public class UserRole {
             temp.add(new UserRole(r));
         }
         return temp;
+    }
+
+    @Override
+    public String toString() {
+        return name.name();
     }
 }

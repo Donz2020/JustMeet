@@ -4,7 +4,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
-import io.jsonwebtoken.impl.DefaultClaims;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

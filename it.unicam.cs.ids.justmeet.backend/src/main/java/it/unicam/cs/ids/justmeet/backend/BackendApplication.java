@@ -1,21 +1,8 @@
 package it.unicam.cs.ids.justmeet.backend;
 
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsService;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
-import it.unicam.cs.ids.justmeet.backend.model.PhysicalUser;
-import it.unicam.cs.ids.justmeet.backend.model.UserRole;
-import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
-import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
-import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
-import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.HashSet;
-import java.util.Set;
 
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
