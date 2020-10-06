@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.justmeet.backend.configuration.jwt;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
@@ -31,19 +32,18 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .setIssuer("tester")
-                .setClaims(new DefaultClaims())
                 .setSubject((userPrincipal.getUsername()))
                 .setAudience("io")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .setId(UUID.randomUUID().toString())
-                .signWith(SignatureAlgorithm.HS512, "1234")
+                .setId(UUID.randomUUID().toString().replace("-", ""))
+                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
                 .compact();
     }
 
     public String getUserNameFromJwtToken(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey("1234")
+                .setSigningKey(Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -52,16 +52,18 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String authToken) {
         try {
-            //Claims claims =
+            Claims claims =
                     Jwts.parser()
-                    .setSigningKey("1234")
+                    .setSigningKey(Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
                     .parseClaimsJws(authToken)
                     .getBody();
-            /*System.out.println("----------------------------");
+            System.out.println("----------------------------");
             System.out.println("ID: " + claims.getId());
             System.out.println("Subject: " + claims.getSubject());
             System.out.println("Issuer: " + claims.getIssuer());
-            System.out.println("Expiration: " + claims.getExpiration());*/
+            System.out.println("Issued @: " + claims.getIssuedAt());
+            System.out.println("Expiration: " + claims.getExpiration());
+            System.out.println("Audience: " + claims.getAudience());
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());

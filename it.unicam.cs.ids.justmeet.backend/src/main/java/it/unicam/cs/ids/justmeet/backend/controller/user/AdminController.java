@@ -11,6 +11,7 @@ import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,7 @@ public class AdminController {
         return response(user);
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path ="/editStatus", consumes = "application/json")
     public ResponseEntity<?> editUserStatus(@Valid @RequestBody ActRequest actRequest) {
 
