@@ -41,4 +41,12 @@ public class UserRole {
             roles.add(new UserRole(EnumUserRole.valueOf(s)));
         return roles;
     }
+
+    public static Set<UserRole> buildRoles(EnumUserRole... roles){
+        Set<UserRole> temp = new HashSet<>();
+        for (EnumUserRole r: roles) {
+            temp.add(new UserRole(r));
+        }
+        return temp;
+    }
 }

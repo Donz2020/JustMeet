@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 public class BusinessUser extends User implements IUser {
@@ -37,6 +36,6 @@ public class BusinessUser extends User implements IUser {
     }
 
     public Set<UserRole> getRole() {
-        return Utils.buildRoles(EnumUserRole.VRF);
+        return UserRole.buildRoles(EnumUserRole.VRF);
     }
 }

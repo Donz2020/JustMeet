@@ -38,11 +38,4 @@ public abstract class Utils {
                 "^[A-Za-z]{2,4}(?=.{2,12}$)[-_\\s0-9]*(?:[a-zA-Z][-_\\s0-9]*){0,2}$");
     }
 
-    public static Set<UserRole> buildRoles(EnumUserRole... roles){
-        Set<UserRole> temp = new HashSet<>();
-        for (EnumUserRole r: roles) {
-            temp.add(new UserRole(r));
-        }
-        return temp;
-    }
 }

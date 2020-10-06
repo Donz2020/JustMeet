@@ -25,7 +25,7 @@ public class PhysicalUser extends User implements IPhysicalUser {
 
     public PhysicalUser() {
         super.setActive(true);
-        setRole(Utils.buildRoles(EnumUserRole.STD));
+        setRole(UserRole.buildRoles(EnumUserRole.STD));
     }
 
     @Override

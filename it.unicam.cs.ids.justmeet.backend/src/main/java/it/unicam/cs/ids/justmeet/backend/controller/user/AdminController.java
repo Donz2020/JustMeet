@@ -11,6 +11,8 @@ import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -52,12 +54,20 @@ public class AdminController {
     @PostMapping(path ="/editStatus", consumes = "application/json")
     public ResponseEntity<?> editUserStatus(@Valid @RequestBody ActRequest actRequest) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(!authentication.getAuthorities().contains("ADMIN")) {
+
+            return ResponseEntity.ok(new MessageResponse("Update fail"));
+        }
+
         IUser user = userRepository.findById(actRequest.getUsername()).get();
 
         user.setActive(actRequest.isActive());
 
         return response(user);
     }
+
 
     @PostMapping(path = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteUser(@Valid @RequestBody UserRequest userRequest) {

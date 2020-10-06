@@ -5,7 +5,9 @@ import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("IUserDetailsServiceImpl")
 public class IUserDetailsServiceImpl implements IUserDetailsService {
@@ -18,6 +20,7 @@ public class IUserDetailsServiceImpl implements IUserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUniqueID(String uniqueID) throws UsernameNotFoundException {
         IUser user = userRepository.findById(uniqueID)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User Not Found %s",uniqueID)));
@@ -25,6 +28,7 @@ public class IUserDetailsServiceImpl implements IUserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String uniqueID) throws UsernameNotFoundException {
         return loadUserByUniqueID(uniqueID);
     }
