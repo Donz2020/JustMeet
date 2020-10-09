@@ -55,7 +55,7 @@ public class AdminController {
     }
 
 
-    @PostMapping(path ="/editRole", consumes = "application/json")
+    @PostMapping(path ="/setRole", consumes = "application/json")
     public ResponseEntity<?> editPhysicalUserRole(@Valid @RequestBody RoleEditRequest roleEditRequest) {
         IUser temp = findUser(roleEditRequest);
         IPhysicalUser user;
@@ -70,7 +70,7 @@ public class AdminController {
         return response(user);
     }
 
-    @PostMapping(path ="/editStatus", consumes = "application/json")
+    @PostMapping(path ="/setStatus", consumes = "application/json")
     public ResponseEntity<?> editUserStatus(@Valid @RequestBody ActRequest actRequest) {
         IUser user = findUser(actRequest);
 
@@ -79,7 +79,7 @@ public class AdminController {
         return response(user);
     }
 
-    @PostMapping(path ="/editPass", consumes = "application/json")
+    @PostMapping(path ="/setPass", consumes = "application/json")
     public ResponseEntity<?> editUserPass(@Valid @RequestBody AuthRequest authRequest) {
         IUser user = findUser(authRequest);
 

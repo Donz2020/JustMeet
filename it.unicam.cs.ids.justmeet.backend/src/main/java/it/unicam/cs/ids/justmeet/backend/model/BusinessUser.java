@@ -21,7 +21,7 @@ public class BusinessUser extends User implements IUser {
     }
 
     public String getDetails() {
-        return String.format("%s", super.name);
+        return String.format("%s, %s",VATNumber,  super.name);
     }
 
     public String getUniqueID() {
