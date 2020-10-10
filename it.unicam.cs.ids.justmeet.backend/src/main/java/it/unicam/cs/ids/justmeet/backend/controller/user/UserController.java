@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping(path ="/getDetails", consumes = "application/json")
-    public ResponseEntity<?> getDeatils() {
+    public ResponseEntity<?> getDetails() {
 
         IUser user = findUser(getCurrentUser());
 
