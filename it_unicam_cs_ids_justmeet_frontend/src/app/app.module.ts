@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 export function tokenGetter(): string | null {
-  return localStorage.getItem('jwt_token');
+  return localStorage.getItem('Authorization');
 }
 
 @NgModule({
