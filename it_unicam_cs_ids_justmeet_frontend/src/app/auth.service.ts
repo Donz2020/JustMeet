@@ -12,7 +12,8 @@ import {NavController} from '@ionic/angular';
 export class AuthService {
 
   private readonly jwtTokenName = 'backend.app.jwtSecret';
-  
+
+
   private authUser = new ReplaySubject<string | null>(1);
   public authUserObservable = this.authUser.asObservable();
 
