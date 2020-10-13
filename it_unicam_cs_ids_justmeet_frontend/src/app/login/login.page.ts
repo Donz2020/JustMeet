@@ -26,7 +26,7 @@ export class LoginPage {
       message: 'Logging in ...'
     });
 
-    loading.present();
+    await loading.present();
 
     this.authService
       .login(value)
@@ -38,7 +38,6 @@ export class LoginPage {
         err => this.handleError(err));
   }
 
-  // tslint:disable-next-line:no-any
   async handleError(error: any): Promise<void> {
     let message: string;
     if (error.status && error.status === 401) {
@@ -53,7 +52,7 @@ export class LoginPage {
       position: 'bottom'
     });
 
-    toast.present();
+    await toast.present();
   }
 
 }

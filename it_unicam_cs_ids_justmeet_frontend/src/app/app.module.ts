@@ -21,6 +21,8 @@ const routes: Routes = [
   {path: '**', redirectTo: '/home'}
 ];
 
+
+
 export function tokenGetter(): string | null {
   return localStorage.getItem('Authorization');
 }
