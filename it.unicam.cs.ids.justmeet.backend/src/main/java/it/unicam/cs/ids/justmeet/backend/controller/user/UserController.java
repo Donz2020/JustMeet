@@ -1,9 +1,12 @@
 package it.unicam.cs.ids.justmeet.backend.controller.user;
 
+import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.response.DetailsResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
+import it.unicam.cs.ids.justmeet.backend.payload.response.PhysicalDetailsResponse;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
+import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,14 +41,39 @@ public class UserController {
         return true;
     }
 
+    @GetMapping(path ="/getDetailsPhy", consumes = "application/json")
+    public ResponseEntity<?> getDetailsPhysical() {
+        IUser user = findUser(getCurrentUser());
+        IPhysicalUser temp;
+
+        if(Utils.isPhysicalUser(user))
+            temp = (IPhysicalUser) user;
+        else
+            return ResponseEntity.ok(new MessageResponse("No physical user"));
+
+
+        return ResponseEntity.ok(new PhysicalDetailsResponse(temp.getUniqueID(),
+                temp.getDetails(),
+                temp.getRole().stream()
+                        .map(role -> role.getName().name())
+                        .collect(Collectors.toList()),
+                temp.getName(),
+                temp.getSurname(),
+                temp.getBirthDate())
+        );
+    }
+
     @GetMapping(path ="/getDetails", consumes = "application/json")
-    public ResponseEntity<?> getDeatils() {
+    public ResponseEntity<?> getDetails() {
 
         IUser user = findUser(getCurrentUser());
 
-        return ResponseEntity.ok(new DetailsResponse(user.getUniqueID(), user.getDetails(), user.getRole().stream()
+        return ResponseEntity.ok(new DetailsResponse(user.getUniqueID(),
+                user.getDetails(),
+                user.getRole().stream()
                 .map(role -> role.getName().name())
-                .collect(Collectors.toList()))
+                .collect(Collectors.toList()),
+                user.getName())
         );
     }
 

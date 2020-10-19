@@ -1,7 +1,5 @@
 package it.unicam.cs.ids.justmeet.backend.payload.response;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.List;
 
 public class DetailsResponse {
@@ -12,10 +10,13 @@ public class DetailsResponse {
 
     List<String> roles;
 
-    public DetailsResponse(String username, String details, List<String> roles) {
+    String name;
+
+    public DetailsResponse(String username, String details, List<String> roles, String name) {
         this.username = username;
         this.details = details;
         this.roles = roles;
+        this.name = name;
     }
 
     public String getUsername() {
@@ -40,5 +41,13 @@ public class DetailsResponse {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

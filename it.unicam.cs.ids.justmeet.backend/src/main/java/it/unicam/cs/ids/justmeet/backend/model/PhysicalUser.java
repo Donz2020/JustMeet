@@ -6,7 +6,9 @@ import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,9 @@ public class PhysicalUser extends User implements IPhysicalUser {
 
     //@DBRef
     private Set<UserRole> roles = new HashSet<>();
+
+    @NotNull
+    private LocalDate birthDate;
 
     public PhysicalUser() {
         super.setActive(true);
@@ -65,5 +70,15 @@ public class PhysicalUser extends User implements IPhysicalUser {
     public void setRole(Set<UserRole> roles) {
         if(UserRole.isRolePresent(roles, EnumUserRole.VRF)) throw new IllegalArgumentException();
         this.roles = roles;
+    }
+
+    @Override
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    @Override
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 }

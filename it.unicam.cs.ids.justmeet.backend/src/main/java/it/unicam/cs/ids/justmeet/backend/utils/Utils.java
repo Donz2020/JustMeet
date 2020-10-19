@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Utils {
+public final class Utils {
 
     public static IUser newBusinessUserInst() {
         return new BusinessUser();
