@@ -39,6 +39,15 @@ public class UserRole {
         return name.name();
     }
 
+
+    public static boolean isRolePresent(Set<UserRole> roles, EnumUserRole role) {
+        for (UserRole e: roles)
+            if(e.getName().equals(role))
+                return true;
+
+        return false;
+    }
+
     public static Set<UserRole> fromString(Set<String> id) {
         Set<UserRole> roles = new HashSet<>();
         for (String s: id)

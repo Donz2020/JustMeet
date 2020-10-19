@@ -63,6 +63,7 @@ public class PhysicalUser extends User implements IPhysicalUser {
 
     @Override
     public void setRole(Set<UserRole> roles) {
+        if(UserRole.isRolePresent(roles, EnumUserRole.VRF)) throw new IllegalArgumentException();
         this.roles = roles;
     }
 }
