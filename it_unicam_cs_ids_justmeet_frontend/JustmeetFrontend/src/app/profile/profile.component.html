@@ -1,17 +1,45 @@
 <div class="container" *ngIf="currentUser; else loggedOut">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ userDetails.name }}</strong> Profile
-    </h3>
-  </header>
-  <p>
-    <strong>Email:</strong>
-    {{ userDetails.username }}
-  </p>
-  <strong>Roles:</strong>
-      {{ userDetails.roles}}
+  <div class="col-md-12">
+    <div class="card card-container">
+      <div class="title">
+        <h3><strong>My Profile</strong></h3>
+      </div>
+      <div class="jumbotron">
+        <table style="width : 96%">
+          <tr>
+            <th style="width: 35%">
+              <img
+                id="profile-img"
+                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                class="profile-img-card"
+              />
+            </th>
+            <th style="width: 63%">
+              <table style="width: 96%">
+                <tr>
+                  <strong>{{ userDetails.name }}</strong>
+                </tr>
+                <tr>
+                  <strong>Email:</strong>
+                  {{ userDetails.username }}
+                </tr>
+                <tr>
+                  <strong>Roles:</strong>
+                  {{ userDetails.roles}}
+                </tr>
+              </table>
+            </th>
+          </tr>
+        </table>
+      </div>
+      <div class="center-obj">
+        <button class="btn btn-primary btn-block">
+          <a [routerLink]="['/home']" class="btn btn-primary"> Edit Profile Settings </a>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-
-<ng-template #loggedOut>
-  Please login.
-</ng-template>
+    <ng-template #loggedOut>
+      Please login.
+    </ng-template>
