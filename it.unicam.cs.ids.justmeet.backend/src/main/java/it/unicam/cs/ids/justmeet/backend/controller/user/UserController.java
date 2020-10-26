@@ -41,7 +41,7 @@ public class UserController {
         return true;
     }
 
-    @GetMapping(path ="/getDetailsPhy", consumes = "application/json")
+    @GetMapping(path ="/getDetailsPhy", produces = "application/json")
     public ResponseEntity<?> getDetailsPhysical() {
         IUser user = findUser(getCurrentUser());
         IPhysicalUser temp;
@@ -63,7 +63,7 @@ public class UserController {
         );
     }
 
-    @GetMapping(path ="/getDetails", consumes = "application/json")
+    @GetMapping(path ="/getDetails", produces = "application/json")
     public ResponseEntity<?> getDetails() {
 
         IUser user = findUser(getCurrentUser());

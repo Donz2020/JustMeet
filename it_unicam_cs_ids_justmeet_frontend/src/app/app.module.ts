@@ -1,50 +1,39 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {RouteReuseStrategy, RouterModule, Routes} from '@angular/router';
-import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
-import {AppComponent} from './app.component';
-import {HomePage} from './home/home.page';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {LoginPage} from './login/login.page';
-import {SignupPage} from './signup/signup.page';
-import {JwtModule} from '@auth0/angular-jwt';
-import {environment} from '../environments/environment';
-import {AuthGuard} from './auth.guard';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomePage, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginPage},
-  {path: 'register', component: SignupPage},
-  {path: '**', redirectTo: '/home'}
-];
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardUserComponent } from './board-user/board-user.component';
+import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
+import { ProfileComponent } from './profile/profile.component';
 
-
-export function tokenGetter(): string | null {
-  return localStorage.getItem('Authorization');
-}
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, HomePage, LoginPage, SignupPage],
-  imports: [BrowserModule,
-    CommonModule,
-    HttpClientModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter,
-        allowedDomains: environment.allowedDomains
-      }
-    }),
-    FormsModule,
-    IonicModule.forRoot(),
-    RouterModule.forRoot(routes, {useHash: true})],
-  providers: [
-    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    BoardAdminComponent,
+    BoardUserComponent,
+    BoardModeratorComponent,
+    ProfileComponent
   ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
+  ],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
