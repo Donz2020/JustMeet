@@ -93,6 +93,4 @@ public class UserController {
         userRepository.delete(findUser(getCurrentUser()));
         return ResponseEntity.ok(new MessageResponse("Deleted"));
     }
-
-
 }
