@@ -28,7 +28,7 @@ export class UserService {
   }
 
   getUserDetails(): Observable<any> {
-    return this.http.get(API_URL + '/getDetails', { responseType: 'json' });
+    return this.http.get(API_URL + '/getDetailsPhy', { responseType: 'json' });
   }
 
 }
