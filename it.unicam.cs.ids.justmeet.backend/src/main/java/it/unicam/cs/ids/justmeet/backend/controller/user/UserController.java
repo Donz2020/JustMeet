@@ -77,7 +77,7 @@ public class UserController {
         );
     }
 
-    @PostMapping(path ="/setPass/{pass}", consumes = "application/json")
+    @PatchMapping(path ="/setPass/{pass}", produces = "application/json")
     public ResponseEntity<?> setPass(@PathVariable String pass) {
         IUser user = findUser(getCurrentUser());
 
