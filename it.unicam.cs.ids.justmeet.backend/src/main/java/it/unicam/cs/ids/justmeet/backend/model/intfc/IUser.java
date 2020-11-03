@@ -9,9 +9,13 @@ import java.util.Set;
 @Document(collection = "users")
 public interface IUser {
 
-    String getUniqueID();
+    long getID();
 
-    void setUniqueID(String uniqueID);
+    void setID(long id);
+
+    String getUsername();
+
+    void setUsername(String username);
 
     String getName();
 

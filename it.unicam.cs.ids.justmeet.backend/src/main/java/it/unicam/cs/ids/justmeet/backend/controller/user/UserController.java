@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.justmeet.backend.controller.user;
 
+import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.response.DetailsResponse;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    IUserDetailsServiceImpl userDetailsServiceImpl;
 
     private String getCurrentUser() {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -29,16 +30,11 @@ public class UserController {
     }
 
     private IUser findUser(String userName) {
-        return userRepository.findById(userName).get();
+        return userDetailsServiceImpl.getUserInstance(userName);
     }
 
-    private boolean replaceUser(IUser user) {
-
-        userRepository.delete(user);
-
-        userRepository.save(user);
-
-        return true;
+    private void replaceUser(IUser user) {
+        userDetailsServiceImpl.replaceUser(user);
     }
 
     @GetMapping(path ="/getDetailsPhy", produces = "application/json")
@@ -52,7 +48,7 @@ public class UserController {
             return ResponseEntity.ok(new MessageResponse("No physical user"));
 
 
-        return ResponseEntity.ok(new PhysicalDetailsResponse(temp.getUniqueID(),
+        return ResponseEntity.ok(new PhysicalDetailsResponse(temp.getUsername(),
                 temp.getDetails(),
                 temp.getRole().stream()
                         .map(role -> role.getName().name())
@@ -68,7 +64,7 @@ public class UserController {
 
         IUser user = findUser(getCurrentUser());
 
-        return ResponseEntity.ok(new DetailsResponse(user.getUniqueID(),
+        return ResponseEntity.ok(new DetailsResponse(user.getUsername(),
                 user.getDetails(),
                 user.getRole().stream()
                 .map(role -> role.getName().name())
@@ -77,7 +73,7 @@ public class UserController {
         );
     }
 
-    @PostMapping(path ="/setPass/{pass}", consumes = "application/json")
+    @PatchMapping(path ="/setPass/{pass}", produces = "application/json")
     public ResponseEntity<?> setPass(@PathVariable String pass) {
         IUser user = findUser(getCurrentUser());
 
@@ -90,7 +86,7 @@ public class UserController {
 
     @PostMapping(path = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteUser() {
-        userRepository.delete(findUser(getCurrentUser()));
+        userDetailsServiceImpl.deleteUser(findUser(getCurrentUser()));
         return ResponseEntity.ok(new MessageResponse("Deleted"));
     }
 }

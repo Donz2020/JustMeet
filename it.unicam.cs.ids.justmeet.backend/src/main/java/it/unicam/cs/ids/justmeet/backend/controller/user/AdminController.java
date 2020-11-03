@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.justmeet.backend.controller.user;
 
 
+import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
@@ -10,7 +11,6 @@ import it.unicam.cs.ids.justmeet.backend.payload.request.AuthRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.RoleEditRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.UserRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
-import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,19 +25,14 @@ import javax.validation.Valid;
 public class AdminController {
 
     @Autowired
-    UserRepository userRepository;
+    IUserDetailsServiceImpl userDetailsServiceImpl;
 
     private IUser findUser(@RequestBody UserRequest userRequest) {
-        return userRepository.findById(userRequest.getUsername()).get();
+        return userDetailsServiceImpl.getUserInstance(userRequest.getUsername());
     }
 
-    private boolean replaceUser(IUser user) {
-
-        userRepository.delete(user);
-
-        userRepository.save(user);
-
-        return true;
+    private void replaceUser(IUser user) {
+        userDetailsServiceImpl.replaceUser(user);
     }
 
     private boolean validateAdminRole() {
@@ -91,7 +86,7 @@ public class AdminController {
     @PostMapping(path = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteUser(@Valid @RequestBody UserRequest userRequest) {
         if(validateAdminRole())
-            userRepository.delete(findUser(userRequest));
+            userDetailsServiceImpl.deleteUser(findUser(userRequest));
         return ResponseEntity.ok(new MessageResponse("Deleted"));
     }
 

@@ -20,19 +20,38 @@ public class IUserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public UserDetails loadUserByUniqueID(String uniqueID) throws UsernameNotFoundException {
-        IUser user = userRepository.findById(uniqueID)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User Not Found %s",uniqueID)));
-            return build(user);
+    public void saveUser(IUser user) {
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void deleteUser(IUser user) {
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public boolean existByUsername(String username) {
+        return userRepository.findAll().stream().anyMatch(u -> u.getUsername().equals(username));
+    }
+
+    @Transactional
+    public IUser getUserInstance(String username) throws UsernameNotFoundException {
+        return userRepository.findAll().stream().filter( u -> u.getUsername().equals(username)).findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User Not Found %s",username)));
     }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String uniqueID) throws UsernameNotFoundException {
-        return loadUserByUniqueID(uniqueID);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        IUser user = getUserInstance(username);
+        return build(user);
     }
 
-    public UserDetails loadUserByUserInstance(IUser user) throws UsernameNotFoundException {
-        return loadUserByUniqueID(user.getUniqueID());
+    @Transactional
+    public void replaceUser(IUser user) throws UsernameNotFoundException {
+        if(existByUsername(user.getUsername()))
+            throw new UsernameNotFoundException(String.format("User Not Found %s",user.getUsername()));
+        deleteUser(user);
+        saveUser(user);
     }
 }

@@ -11,7 +11,6 @@ import java.util.Set;
 
 public class BusinessUser extends User implements IUser {
 
-    @Id
     @NotBlank
     @Size(min = 8, max = 12)
     private String VATNumber;
@@ -24,11 +23,13 @@ public class BusinessUser extends User implements IUser {
         return String.format("%s, %s",VATNumber,  super.name);
     }
 
-    public String getUniqueID() {
+    @Override
+    public String getUsername() {
         return VATNumber;
     }
 
-    public void setUniqueID(String VATNumber) {
+    @Override
+    public void setUsername(String VATNumber) {
         if(Utils.isValidVATNumber(VATNumber))
             this.VATNumber = VATNumber;
         else

@@ -2,11 +2,20 @@ package it.unicam.cs.ids.justmeet.backend.model;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.BCrypt;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+
 public abstract class User implements IUser {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "users_sequence";
+
+    @Id
+    private long id;
 
     @NotBlank
     protected String name;
@@ -18,12 +27,22 @@ public abstract class User implements IUser {
     private boolean active;
 
     @Override
-    public String getUniqueID() {
+    public long getID() {
+        return id;
+    }
+
+    @Override
+    public void setID(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getUsername() {
         return "";
     }
 
     @Override
-    public void setUniqueID(String uniqueID) {
+    public void setUsername(String username) {
         throw new UnsupportedOperationException();
     }
 
@@ -63,7 +82,7 @@ public abstract class User implements IUser {
     }
 
     private String generateString(User user) {
-        return String.format("%s-%s-%s", user.getUniqueID(), user.getPassword(), user.getDetails());
+        return String.format("%s-%s-%s", user.getID(), user.getPassword(), user.getDetails());
     }
 
     @Override

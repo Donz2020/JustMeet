@@ -39,7 +39,7 @@ public class IUserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUniqueID();
+        return user.getUsername();
     }
 
     @Override

@@ -2,29 +2,24 @@ package it.unicam.cs.ids.justmeet.backend.controller.login;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.JwtUtils;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsImpl;
-import it.unicam.cs.ids.justmeet.backend.model.UserRole;
-import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
-import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.SequenceGeneratorService;
+import it.unicam.cs.ids.justmeet.backend.model.User;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.AuthRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.JwtResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
-import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -36,7 +31,10 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    IUserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    SequenceGeneratorService sequenceGenerator;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -61,7 +59,7 @@ public class AuthController {
     }
 
     private boolean findById(@Valid @RequestBody AuthRequest signUpRequest) {
-        return !userRepository.findById(signUpRequest.getUsername()).isEmpty();
+        return userDetailsServiceImpl.existByUsername(signUpRequest.getUsername());
     }
 
     private ResponseEntity<?> signupErr(String username) {
@@ -71,13 +69,14 @@ public class AuthController {
     }
 
     private IUser buildUser(IUser user, String username, String password) {
-        user.setUniqueID(username);
+        user.setID(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+        user.setUsername(username);
         user.setPassword(password);
         return user;
     }
 
     private void saveUser(IUser user) {
-        userRepository.save(user);
+        userDetailsServiceImpl.saveUser(user);
     }
 
     private ResponseEntity<?> successReg() {

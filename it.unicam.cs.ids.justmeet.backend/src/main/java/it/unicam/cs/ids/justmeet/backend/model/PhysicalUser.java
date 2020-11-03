@@ -14,7 +14,6 @@ import java.util.Set;
 
 public class PhysicalUser extends User implements IPhysicalUser {
 
-    @Id
     @NotBlank
     @Size(min = 8, max = 64)
     private String email;
@@ -34,7 +33,7 @@ public class PhysicalUser extends User implements IPhysicalUser {
     }
 
     @Override
-    public void setUniqueID(String email) {
+    public void setUsername(String email) {
         if(Utils.isValidEmailAddress(email))
             this.email = email;
         else
@@ -42,7 +41,7 @@ public class PhysicalUser extends User implements IPhysicalUser {
     }
 
     @Override
-    public String getUniqueID() {
+    public String getUsername() {
         return email;
     }
 

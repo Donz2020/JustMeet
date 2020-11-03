@@ -15,7 +15,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 
-@Service("SequenceGeneratorServiceImpl")
+@Service("SequenceGeneratorService")
 public class SequenceGeneratorService {
 
     @Autowired

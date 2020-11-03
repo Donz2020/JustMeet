@@ -1,0 +1,185 @@
+[{
+  "_id": "user@user.com",
+  "roles": [
+    {
+      "name": "ADMIN"
+    }
+  ],
+  "password": "$2a$10$vi6ETwM6LpJTif79w5UI0./nGl7E1./W0EwNoICeBGLt/pL.eGd.m",
+  "active": true,
+  "name": "My name is User",
+  "surname": "local user",
+  "birthDate": {
+    "$date": "2020-10-18T22:00:00Z"
+  },
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "ciao@ciao.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$8D.2TVU/WjORHHVzD5.q3OxxcSLYuj79NsnwU49r5V23aolb/NbiW",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "osimo@merda.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$s.FXacy6DQRhjPEQcUJ/FeYw4mt9vFcdR4uaXOwuUUF.d0oxTbH/i",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "test@test.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$630MialdVRA7gy7wTAMqIOKj3oIMIPas7gs53XZ5f5lw0phYO5CsW",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "pippo@coca.ina",
+  "roles": [
+    {
+      "name": "MOD"
+    },
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$Z/aV9gclN4xEHnpjuRM.D.7FNwtQTCYim/gPCKWfAScSiVdc0qZvG",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "IT06126A31",
+  "password": "$2a$10$4X92jOeCh/6vaLFFR3RGQOZQYHYgF1HjZV9vAGndK.0A2uh1/nhmi",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.BusinessUser"
+},{
+  "_id": "staffolo@staffolo.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$tlazIOZqte3oswf6OViF9eaBjQTJtcYy97BqJOSpx.Rb6poblMPTS",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "testiamo@test.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$XjGNpQkai02OLhbhPH9VsutxfIYMxt0dpEUqdm.pEjSh9md/.65V.",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "provincia@provincia.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$5BVD0WV6f.jJzYVHijXFTelm2QSW3DlyOZkaVzjeF/RRmCp6KCGRi",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "ancona@ancona.it",
+  "surname": "Provincia",
+  "roles": [
+    {
+      "name": "MOD"
+    },
+    {
+      "name": "STD"
+    }
+  ],
+  "name": "Ancona",
+  "password": "$2a$10$dBrC.fz.cKArZw.lxIoK6etOsBDza.CHBknlPFj2bUgziLuboXeAK",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "DE123456789",
+  "password": "$2a$10$lmQjUlcpFXF68G7icD9Duu1a7IhiIYInZz6n3GmTHoim1ncbe9N3y",
+  "active": true,
+  "name": "Azineda tedesca, HEis Polizei",
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.BusinessUser"
+},{
+  "_id": "portonovo@portonovo.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$0eLw92IevgOjp0hkpnqUVeojYO8nqRaDbLibYgagvQaiJ0ajNT3VO",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "jesi2@jesi.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$x6RebroIdogPJeDy8ZsQDOVFXNzpj1qWRFcRP9bcL5joklu5SEYxu",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "recanati@recanati.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$XI4G2h/lsbNTU27cERKV9.xUDCipxvpbsboDmb1ndAMd4u2W1/pem",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "jesi@jesi.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$zkav.hH0UZBCH4vJFW/hfO4piHrfh5jbMMAGtCZHj3EepdDzXjyiW",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "poggio@poggio.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$QZ.YziLvwHQX5tdO56PozeovbnIWYW8./cpdz/M/QH0zGVPQSeTHK",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "ferramenta@ferramenta.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$SPFmJnzBRfcHnRCKWM91VO8VaKY9h3311eWYi28kI5Dx3jgcxBSKq",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+},{
+  "_id": "jesi3@jesi.it",
+  "roles": [
+    {
+      "name": "STD"
+    }
+  ],
+  "password": "$2a$10$ZBa8JW/QrFVyo9dFt1RaDeYGkurPMpDqxhGEyjQm2mGjktSx8oT0S",
+  "active": true,
+  "_class": "it.unicam.cs.ids.justmeet.backend.model.PhysicalUser"
+}]
