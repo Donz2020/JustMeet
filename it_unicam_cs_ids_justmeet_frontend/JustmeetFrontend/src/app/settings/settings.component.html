@@ -27,6 +27,21 @@
                   <strong>Roles:</strong>
                   {{ userDetails.roles}}
                 </tr>
+                <form [formGroup]="changePasswordForm" class="form-group" (ngSubmit)="changePassword()"></form>
+                  <label>New Password</label>
+                  <input
+                    formControlName="pass"
+                    id="pass"
+                    type="password"
+                    class="form-control" />
+                  <input class="btn btn-primary" type="submit" />
+
+                <br>
+                <div>
+                <button class="btn btn-primary" type="submit">
+                  Delete account
+                </button>
+                </div>
               </table>
             </th>
           </tr>
@@ -34,7 +49,7 @@
       </div>
       <div class="center-obj">
         <button class="btn btn-primary btn-block">
-          <a [routerLink]="['/settings']" class="btn btn-primary"> Save Profile Settings </a> <!-- todo salvare settings -->
+          <a [routerLink]="['/profile']" class="btn btn-primary"> Back to profile </a> <!-- todo salvare settings -->
         </button>
       </div>
     </div>
