@@ -2,9 +2,8 @@ package it.unicam.cs.ids.justmeet.backend.configuration;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.AuthEntryPointJwt;
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.AuthTokenFilter;;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +31,7 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    IUserDetailsServiceImpl iUserDetailsService;
+    UserDetailsServiceImpl iUserDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;

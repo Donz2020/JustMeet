@@ -9,14 +9,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("IUserDetailsServiceImpl")
-public class IUserDetailsServiceImpl implements UserDetailsService {
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
+
+@Service("UserDetailsServiceImpl")
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
 
+    private BiFunction<IUser, String, Boolean> comp = (u, username) -> u.getUsername().equals(username);
+
     private UserDetails build(IUser user) {
-        return IUserDetailsImpl.build(user);
+        return UserDetailsImpl.build(user);
     }
 
     @Transactional
@@ -26,31 +31,30 @@ public class IUserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void deleteUser(IUser user) {
-        userRepository.save(user);
+        userRepository.delete(user);
     }
 
     @Transactional
     public boolean existByUsername(String username) {
-        return userRepository.findAll().stream().anyMatch(u -> u.getUsername().equals(username));
+        return userRepository.findAll().stream().anyMatch(u -> comp.apply(u, username));
     }
 
     @Transactional
     public IUser getUserInstance(String username) throws UsernameNotFoundException {
-        return userRepository.findAll().stream().filter( u -> u.getUsername().equals(username)).findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User Not Found %s",username)));
+        return userRepository.findAll().stream().filter(u -> comp.apply(u, username)).findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User Not Found %s", username)));
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        IUser user = getUserInstance(username);
-        return build(user);
+        return build(getUserInstance(username));
     }
 
     @Transactional
     public void replaceUser(IUser user) throws UsernameNotFoundException {
-        if(existByUsername(user.getUsername()))
-            throw new UsernameNotFoundException(String.format("User Not Found %s",user.getUsername()));
+        if(!existByUsername(user.getUsername()))
+            throw new UsernameNotFoundException(String.format("User Not Found %s", user.getUsername()));
         deleteUser(user);
         saveUser(user);
     }

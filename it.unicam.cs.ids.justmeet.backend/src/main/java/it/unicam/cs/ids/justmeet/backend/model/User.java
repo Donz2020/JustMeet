@@ -27,7 +27,7 @@ public abstract class User implements IUser {
     private boolean active;
 
     @Override
-    public long getID() {
+    public long getId() {
         return id;
     }
 
@@ -82,7 +82,7 @@ public abstract class User implements IUser {
     }
 
     private String generateString(User user) {
-        return String.format("%s-%s-%s", user.getID(), user.getPassword(), user.getDetails());
+        return String.format("%s-%s-%s", user.getId(), user.getPassword(), user.getDetails());
     }
 
     @Override

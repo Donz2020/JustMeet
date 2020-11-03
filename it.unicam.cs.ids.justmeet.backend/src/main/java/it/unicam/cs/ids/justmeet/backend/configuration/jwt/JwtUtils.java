@@ -4,7 +4,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class JwtUtils {
 
     public String generateJwtToken(Authentication authentication) {
 
-        IUserDetailsImpl userPrincipal = (IUserDetailsImpl) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setIssuer("tester")

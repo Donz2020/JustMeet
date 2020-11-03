@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.justmeet.backend.controller.login;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.JwtUtils;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsImpl;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.SequenceGeneratorService;
 import it.unicam.cs.ids.justmeet.backend.model.User;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
@@ -31,7 +31,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    IUserDetailsServiceImpl userDetailsServiceImpl;
+    UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
     SequenceGeneratorService sequenceGenerator;
@@ -48,7 +48,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         
-        IUserDetailsImpl userDetails = (IUserDetailsImpl) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());

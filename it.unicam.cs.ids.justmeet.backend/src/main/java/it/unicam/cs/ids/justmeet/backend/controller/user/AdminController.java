@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.justmeet.backend.controller.user;
 
 
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
@@ -25,7 +25,7 @@ import javax.validation.Valid;
 public class AdminController {
 
     @Autowired
-    IUserDetailsServiceImpl userDetailsServiceImpl;
+    UserDetailsServiceImpl userDetailsServiceImpl;
 
     private IUser findUser(@RequestBody UserRequest userRequest) {
         return userDetailsServiceImpl.getUserInstance(userRequest.getUsername());
@@ -66,7 +66,7 @@ public class AdminController {
     }
 
     @PostMapping(path ="/setStatus", consumes = "application/json")
-    public ResponseEntity<?> editUserStatus(@Valid @RequestBody ActRequest actRequest) {
+    public ResponseEntity<?> setUserStatus(@Valid @RequestBody ActRequest actRequest) {
         IUser user = findUser(actRequest);
 
         user.setActive(actRequest.isActive());
@@ -75,7 +75,7 @@ public class AdminController {
     }
 
     @PostMapping(path ="/setPass", consumes = "application/json")
-    public ResponseEntity<?> editUserPass(@Valid @RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> setUserPass(@Valid @RequestBody AuthRequest authRequest) {
         IUser user = findUser(authRequest);
 
         user.setPassword(authRequest.getPassword());

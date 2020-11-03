@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.justmeet.backend.model.intfc;
 
 import it.unicam.cs.ids.justmeet.backend.model.UserRole;
-import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
@@ -9,7 +8,7 @@ import java.util.Set;
 @Document(collection = "users")
 public interface IUser {
 
-    long getID();
+    long getId();
 
     void setID(long id);
 

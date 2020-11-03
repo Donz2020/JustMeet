@@ -9,20 +9,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class IUserDetailsImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     IUser user;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public IUserDetailsImpl(IUser user, Collection<? extends GrantedAuthority> authorities){
+    public UserDetailsImpl(IUser user, Collection<? extends GrantedAuthority> authorities){
         this.user = user;
         this.authorities = authorities;
     }
 
-    public static IUserDetailsImpl build(IUser user) {
-        return new IUserDetailsImpl(user, user.getRole().stream()
+    public static UserDetailsImpl build(IUser user) {
+        return new UserDetailsImpl(user, user.getRole().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList()));
     }

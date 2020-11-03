@@ -10,7 +10,6 @@ public class PostDescription {
 
     private String text;
 
-
     public PostCategory getType() {
         return type;
     }

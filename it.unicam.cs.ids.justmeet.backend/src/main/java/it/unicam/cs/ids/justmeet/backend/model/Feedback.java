@@ -20,7 +20,6 @@ public class Feedback {
             return false;
     }
 
-
     public int getUserHash() {
         return userHash;
     }
@@ -48,5 +47,4 @@ public class Feedback {
     public String getText() {
         return text;
     }
-
 }

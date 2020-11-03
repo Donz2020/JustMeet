@@ -1,12 +1,11 @@
 package it.unicam.cs.ids.justmeet.backend.controller.user;
 
-import it.unicam.cs.ids.justmeet.backend.configuration.service.IUserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.response.DetailsResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.PhysicalDetailsResponse;
-import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
-    IUserDetailsServiceImpl userDetailsServiceImpl;
+    UserDetailsServiceImpl userDetailsServiceImpl;
 
     private String getCurrentUser() {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -67,8 +66,8 @@ public class UserController {
         return ResponseEntity.ok(new DetailsResponse(user.getUsername(),
                 user.getDetails(),
                 user.getRole().stream()
-                .map(role -> role.getName().name())
-                .collect(Collectors.toList()),
+                        .map(role -> role.getName().name())
+                        .collect(Collectors.toList()),
                 user.getName())
         );
     }
