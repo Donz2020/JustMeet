@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {SettingsComponent} from "./settings/settings.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,

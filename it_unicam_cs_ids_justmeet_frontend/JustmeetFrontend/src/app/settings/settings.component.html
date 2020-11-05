@@ -27,18 +27,17 @@
                   <strong>Roles:</strong>
                   {{ userDetails.roles}}
                 </tr>
-                <form [formGroup]="changePasswordForm" class="form-group" (ngSubmit)="changePassword()"></form>
-                  <label>New Password</label>
-                  <input
-                    formControlName="pass"
-                    id="pass"
-                    type="password"
-                    class="form-control" />
-                  <input class="btn btn-primary" type="submit" />
-
+                <div>
+                  <form [formGroup] = "changePasswordForm" (ngSubmit) = "onSubmit()" >
+                    <input type = "password" class = "fortextbox" name="pass"
+                           placeholder = "pass" formControlName = "pass">
+                    <br/>
+                    <input type = "submit" class = "forsubmit" value = "Change Password">
+                  </form>
+                </div>
                 <br>
                 <div>
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" type="submit" (click)="deleteAccount()" [(ngModel)]="form.delete">
                   Delete account
                 </button>
                 </div>

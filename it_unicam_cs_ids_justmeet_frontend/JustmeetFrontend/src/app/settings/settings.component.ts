@@ -9,7 +9,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 
 
 @Component({
-  selector: 'settings-profile',
+  selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
   currentUser: string;
   userDetails : settingsPayload;
   changePasswordForm: FormGroup;
+  form: any = {};
 
 
 
@@ -40,4 +41,17 @@ export class SettingsComponent implements OnInit {
    this.userService.setUserPass(this.changePasswordForm.value);
   }
 
+
+  onSubmit() {
+    this.changePasswordForm = new FormGroup({
+      pass: new FormControl(this.userService.setUserPass(this.changePasswordForm.value))
+    });
+    this.userService.setUserPass(this.changePasswordForm.value);
+
+  }
+
+  deleteAccount() {
+    this.userService.deleteAcc();
+
+  }
 }
