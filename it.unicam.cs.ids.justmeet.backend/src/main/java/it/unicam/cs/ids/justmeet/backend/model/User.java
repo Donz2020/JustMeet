@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-
 public abstract class User implements IUser {
 
     @Transient

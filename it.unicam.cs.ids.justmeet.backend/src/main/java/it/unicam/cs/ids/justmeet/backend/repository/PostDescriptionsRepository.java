@@ -1,11 +1,10 @@
 package it.unicam.cs.ids.justmeet.backend.repository;
 
-import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
+import it.unicam.cs.ids.justmeet.backend.model.PostDescription;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends MongoRepository<IUser, String> {
-
+public interface PostDescriptionsRepository extends MongoRepository<PostDescription, Long> {
 
 }

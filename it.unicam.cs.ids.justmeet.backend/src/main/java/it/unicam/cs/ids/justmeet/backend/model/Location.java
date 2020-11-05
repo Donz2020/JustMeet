@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Document(collection = "locations")
 public class Location {
 
@@ -17,6 +20,8 @@ public class Location {
 
     private float longitude;
 
+    @NotNull
+    @NotBlank
     private String name;
 
     public long getId() {

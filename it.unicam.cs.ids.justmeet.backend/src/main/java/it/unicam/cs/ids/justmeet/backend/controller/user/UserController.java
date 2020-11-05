@@ -86,7 +86,7 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("Updated"));
     }
 
-    @PostMapping(path = "/delete", consumes = "application/json")
+    @PostMapping(path = "/delete", produces = "application/json")
     public ResponseEntity<?> deleteUser() {
         userDetailsServiceImpl.deleteUser(findUser(getCurrentUser()));
         return ResponseEntity.ok(new MessageResponse("Deleted"));

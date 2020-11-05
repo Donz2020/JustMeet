@@ -20,7 +20,9 @@ public class Post {
  @Id
  private long id;
 
- private int ownerHashCode;
+ @NotNull
+ @DBRef
+ private IUser owner;
 
  private HashSet<Integer> subscribers;
 
@@ -31,8 +33,11 @@ public class Post {
  @NotNull
  private LocalDate postDate;
 
+ @NotNull
  private String postTitle;
 
+ @NotNull
+ @DBRef
  private PostDescription description;
 
  public long getId() {
@@ -43,12 +48,12 @@ public class Post {
   this.id = id;
  }
 
- public int getOwnerHashCode() {
-  return ownerHashCode;
+ public IUser getOwner() {
+  return owner;
  }
 
- public void setOwner(IUser ownerHashCode) {
-  this.ownerHashCode = ownerHashCode.hashCode();
+ public void setOwner(IUser owner) {
+  this.owner = owner;
  }
 
  public void setPostLocation(Location postLocation) {
