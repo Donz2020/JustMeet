@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.justmeet.backend.controller.post;
 
 
-import it.unicam.cs.ids.justmeet.backend.configuration.service.SequenceGeneratorService;
+import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
 import it.unicam.cs.ids.justmeet.backend.model.Location;
 import it.unicam.cs.ids.justmeet.backend.model.Post;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;

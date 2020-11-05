@@ -25,14 +25,24 @@ public class JwtUtils {
     @Value("${backend.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    private void printJwtDetails(Claims claims) {
+        System.out.println("----------------------------");
+        System.out.println("ID: " + claims.getId());
+        System.out.println("Subject: " + claims.getSubject());
+        System.out.println("Issuer: " + claims.getIssuer());
+        System.out.println("Audience: " + claims.getAudience());
+        System.out.println("Issued @ " + claims.getIssuedAt());
+        System.out.println("Expiration: " + claims.getExpiration());
+    }
+
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setIssuer("tester")
+                .setIssuer("JustMeet-JWT-Manager")
                 .setSubject((userPrincipal.getUsername()))
-                .setAudience("io")
+                .setAudience("me")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .setId(UUID.randomUUID().toString().replace("-", ""))
@@ -56,13 +66,7 @@ public class JwtUtils {
                     .setSigningKey(Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
                     .parseClaimsJws(authToken)
                     .getBody();
-            System.out.println("----------------------------");
-            System.out.println("ID: " + claims.getId());
-            System.out.println("Subject: " + claims.getSubject());
-            System.out.println("Issuer: " + claims.getIssuer());
-            System.out.println("Issued @: " + claims.getIssuedAt());
-            System.out.println("Expiration: " + claims.getExpiration());
-            System.out.println("Audience: " + claims.getAudience());
+            printJwtDetails(claims);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());

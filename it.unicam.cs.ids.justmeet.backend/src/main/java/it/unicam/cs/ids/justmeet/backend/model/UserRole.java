@@ -3,9 +3,12 @@ package it.unicam.cs.ids.justmeet.backend.model;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Document(collection = "roles")
 public class UserRole {
@@ -39,27 +42,20 @@ public class UserRole {
         return name.name();
     }
 
-
     public static boolean isRolePresent(Set<UserRole> roles, EnumUserRole role) {
-        for (UserRole e: roles)
-            if(e.getName().equals(role))
-                return true;
-
-        return false;
+        return roles.contains(role);
     }
 
     public static Set<UserRole> fromString(Set<String> id) {
         Set<UserRole> roles = new HashSet<>();
-        for (String s: id)
-            roles.add(new UserRole(EnumUserRole.valueOf(s)));
+        id.stream().forEach(s -> roles.add(new UserRole(EnumUserRole.valueOf(s))));
         return roles;
     }
 
     public static Set<UserRole> buildRoles(EnumUserRole... roles){
         Set<UserRole> temp = new HashSet<>();
-        for (EnumUserRole r: roles) {
+        for (EnumUserRole r: roles)
             temp.add(new UserRole(r));
-        }
         return temp;
     }
 

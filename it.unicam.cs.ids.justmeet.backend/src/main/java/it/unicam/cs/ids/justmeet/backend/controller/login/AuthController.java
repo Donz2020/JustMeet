@@ -2,8 +2,8 @@ package it.unicam.cs.ids.justmeet.backend.controller.login;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.JwtUtils;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsImpl;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.SequenceGeneratorService;
+import it.unicam.cs.ids.justmeet.backend.service.UserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
 import it.unicam.cs.ids.justmeet.backend.model.User;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.AuthRequest;
@@ -39,30 +39,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping(path = "/login", consumes = "application/json")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequest loginRequest) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-        
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getUsername(),
-                roles));
-    }
-
     private boolean findById(@Valid @RequestBody AuthRequest signUpRequest) {
         return userDetailsServiceImpl.existByUsername(signUpRequest.getUsername());
     }
 
-    private ResponseEntity<?> signupErr(String username) {
+    private ResponseEntity<?> signUpErr(String username) {
         return ResponseEntity
                 .badRequest()
                 .body(new MessageResponse(String.format("Error: %s is already taken!", username)));
@@ -83,10 +64,29 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+    @PostMapping(path = "/login", consumes = "application/json")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequest loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+        
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getUsername(),
+                roles));
+    }
+
     @PostMapping(path = "/register", consumes = "application/json")
     public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody AuthRequest signUpRequest) {
         if (findById(signUpRequest)) {
-            return signupErr(signUpRequest.getUsername());
+            return signUpErr(signUpRequest.getUsername());
         }
 
         // Create new user's account
@@ -100,7 +100,7 @@ public class AuthController {
     @PostMapping(path = "/registerBusiness", consumes = "application/json")
     public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest signUpRequest) {
         if (findById(signUpRequest)) {
-            return signupErr(signUpRequest.getUsername());
+            return signUpErr(signUpRequest.getUsername());
         }
 
         // Create new user's account

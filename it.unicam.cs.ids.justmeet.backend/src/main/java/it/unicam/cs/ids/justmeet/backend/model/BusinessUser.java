@@ -29,9 +29,9 @@ public class BusinessUser extends User implements IUser {
     }
 
     @Override
-    public void setUsername(String VATNumber) {
-        if(Utils.isValidVATNumber(VATNumber))
-            this.VATNumber = VATNumber;
+    public void setUsername(String username) {
+        if(Utils.isValidVATNumber(username))
+            VATNumber = username;
         else
             throw new IllegalArgumentException();
     }

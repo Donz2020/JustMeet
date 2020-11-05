@@ -4,6 +4,7 @@ import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ public class Post {
  private HashSet<Integer> subscribers;
 
  @NotNull
+ @DBRef
  private Location postLocation;
 
  @NotNull

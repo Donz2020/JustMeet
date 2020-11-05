@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.justmeet.backend.controller.user;
 
 
-import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.service.UserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
@@ -87,6 +87,7 @@ public class AdminController {
     public ResponseEntity<?> deleteUser(@Valid @RequestBody UserRequest userRequest) {
         if(validateAdminRole())
             userDetailsServiceImpl.deleteUser(findUser(userRequest));
+
         return ResponseEntity.ok(new MessageResponse("Deleted"));
     }
 

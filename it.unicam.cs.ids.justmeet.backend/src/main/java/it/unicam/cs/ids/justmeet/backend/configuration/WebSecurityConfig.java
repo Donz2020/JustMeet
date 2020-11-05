@@ -2,7 +2,7 @@ package it.unicam.cs.ids.justmeet.backend.configuration;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.AuthEntryPointJwt;
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.AuthTokenFilter;;
-import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

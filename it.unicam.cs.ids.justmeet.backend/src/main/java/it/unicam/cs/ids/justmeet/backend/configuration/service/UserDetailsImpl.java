@@ -2,8 +2,11 @@ package it.unicam.cs.ids.justmeet.backend.configuration.service;
 
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import it.unicam.cs.ids.justmeet.backend.model.UserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,15 +19,19 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
+    private static List<SimpleGrantedAuthority> toAuthority(Set<UserRole> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
+    }
+
     public UserDetailsImpl(IUser user, Collection<? extends GrantedAuthority> authorities){
         this.user = user;
         this.authorities = authorities;
     }
 
     public static UserDetailsImpl build(IUser user) {
-        return new UserDetailsImpl(user, user.getRole().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList()));
+        return new UserDetailsImpl(user, toAuthority(user.getRole()));
     }
 
     @Override
@@ -69,6 +76,4 @@ public class UserDetailsImpl implements UserDetails {
     public int hashCode() {
         return user.hashCode();
     }
-
-
 }

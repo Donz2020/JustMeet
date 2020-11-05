@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.justmeet.backend.configuration.service;
+package it.unicam.cs.ids.justmeet.backend.service;
 
 import it.unicam.cs.ids.justmeet.backend.model.DatabaseSequence;
 

@@ -33,9 +33,9 @@ public class PhysicalUser extends User implements IPhysicalUser {
     }
 
     @Override
-    public void setUsername(String email) {
-        if(Utils.isValidEmailAddress(email))
-            this.email = email;
+    public void setUsername(String username) {
+        if(Utils.isValidEmailAddress(username))
+            email = username;
         else
             throw new IllegalArgumentException();
     }

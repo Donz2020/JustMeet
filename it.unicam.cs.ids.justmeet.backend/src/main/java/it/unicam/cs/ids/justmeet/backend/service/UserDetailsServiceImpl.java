@@ -1,5 +1,6 @@
-package it.unicam.cs.ids.justmeet.backend.configuration.service;
+package it.unicam.cs.ids.justmeet.backend.service;
 
+import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsImpl;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.BiFunction;
-import java.util.function.Predicate;
 
 @Service("UserDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
