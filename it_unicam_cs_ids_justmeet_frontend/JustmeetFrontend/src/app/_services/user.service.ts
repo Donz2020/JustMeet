@@ -41,7 +41,7 @@ export class UserService {
   }
 
   deleteAcc(): Observable<any> {
-    return this.http.post(API_URL + 'delete' ,httpOptions);
+    return this.http.post(API_URL + 'delete', {responseType: 'json'});
   }
 
 }

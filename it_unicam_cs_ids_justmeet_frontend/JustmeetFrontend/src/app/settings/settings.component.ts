@@ -5,7 +5,8 @@ import {UserService} from "../_services/user.service";
 import {Observable} from "rxjs";
 import {settingsPayload} from "./settingsPayload";
 import {FormControl, FormGroup} from "@angular/forms";
-
+import {AppComponent} from "../app.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -20,8 +21,7 @@ export class SettingsComponent implements OnInit {
   form: any = {};
 
 
-
-  constructor(private token: TokenStorageService, private userService: UserService) { }
+  constructor(private token: TokenStorageService, private userService: UserService, private logoutComponent : AppComponent, private router : Router) { }
 
   ngOnInit() {
     let allData: string;
@@ -51,7 +51,8 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteAccount() {
-    this.userService.deleteAcc();
-
+    this.userService.deleteAcc().subscribe();
+    this.token.signOut()
+    this.router.navigateByUrl('/home');
   }
 }
