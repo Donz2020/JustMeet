@@ -52,7 +52,7 @@ export class SettingsComponent implements OnInit {
 
   deleteAccount() {
     this.userService.deleteAcc().subscribe();
-    this.token.signOut()
-    this.router.navigateByUrl('/home');
+    this.token.signOut();
+    window.location.assign("/login");
   }
 }
