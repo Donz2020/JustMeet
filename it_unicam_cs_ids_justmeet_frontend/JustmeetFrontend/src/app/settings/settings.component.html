@@ -31,14 +31,8 @@
                 <tr>
                   <strong>Set New Password:</strong>
                 </tr>
-                <div>
-                  <form [formGroup]="formSettings" (ngSubmit)="onSubmit()">
-                    <input type = "password" class = "fortextbox" formControlName = "newPass">
-                    <br>
-                    <br>
-                    <input type = "submit" class = "btn btn-primary" value = "Change Password">
-                  </form>
-                </div>
+                <input type = "submit" class = "btn btn-primary" value = "Change Password" (click)="openPassModal()">
+
                 <br>
                 <div>
                 <button class="btn btn-danger" (click)="deleteAccount()">
@@ -58,6 +52,16 @@
     </div>
   </div>
 </div>
+
+<jw-modal id="passwordModal">
+  <form [formGroup]="formSettings" (ngSubmit)="onSubmit()">
+    <input type = "password" formControlName = "newPass">
+    <br>
+    <br>
+    <input type = "submit" class = "btn btn-primary" value = "Change Password">
+  </form>
+</jw-modal>
+
 <ng-template #loggedOut>
   Please login.
 </ng-template>

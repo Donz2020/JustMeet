@@ -6,6 +6,7 @@ import {settingsPayload} from "./settingsPayload";
 import {FormControl, FormGroup} from "@angular/forms";
 import {AppComponent} from "../app.component";
 import {Router} from "@angular/router";
+import {ModalService} from "../_modal";
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,13 @@ export class SettingsComponent implements OnInit {
   userDetails : settingsPayload;
   formSettings : FormGroup;
 
-  constructor(private token: TokenStorageService, private userService: UserService, private logoutComponent : AppComponent, private router : Router) { }
+  constructor(private token: TokenStorageService,
+              private userService: UserService,
+              private logoutComponent : AppComponent,
+              private router : Router,
+              private modalService: ModalService) {
+
+  }
 
   ngOnInit() {
     let allData: string;
@@ -45,13 +52,15 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-
-
   deleteAccount() {
     if(confirm("Are you sure ?")) {
       this.userService.deleteAcc().subscribe();
       this.token.signOut();
       this.router.navigateByUrl('/home');
     }
+  }
+
+  openPassModal(){
+    this.modalService.open('passwordModal');
   }
 }

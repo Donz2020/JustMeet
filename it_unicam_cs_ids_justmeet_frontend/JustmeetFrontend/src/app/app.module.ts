@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {SettingsComponent} from "./settings/settings.component";
+import {ModalModule} from "./_modal";
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {SettingsComponent} from "./settings/settings.component";
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
