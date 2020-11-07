@@ -38,13 +38,16 @@ export class SettingsComponent implements OnInit {
   };
 
   onSubmit() {
-    this.userService.setUserPass(this.formSettings.get('newPass').value).subscribe();
+    if (confirm("Are you sure ?")) {
+      this.userService.setUserPass(this.formSettings.get('newPass').value).subscribe();
+      this.token.signOut();
+      this.router.navigate(['/login']).then(window.location.reload);
+    }
   }
 
 
 
   deleteAccount() {
-
     if(confirm("Are you sure ?")) {
       this.userService.deleteAcc().subscribe();
       this.token.signOut();

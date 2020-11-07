@@ -10,7 +10,7 @@
             <th style="width: 35%">
               <img
                 id="profile-img"
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                src="//picsum.photos/192"
                 class="profile-img-card"
               />
             </th>
@@ -28,10 +28,12 @@
                   <strong>Account Type:</strong>
                   {{ userDetails.roles}}
                 </tr>
+                <tr>
+                  <strong>Set New Password:</strong>
+                </tr>
                 <div>
                   <form [formGroup]="formSettings" (ngSubmit)="onSubmit()">
-                    <input type = "password" class = "fortextbox"
-                           placeholder = "newPass" formControlName = "newPass">
+                    <input type = "password" class = "fortextbox" formControlName = "newPass">
                     <br>
                     <br>
                     <input type = "submit" class = "btn btn-primary" value = "Change Password">

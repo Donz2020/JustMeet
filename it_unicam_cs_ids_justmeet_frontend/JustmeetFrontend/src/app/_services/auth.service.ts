@@ -28,7 +28,6 @@ export class AuthService {
       password: user.password,
       name: user.name,
       surname: user.surname
-
     }, httpOptions);
   }
 
