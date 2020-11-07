@@ -17,27 +17,29 @@
             <th style="width: 63%">
               <table style="width: 96%">
                 <tr>
-                  <strong>{{ userDetails.name }}</strong>
+                  <strong>Name:</strong>
+                  {{ userDetails.name }}
                 </tr>
                 <tr>
-                  <strong>Email:</strong>
+                  <strong>Username:</strong>
                   {{ userDetails.username }}
                 </tr>
                 <tr>
-                  <strong>Roles:</strong>
+                  <strong>Account Type:</strong>
                   {{ userDetails.roles}}
                 </tr>
                 <div>
-                  <form [formGroup] = "changePasswordForm" (ngSubmit) = "onSubmit()" >
+                  <form [formGroup] = "changePasswordForm">
                     <input type = "password" class = "fortextbox" name="pass"
-                           placeholder = "pass" formControlName = "pass">
-                    <br/>
-                    <input type = "submit" class = "forsubmit" value = "Change Password">
+                           placeholder = "pass" formControlName = "pass" value="{{values}}" >
+                    <br>
+                    <br>
+                    <input type = "submit" class = "btn btn-primary" value = "Change Password" (click)="onSubmit()">
                   </form>
                 </div>
                 <br>
                 <div>
-                <button class="btn btn-primary" (click)="deleteAccount()">
+                <button class="btn btn-danger" (click)="deleteAccount()">
                   Delete account
                 </button>
                 </div>

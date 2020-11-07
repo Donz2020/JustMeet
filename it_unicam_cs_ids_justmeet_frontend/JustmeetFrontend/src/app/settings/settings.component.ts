@@ -19,6 +19,7 @@ export class SettingsComponent implements OnInit {
   userDetails : settingsPayload;
   changePasswordForm: FormGroup;
   form: any = {};
+  values = '';
 
 
   constructor(private token: TokenStorageService, private userService: UserService, private logoutComponent : AppComponent, private router : Router) { }
@@ -26,13 +27,14 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     let allData: string;
     this.currentUser = this.token.getUser();
-    this.userService.getUserDetails().subscribe((data : settingsPayload)=>{
+    this.userService.getUserDetails().subscribe((data : settingsPayload)=>{   //TODO Phy
       allData = JSON.stringify(data);
       this.userDetails = JSON.parse(allData);
     });
+    //this.changePasswordForm.controls.proof.patchValue('');
   }
 
-
+/*
   changePassword(){
     //this.currentUser = this.token.getUser();
     this.changePasswordForm = new FormGroup({
@@ -40,19 +42,26 @@ export class SettingsComponent implements OnInit {
     })
    this.userService.setUserPass(this.changePasswordForm.value);
   }
-
+*/
 
   onSubmit() {
+    /*
     this.changePasswordForm = new FormGroup({
-      pass: new FormControl(this.userService.setUserPass(this.changePasswordForm.value))
+      pass: new FormControl()
     });
-    this.userService.setUserPass(this.changePasswordForm.value);
+    */
+    alert(this.values);
+    this.userService.setUserPass(this.values);
+
 
   }
 
   deleteAccount() {
-    this.userService.deleteAcc().subscribe();
-    this.token.signOut();
-    window.location.assign("/login");
+
+    if(confirm("Are you sure ?")) {
+      this.userService.deleteAcc().subscribe();
+      this.token.signOut();
+      this.router.navigateByUrl('/home');
+    }
   }
 }

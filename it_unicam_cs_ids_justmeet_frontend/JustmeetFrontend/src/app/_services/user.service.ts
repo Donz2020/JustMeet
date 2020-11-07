@@ -33,11 +33,16 @@ export class UserService {
   }
 
   getUserDetails(): Observable<any> {
+    return this.http.get(API_URL + 'getDetails', {responseType: 'json'});
+  }
+/*
+  getUserDetailsPhy(): Observable<any> {
     return this.http.get(API_URL + 'getDetailsPhy', {responseType: 'json'});
   }
+*/
 
   setUserPass(pass): Observable<any> {
-    return this.http.patch(API_URL + 'setPass' + pass,httpOptions);
+    return this.http.patch(API_URL + 'setPass/' + pass,httpOptions);
   }
 
   deleteAcc(): Observable<any> {
