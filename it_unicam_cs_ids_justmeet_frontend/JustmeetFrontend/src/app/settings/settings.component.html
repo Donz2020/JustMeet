@@ -29,12 +29,12 @@
                   {{ userDetails.roles}}
                 </tr>
                 <div>
-                  <form [formGroup] = "changePasswordForm">
-                    <input type = "password" class = "fortextbox" name="pass"
-                           placeholder = "pass" formControlName = "pass" value="{{values}}" >
+                  <form [formGroup]="formSettings" (ngSubmit)="onSubmit()">
+                    <input type = "password" class = "fortextbox"
+                           placeholder = "newPass" formControlName = "newPass">
                     <br>
                     <br>
-                    <input type = "submit" class = "btn btn-primary" value = "Change Password" (click)="onSubmit()">
+                    <input type = "submit" class = "btn btn-primary" value = "Change Password">
                   </form>
                 </div>
                 <br>
