@@ -1,5 +1,10 @@
 {
-  "name": "JustMeetFrontend",
-  "integrations": {},
-  "type": "angular"
+  "defaultProject": "JustMeetFrontend",
+  "projects": {
+    "JustMeetFrontend": {
+      "name": "JustMeetFrontend",
+      "integrations": {},
+      "type": "angular"
+    }
+  }
 }

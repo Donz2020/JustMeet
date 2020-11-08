@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~10.1.6",
     "@angular/router": "~10.1.6",
     "adjust-sourcemap-loader": "^3.0.0",
+    "angular-bootstrap-md": "^10.0.0",
     "object-path": "^0.11.5",
     "resolve-url-loader": "^3.1.2",
     "rxjs": "~6.6.3",
