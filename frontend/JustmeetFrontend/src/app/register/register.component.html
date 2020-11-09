@@ -12,7 +12,20 @@
       #f="ngForm"
       novalidate
     >
-      <div class="form-group">
+      <p>Who are you ?</p>
+      <p>
+        <label>
+          <input type="radio" id="huey" name="drone" value="Person"
+                 checked>
+          <span for="huey">Person</span>
+        </label>
+        <label>
+          <input type="radio" id="dewey" name="drone" value="company">
+          <span for="dewey">Company</span>
+        </label>
+      </p>
+
+      <div class="form-group" id="person">
         <label for="email">Email</label>
         <input
           type="email"
@@ -65,7 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" id="person">
         <label for="surname">Surname</label>
         <input
           type="text"
@@ -89,12 +102,13 @@
       </div>
 
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+        Signup failed!<br/>{{ errorMessage }}
       </div>
     </form>
 
     <div class="alert alert-success" *ngIf="isSuccessful">
       Your registration is successful!
+      <link [routerLink]="['/login']">
     </div>
   </div>
 </div>

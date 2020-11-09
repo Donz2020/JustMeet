@@ -45,11 +45,12 @@ export class SettingsComponent implements OnInit {
   };
 
   onSubmit() {
-    if (confirm("Are you sure ?")) {
+    //if (confirm("Are you sure ?"))
       this.userService.setUserPass(this.formSettings.get('newPass').value).subscribe();
-      this.token.signOut();
-      this.router.navigate(['/login']).then(window.location.reload);
-    }
+      //this.token.signOut();
+      //this.router.navigate(['/login']).then(window.location.reload);
+    this.modalService.close("passwordModal");
+
   }
 
   deleteAccount() {
