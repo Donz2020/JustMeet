@@ -1,5 +1,42 @@
-<div class="container">
-  <header class="jumbotron">
-    <p>{{ content }}</p>
-  </header>
+<div class="container" *ngIf="currentUser; else loggedOut">
+  <div class="col-md-12">
+    <div class="card card-container">
+      <div class="title">
+        <h3><strong>My Profile</strong></h3>
+      </div>
+      <div class="jumbotron">
+        <table style="width : 96%">
+          <tr>
+            <th style="width: 35%">
+              <img
+                id="profile-img"
+                src="//picsum.photos/192"
+                class="profile-img-card"
+              />
+            </th>
+            <th style="width: 63%">
+              <table style="width: 96%">
+                <tr>
+                  <strong>{{ userDetails.details }}</strong>
+                </tr>
+                <br>
+                <tr>
+                  <strong>Username:</strong>
+                  {{ userDetails.username }}
+                </tr>
+                <tr>
+                  <strong>Account Type:</strong>
+                  {{ userDetails.roles}}
+                </tr>
+              </table>
+            </th>
+          </tr>
+        </table>
+      </div>
+      <!-- da compilare con button change parametri -->
+    </div>
+  </div>
 </div>
+<ng-template #loggedOut>
+  Please login.
+</ng-template>

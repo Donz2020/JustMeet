@@ -5,14 +5,11 @@
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
       </li>
-      <li class="nav-item" *ngIf="showAdminBoard">
+      <li class="nav-item" *ngIf="isAdmin">
         <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
       </li>
       <li class="nav-item" *ngIf="showModeratorBoard">
         <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
-      </li>
-      <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
       </li>
     </ul>
 
@@ -26,10 +23,10 @@
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isAdmin">
         <a href="/profile" class="nav-link" routerLink="profile">Profile</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isAdmin">
         <a href="/settings" class="nav-link" routerLink="settings">Settings</a>
       </li>
       <li class="nav-item">

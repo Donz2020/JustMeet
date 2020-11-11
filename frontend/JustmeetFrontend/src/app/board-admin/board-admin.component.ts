@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import {profilePayload} from "../profile/profilePayload";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-board-admin',
@@ -7,18 +9,19 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./board-admin.component.scss']
 })
 export class BoardAdminComponent implements OnInit {
-  content = '';
+  userDetails: profilePayload;
+  currentUser: string;
 
-  constructor(private userService: UserService) { }
 
-  ngOnInit() {
-    this.userService.getAdminBoard().subscribe(
-      data => {
-        this.content = data;
-      },
-      err => {
-        this.content = JSON.parse(err.error).message;
-      }
-    );
-  }
+constructor(private token: TokenStorageService, private userService: UserService) { }
+
+ngOnInit() {
+  let allData: string;
+  this.currentUser = this.token.getUser();
+  this.userService.getUserDetails().subscribe((data : profilePayload)=>{
+    allData = JSON.stringify(data);
+    this.userDetails = JSON.parse(allData);
+  });
+}
+
 }
