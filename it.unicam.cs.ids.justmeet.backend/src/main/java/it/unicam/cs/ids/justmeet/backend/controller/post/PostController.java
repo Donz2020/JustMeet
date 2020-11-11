@@ -1,7 +1,10 @@
 package it.unicam.cs.ids.justmeet.backend.controller.post;
 
 
+import it.unicam.cs.ids.justmeet.backend.model.PostDescription;
+import it.unicam.cs.ids.justmeet.backend.model.enumeration.PostCategory;
 import it.unicam.cs.ids.justmeet.backend.repository.LocationRepository;
+import it.unicam.cs.ids.justmeet.backend.service.PostService;
 import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
 import it.unicam.cs.ids.justmeet.backend.model.Location;
 import it.unicam.cs.ids.justmeet.backend.model.Post;
@@ -21,10 +24,7 @@ import java.time.LocalDate;
 public class PostController {
 
     @Autowired
-    PostRepository postRepository;
-
-    @Autowired
-    LocationRepository locationRepository;
+    PostService postService;
 
     @Autowired
     UserDetailsServiceImpl userRepository;
@@ -45,19 +45,23 @@ public class PostController {
 
         post.setPostDate(LocalDate.now());
 
+        post.setId(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME));
+
         Location location = new Location();
 
         location.setLatitude(111);
         location.setLongitude(21121);
         location.setId(sequenceGenerator.generateSequence(Location.SEQUENCE_NAME));
 
-        post.setPostLocation(location);
+        PostDescription postDescription = new PostDescription();
 
-        post.setId(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME));
+        postDescription.setType(PostCategory.FUN);
 
-        locationRepository.save(location);
+        postDescription.setFree(true);
 
-        postRepository.save(post);
+        postDescription.setId(sequenceGenerator.generateSequence(PostDescription.SEQUENCE_NAME));
+
+        postService.savePost(post, location, postDescription);
 
         return ResponseEntity.ok("fatto");
     }

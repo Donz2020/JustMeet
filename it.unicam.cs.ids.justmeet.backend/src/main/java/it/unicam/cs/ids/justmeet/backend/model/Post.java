@@ -14,82 +14,81 @@ import java.util.HashSet;
 @Document(collection = "posts")
 public class Post {
 
- @Transient
- public static final String SEQUENCE_NAME = "posts_sequence";
+    @Transient
+    public static final String SEQUENCE_NAME = "posts_sequence";
 
- @Id
- private long id;
+    @Id
+    private long id;
 
- @NotNull
- @DBRef
- private IUser owner;
+    @NotNull
+    @DBRef
+    private IUser owner;
 
- private HashSet<Integer> subscribers;
+    private HashSet<Integer> subscribers;
 
- @NotNull
- @DBRef
- private Location postLocation;
+    @NotNull
+    @DBRef
+    private Location postLocation;
 
- @NotNull
- private LocalDate postDate;
+    @NotNull
+    private LocalDate postDate;
 
- @NotNull
- private String postTitle;
+    @NotNull
+    private String postTitle;
 
- @NotNull
- @DBRef
- private PostDescription description;
+    @NotNull
+    @DBRef
+    private PostDescription description;
 
- public long getId() {
-  return id;
- }
+    public long getId() {
+        return id;
+    }
 
- public void setId(long id) {
-  this.id = id;
- }
+    public void setId(long id) {
+        this.id = id;
+    }
 
- public IUser getOwner() {
-  return owner;
- }
+    public IUser getOwner() {
+        return owner;
+    }
 
- public void setOwner(IUser owner) {
-  this.owner = owner;
- }
+    public void setOwner(IUser owner) {
+        this.owner = owner;
+    }
 
- public void setPostLocation(Location postLocation) {
-  this.postLocation = postLocation;
- }
+    public void setPostLocation(Location postLocation) {
+        this.postLocation = postLocation;
+    }
 
- public Location getPostLocation() {
-  return postLocation;
- }
+    public Location getPostLocation() {
+        return postLocation;
+    }
 
- public LocalDate getPostDate() {
-  return postDate;
- }
+    public LocalDate getPostDate() {
+        return postDate;
+    }
 
- public void setPostDate(LocalDate postDate) {
-  this.postDate = postDate;
- }
+    public void setPostDate(LocalDate postDate) {
+        this.postDate = postDate;
+    }
 
- public String getPostTitle() {
-  return postTitle;
- }
+    public String getPostTitle() {
+        return postTitle;
+    }
 
- public void setPostTitle(String postTitle) {
-  this.postTitle = postTitle;
- }
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
 
- public PostDescription getDescription() {
-  return description;
- }
+    public PostDescription getDescription() {
+        return description;
+    }
 
- public void setDescription(PostDescription description) {
-  this.description = description;
- }
+    public void setDescription(PostDescription description) {
+        this.description = description;
+    }
 
- public void addSubscriber(IPhysicalUser physicalUser){
-  subscribers.add(physicalUser.hashCode());
- }
-
+    public void addSubscriber(IPhysicalUser physicalUser) {
+        subscribers.add(physicalUser.hashCode());
+    }
 }
