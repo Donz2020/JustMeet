@@ -17,7 +17,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {SettingsComponent} from "./settings/settings.component";
 import {ModalModule} from "./_modal";
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -32,12 +35,20 @@ import {ModalModule} from "./_modal";
     SettingsComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    MatStepperModule,
+    FormlyBootstrapModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ModalModule
+    ModalModule,
+    FormlyModule.forRoot({
+      validationMessages: [
+        { name: 'required', message: 'This field is required' },
+      ],
+    }),
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
