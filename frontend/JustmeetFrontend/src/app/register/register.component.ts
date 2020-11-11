@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-register',

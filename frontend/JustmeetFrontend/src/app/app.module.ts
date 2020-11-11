@@ -22,6 +22,8 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { MatStepperModule } from '@angular/material/stepper';
 
+import {MatTabsModule} from "@angular/material/tabs";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     HttpClientModule,
     ReactiveFormsModule,
     ModalModule,
+    MatTabsModule,
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },

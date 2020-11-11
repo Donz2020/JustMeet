@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<!--<div class="col-md-12">
   <div class="card card-container">
     <img
       id="profile-img"
@@ -116,4 +116,80 @@
       <link [routerLink]="['/login']">
     </div>
   </div>
+</div>-->
+<div class="card card-custom">
+  <mat-tab-group dynamicHeight disableRipple>
+    <mat-tab label="User">
+      <br>
+      <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card"/>
+      <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group" id="person">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="form.username" required email #email="ngModel"/>
+          <div class="alert-danger" *ngIf="f.submitted && email.invalid">
+            <div *ngIf="email.errors.required">Email is required</div>
+            <div *ngIf="email.errors.email">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel"/>
+          <div class="alert-danger" *ngIf="f.submitted && password.invalid">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required #name="ngModel"/>
+          <div class="alert-danger" *ngIf="f.submitted && name.invalid">
+            <div *ngIf="name.errors.required">Name is required</div>
+            <div *ngIf="name.errors.name">
+              Name must be completed
+            </div>
+          </div>
+        </div>
+        <div class="form-group" id="person">
+          <label for="surname">Surname</label>
+          <input type="text" class="form-control" name="surname" [(ngModel)]="form.surname" required surname #surname="ngModel"/>
+          <div class="alert-danger" *ngIf="f.submitted && surname.invalid">
+            <div *ngIf="surname.errors.required">Surname is required</div>
+            <div *ngIf="surname.errors.surname">
+              Surname must be valid
+            </div>
+          </div>
+          <div class="form-group" id="person">
+            <label for="birthDate">Birth date</label>
+            <input type="date" class="form-control" name="birthDate" [(ngModel)]="form.birthdate" required birthdate #birthdate="ngModel"/>
+            <div class="alert-danger" *ngIf="f.submitted && birthDate.invalid">
+              <div *ngIf="birthDate.errors.required">Birth date is required</div>
+              <div *ngIf="birthDate.errors.birthdate">
+                Birth date must be valid
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+          Signup failed!<br/>{{ errorMessage }}
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">Sign Up</button>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Business User" class="tab-title">
+      <div class="example-large-box mat-elevation-z4">
+        Large content
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    Your registration is successful!
+    <link [routerLink]="['/login']">
+  </div>
 </div>
+
