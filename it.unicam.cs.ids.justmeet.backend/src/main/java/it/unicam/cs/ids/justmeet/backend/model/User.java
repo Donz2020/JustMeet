@@ -81,7 +81,7 @@ public abstract class User implements IUser {
     }
 
     private String generateString(User user) {
-        return String.format("%s-%s-%s", user.getId(), user.getPassword(), user.getDetails());
+        return String.format("%s-%s", user.getUsername(), user.getPassword());//, user.getDetails());
     }
 
     @Override
