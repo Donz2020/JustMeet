@@ -10,7 +10,7 @@ public interface IUser {
 
     long getId();
 
-    void setID(long id);
+    void setId(long id);
 
     String getUsername();
 

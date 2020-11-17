@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     private IUser buildUser(IUser user, String username, String password) {
-        user.setID(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+        user.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
         user.setUsername(username);
         user.setPassword(password);
         return user;

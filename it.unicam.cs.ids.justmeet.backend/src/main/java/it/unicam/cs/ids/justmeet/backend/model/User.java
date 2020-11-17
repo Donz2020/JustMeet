@@ -31,7 +31,7 @@ public abstract class User implements IUser {
     }
 
     @Override
-    public void setID(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -94,4 +94,6 @@ public abstract class User implements IUser {
         return generateString(this).hashCode();
     }
 
+    @Override
+    public String toString() { return generateString(this);}
 }
