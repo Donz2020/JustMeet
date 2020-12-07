@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
-import { TokenStorageService } from '../_services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../_services/auth.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 import {ProfileComponent} from "../profile/profile.component";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,10 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   id: string[] = [];
+  isAdmin = false;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,public router: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, public router: Router) {
+  }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -25,7 +27,9 @@ export class LoginComponent implements OnInit {
       // this.roles = this.tokenStorage.getUser().roles;
       // this.id = this.tokenStorage.getUser().id;
       this.router.navigateByUrl('/profile');
+
     }
+
   }
 
   onSubmit() {

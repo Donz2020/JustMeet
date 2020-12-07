@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './_services/token-storage.service';
-import {profilePayload} from "./profile/profilePayload";
 import {UserService} from "./_services/user.service";
+import {utilsPayload} from "./utils/utils.component";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   isAdmin = false;
   showModeratorBoard = false;
   username: string;
-  userDetails: profilePayload;
+  userDetails: utilsPayload;
   currentUser: string;
 
   constructor(private token: TokenStorageService, private userService: UserService) {
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
       let allData: string;
       this.currentUser = this.token.getUser();
-      this.userService.getUserDetails().subscribe((data: profilePayload) => {
+      this.userService.getUserDetails().subscribe((data: utilsPayload) => {
         allData = JSON.stringify(data);
         this.userDetails = JSON.parse(allData);
         this.adminBool();

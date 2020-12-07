@@ -1,4 +1,4 @@
-export interface profilePayload {
+export interface utilsPayload {
   username: string;
   details: string;
   roles: string[];

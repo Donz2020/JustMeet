@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { TokenStorageService } from '../_services/token-storage.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 import {UserService} from "../_services/user.service";
-import {settingsPayload} from "./settingsPayload";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppComponent} from "../app.component";
 import {Router} from "@angular/router";
 import {ModalService} from "../_modal";
+import {utilsPayload} from "../utils/utils.component";
 
 @Component({
   selector: 'app-settings',
@@ -17,14 +17,14 @@ import {ModalService} from "../_modal";
 
 export class SettingsComponent implements OnInit {
   currentUser: string;
-  userDetails : settingsPayload;
-  formSettings : FormGroup;
-  submitted : boolean = true;
+  userDetails: utilsPayload;
+  formSettings: FormGroup;
+  submitted: boolean = true;
 
   constructor(private token: TokenStorageService,
               private userService: UserService,
-              private logoutComponent : AppComponent,
-              private router : Router,
+              private logoutComponent: AppComponent,
+              private router: Router,
               private modalService: ModalService) {
 
   }
@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     let allData: string;
     this.currentUser = this.token.getUser();
-    this.userService.getUserDetails().subscribe((data : settingsPayload)=>{   //TODO Phy
+    this.userService.getUserDetails().subscribe((data: utilsPayload) => {   //TODO Phy
       allData = JSON.stringify(data);
       this.userDetails = JSON.parse(allData);
     });
@@ -40,7 +40,7 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteAccount() {
-    if(confirm("Are you sure ?")) {
+    if (confirm("Are you sure ?")) {
       this.userService.deleteAcc().subscribe();
       this.token.signOut();
       this.router.navigateByUrl('/home');
@@ -64,29 +64,29 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  closePassModal(){
+  closePassModal() {
     this.modalService.close("passwordModal");
   }
 
-  openPassModal(){
+  openPassModal() {
     this.initForm();
     this.modalService.open('passwordModal');
   }
 
-  keyDownFunction(event){
-    if (this.submitted){
+  keyDownFunction(event) {
+    if (this.submitted) {
       this.submitted = false;
     }
     if (event.keyCode === 13) {
       this.setSubmitted();
       this.formSettings.validator;
-      if (this.formSettings.validator){
+      if (this.formSettings.validator) {
         this.onSubmit();
       }
     }
   }
 
-  setSubmitted(){
+  setSubmitted() {
     this.submitted = true;
   }
 }
