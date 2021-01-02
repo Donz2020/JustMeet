@@ -35,8 +35,8 @@ export class ProfileComponent implements OnInit {
         }
       });
 
-      alert(isAdmin);
-      alert(isMod);
+      //alert(isAdmin);  //todo
+      //alert(isMod);
     });
   }
 
