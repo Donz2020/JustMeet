@@ -11,8 +11,11 @@ import it.unicam.cs.ids.justmeet.backend.model.Location;
 import it.unicam.cs.ids.justmeet.backend.model.Post;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.service.UserDetailsServiceImpl;
+import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -95,6 +98,13 @@ public class PostController {
     public ResponseEntity<?> getPosts() {
         List<PostResponse> postResponseList = new ArrayList();
         postService.getPosts().forEach(x -> postResponseList.add(newPostResponse(x)));
+        return ResponseEntity.ok(postResponseList);
+    }
+
+    @GetMapping(path ="/getMyPosts", produces = "application/json")
+    public ResponseEntity<?> getMyPosts() {
+        List<PostResponse> postResponseList = new ArrayList();
+        postService.getMyPosts(findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()))).forEach(x -> postResponseList.add(newPostResponse(x)));
         return ResponseEntity.ok(postResponseList);
     }
 }

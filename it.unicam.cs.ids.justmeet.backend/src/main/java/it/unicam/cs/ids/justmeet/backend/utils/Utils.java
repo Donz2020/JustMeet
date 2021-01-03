@@ -8,6 +8,9 @@ import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +49,11 @@ public final class Utils {
 
     public static boolean isPhysicalUser(IUser user) {
         return !user.getRole().stream().anyMatch(n -> n.getName() == EnumUserRole.VRF);
+    }
+
+    public static String getCurrentUser(SecurityContext context) {
+        UserDetails principal = (UserDetails) context.getAuthentication().getPrincipal();
+        return principal.getUsername();
     }
 
 }

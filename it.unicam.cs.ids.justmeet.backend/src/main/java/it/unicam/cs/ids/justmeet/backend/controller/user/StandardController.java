@@ -21,11 +21,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/usr")
 public class StandardController extends UserController{
 
-    private String getCurrentUser() {
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return principal.getUsername();
-    }
-
     private List<String> rolesToString(Set<UserRole> roles) {
         return roles.stream()
                 .map(role -> role.getName().name())
@@ -34,7 +29,7 @@ public class StandardController extends UserController{
 
     @GetMapping(path ="/getDetailsPhy", produces = "application/json")
     public ResponseEntity<?> getDetailsPhysical() {
-        IUser user = findUser(getCurrentUser());
+        IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
         IPhysicalUser temp;
 
         if(Utils.isPhysicalUser(user))
@@ -53,7 +48,7 @@ public class StandardController extends UserController{
 
     @GetMapping(path ="/getDetails", produces = "application/json")
     public ResponseEntity<?> getDetails() {
-        IUser user = findUser(getCurrentUser());
+        IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
 
         return ResponseEntity.ok(new DetailsResponse(user.getUsername(),
                 user.getDetails(),
@@ -64,7 +59,7 @@ public class StandardController extends UserController{
 
     @PatchMapping(path ="/setPass/{pass}", produces = "application/json")
     public ResponseEntity<?> setPass(@PathVariable String pass) {
-        IUser user = findUser(getCurrentUser());
+        IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
 
         user.setPassword(pass);
 
@@ -75,7 +70,7 @@ public class StandardController extends UserController{
 
     @PostMapping(path = "/delete", produces = "application/json")
     public ResponseEntity<?> deleteUser() {
-        deleteUser(findUser(getCurrentUser()));
+        deleteUser(findUser(Utils.getCurrentUser(SecurityContextHolder.getContext())));
         return ResponseEntity.ok(new MessageResponse("Deleted"));
     }
 }

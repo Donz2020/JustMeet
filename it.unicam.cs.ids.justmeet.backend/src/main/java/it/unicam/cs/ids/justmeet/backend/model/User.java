@@ -86,7 +86,7 @@ public abstract class User implements IUser {
 
     @Override
     public boolean equals(Object object) {
-        return generateString(this) == generateString((User)object);
+        return generateString(this).equals(generateString((User)object));
     }
 
     @Override
