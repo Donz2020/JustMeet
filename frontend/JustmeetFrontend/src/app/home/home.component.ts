@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {postService} from "../_services/post.service";
 import {TokenStorageService} from "../_services/token-storage.service";
+import {postPayload} from "../utils/postPayloads/postPayload";
 
 @Component({
   selector: 'app-home',
@@ -8,25 +9,35 @@ import {TokenStorageService} from "../_services/token-storage.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  //content: string;
   currentUser: string;
+  postPayload: Array<postPayload>;
+  noPosts: boolean= false;
 
-  constructor(private token: TokenStorageService,private userService: UserService) { }
+  constructor(private token: TokenStorageService, private postService: postService) {
+  }
 
   ngOnInit() {
-    /*this.userService.getPublicContent().subscribe(
-      data => {
-        this.content = data;
-      },
-      err => {
-        this.content = JSON.parse(err.error).message;
-      }
-    );
-    */
-
-    this.currentUser = this.token.getUser();
-
-
-
+    this.getUser();
+    this.getAllPosts();
   }
+
+  getUser(){
+    this.currentUser = "";
+    this.currentUser = this.token.getUser();
+  }
+
+  getAllPosts(){
+    if (this.currentUser != ""){
+      this.postService.getPosts().subscribe(
+        (data: Array<postPayload>) => {
+          this.postPayload = data;
+          alert(this.postPayload[0].id);
+        },
+        error => {
+          this.noPosts = true;
+        }
+      );
+    }
+  }
+
 }

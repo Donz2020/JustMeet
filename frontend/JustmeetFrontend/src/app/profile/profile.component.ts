@@ -24,8 +24,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserDetails().subscribe((data: profilePayload) => {
       allData = JSON.stringify(data);
       this.userDetails = JSON.parse(allData);
-
-
       this.userDetails.roles.forEach(value => {
         if (value == "ADMIN") {
           isAdmin = true;
