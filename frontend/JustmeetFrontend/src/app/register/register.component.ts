@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {FormControl, FormGroup} from "@angular/forms";
-import {idPayload} from "./identificatorPayload";
+import {idPayload} from "../utils/registerPayloads/identificatorPayload";
 
 @Component({
   selector: 'app-register',

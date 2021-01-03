@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppComponent} from "../app.component";
 import {Router} from "@angular/router";
 import {ModalService} from "../_modal";
-import {utilsPayload} from "../utils/utils.component";
+import {utilsPayload} from "../utils/profilePayloads/profilePayload";
 
 @Component({
   selector: 'app-settings',

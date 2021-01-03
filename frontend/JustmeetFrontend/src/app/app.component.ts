@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './_services/token-storage.service';
 import {UserService} from "./_services/user.service";
-import {utilsPayload} from "./utils/utils.component";
+import {utilsPayload} from "./utils/profilePayloads/profilePayload";
 
 @Component({
   selector: 'app-root',
