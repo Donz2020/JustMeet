@@ -1,4 +1,4 @@
-export interface utilsPayload {
+export interface postPayload {
   id: number;
   ownerName: string;
   postTitle: string;

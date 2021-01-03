@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppComponent} from "../app.component";
 import {Router} from "@angular/router";
 import {ModalService} from "../_modal";
-import {utilsPayload} from "../utils/profilePayloads/profilePayload";
+import {profilePayload} from "../utils/profilePayloads/profilePayload";
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +17,7 @@ import {utilsPayload} from "../utils/profilePayloads/profilePayload";
 
 export class SettingsComponent implements OnInit {
   currentUser: string;
-  userDetails: utilsPayload;
+  userDetails: profilePayload;
   formSettings: FormGroup;
   submitted: boolean = true;
 
@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     let allData: string;
     this.currentUser = this.token.getUser();
-    this.userService.getUserDetails().subscribe((data: utilsPayload) => {   //TODO Phy
+    this.userService.getUserDetails().subscribe((data: profilePayload) => {   //TODO Phy
       allData = JSON.stringify(data);
       this.userDetails = JSON.parse(allData);
     });
