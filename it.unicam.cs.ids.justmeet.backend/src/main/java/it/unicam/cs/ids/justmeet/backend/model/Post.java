@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -24,7 +25,8 @@ public class Post {
     @DBRef
     private IUser owner;
 
-    private HashSet<Integer> subscribers;
+    @DBRef
+    private HashSet<IPhysicalUser> subscribers = new HashSet<>();
 
     @NotNull
     @DBRef
@@ -89,6 +91,8 @@ public class Post {
     }
 
     public void addSubscriber(IPhysicalUser physicalUser) {
-        subscribers.add(physicalUser.hashCode());
+        subscribers.add(physicalUser);
     }
+
+    public HashSet<IPhysicalUser> getSubscribers() {return subscribers; }
 }

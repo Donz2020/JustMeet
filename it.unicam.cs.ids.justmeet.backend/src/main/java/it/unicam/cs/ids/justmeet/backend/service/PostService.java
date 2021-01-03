@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.List;
+
 @Service("PostService")
 public class PostService {
 
@@ -39,6 +42,14 @@ public class PostService {
         post.setPostLocation(locationRepository.findById(location.getId()).get());
 
         postRepository.save(post);
+    }
+
+    public Post getPostById(long id) {
+        return postRepository.findById(id).get();
+    }
+
+    public List<Post> getPosts() {
+        return postRepository.findAll();
     }
 
 }
