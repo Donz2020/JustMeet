@@ -1,72 +1,14 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-  <header class="jumbotron">
-    <p>{{ content }}</p>
-    <ul class="cards">
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_image"><img src="https://picsum.photos/500/300/?image=10"></div>
-          <div class="card_content">
-            <h2 class="card_title">Card Grid Layout</h2>
-            <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-            <button class="btn card_btn">Read More</button>
-          </div>
-        </div>
-      </li>
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_image"><img src="https://picsum.photos/500/300/?image=5"></div>
-          <div class="card_content">
-            <h2 class="card_title">Card Grid Layout</h2>
-            <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-            <button class="btn card_btn">Read More</button>
-          </div>
-        </div>
-      </li>
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_image"><img src="https://picsum.photos/500/300/?image=11"></div>
-          <div class="card_content">
-            <h2 class="card_title">Card Grid Layout</h2>
-            <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-            <button class="btn card_btn">Read More</button>
-          </div>
-        </div>
-      </li>
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_image"><img src="https://picsum.photos/500/300/?image=14"></div>
-          <div class="card_content">
-            <h2 class="card_title">Card Grid Layout</h2>
-            <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-            <button class="btn card_btn">Read More</button>
-          </div>
-        </div>
-      </li>
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_image"><img src="https://picsum.photos/500/300/?image=17"></div>
-          <div class="card_content">
-            <h2 class="card_title">Card Grid Layout</h2>
-            <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-            <button class="btn card_btn">Read More</button>
-          </div>
-        </div>
-      </li>
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_image"><img src="https://picsum.photos/500/300/?image=2"></div>
-          <div class="card_content">
-            <h2 class="card_title">Card Grid Layout</h2>
-            <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-            <button class="btn card_btn">Read More</button>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </header>
+<div class="card container" *ngIf="currentUser; else loggedOut">
+  <div class="card card-container">
+    <div class="card" *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]" routerLinkActive="active">
+        {{post.id}}
+        {{post.postTitle}}
+        {{post.ownerName}}
+        {{post.postDate}}
+    </div>
+  </div>
 </div>
 <ng-template #loggedOut>
-
   <div class="bg-image">
     <div id="box" class="bg-text">
       <h1 style="font-size:50px">JustMeet</h1>
@@ -76,7 +18,6 @@
       <button class="btn btn-secondary" onclick="window.location.href='/register'">Sign Up</button>
     </div>
   </div>
-
 </ng-template>
 
 

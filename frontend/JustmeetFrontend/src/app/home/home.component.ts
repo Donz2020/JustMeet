@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
       this.postService.getPosts().subscribe(
         (data: Array<postPayload>) => {
           this.postPayload = data;
-          alert(this.postPayload[0].id);
         },
         error => {
           this.noPosts = true;
