@@ -1,19 +1,28 @@
-<div class="card container" *ngIf="currentUser; else loggedOut">
-  <div class="card card-container">
+<div class="postcard container" *ngIf="currentUser; else loggedOut">
+  <div class="cards-list">
     <div class="card" *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]" routerLinkActive="active">
-        {{post.id}}
-        {{post.postTitle}}
-        {{post.ownerName}}
-        {{post.postDate}}
+
+      <div class="card1">
+        <div class="card_image"> <img src="https://i.redd.it/b3esnz5ra34y.jpg" /> </div>
+        <div class="card_title title-white">
+          <h4>{{post.postTitle}}</h4>
+        </div>
+        <div class="card_title title-white">
+          <h4>{{post.postDate}}</h4>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>
+
 <ng-template #loggedOut>
   <div class="bg-image">
     <div id="box" class="bg-text">
       <h1 style="font-size:50px">JustMeet</h1>
       <h3>An awesome platform to share event and participate</h3>
-      <button class="btn btn-secondary" onclick="window.location.href='/login'" >Login</button>
+      <button class="btn btn-secondary" onclick="window.location.href='/login'">Login</button>
       <br>
       <button class="btn btn-secondary" onclick="window.location.href='/register'">Sign Up</button>
     </div>
