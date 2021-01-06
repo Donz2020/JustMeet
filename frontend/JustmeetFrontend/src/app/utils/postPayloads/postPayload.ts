@@ -7,5 +7,4 @@ export interface postPayload {
   postDescription: string;
   postType: string;
   subscribers: string[];
-
 }
