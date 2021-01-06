@@ -1,4 +1,4 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
+<div class="container" *ngIf="checkMod || checkAdmin; else pageNotFound">
   <div class="col-md-12">
     <div class="card card-container">
       <div class="title">
@@ -31,37 +31,22 @@
                 <tr>
                   <strong>Change User Password:</strong>
                 </tr>
-
-                <br>
-                <input type="text" placeholder="mail utente">
-                <br>
-                <input type="password" placeholder="password">
-                <br>
-                <input type="submit" class="btn btn-primary" value="Change Password" >
-                <br>
-                <br>
-                <input type="text" class="setUserRole" placeholder="mail utente">
-                <br>
-                <input type="text" class="userRole" placeholder="ruolo">
-                <br>
-                <input type="submit" class="btn btn-primary" value="Change Rule" >
-                <br>
-                <br>
-                <input type="text" class="setUserActive" placeholder="mail utente">
-                <br>
-                <input type="text" class="setActive" placeholder="set true or false">
-                <br>
-                <input type="submit" class="btn btn-primary" value="Activate/Deactivate User" >
-                <br>
-                <br>
-                <div>
-                  <input type="email" class="deleteAccount" placeholder="mail utente">
-                  <br>
-                  <button class="btn btn-danger" (click)="deleteAccount()" >
-                    Delete account
-                  </button>
-                </div>
               </table>
+              <form [formGroup]="formAdmin" #ngFormAdmin="ngForm" (ngSubmit)="deleteAccount()"
+                    (keydown.enter)=ngFormAdmin.onSubmit($event)>
+                <div class="form-group" id="person">
+                  <label>Email</label>
+                  <input type="email" class="form-control" formControlName="email" required email>
+
+                  <div class="alert alert-danger"
+                       *ngIf="((formAdmin && ngFormAdmin.submitted && formAdmin.get('email').touched && formAdmin.get('email').errors))">
+                    <div *ngIf="formAdmin.get('email').hasError('required'); else emailValid">
+                      Email is required
+                    </div>
+                    <ng-template #emailValid>Email must be a valid email address</ng-template>
+                  </div>
+                </div>
+              </form>
             </th>
           </tr>
         </table>
@@ -70,6 +55,6 @@
     </div>
   </div>
 </div>
-<ng-template #loggedOut>
-  Please login.
+<ng-template #pageNotFound>
+  Page not Found
 </ng-template>
