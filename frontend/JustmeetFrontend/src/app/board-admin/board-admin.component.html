@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card card-container">
       <div class="title">
-        <h3><strong>Admin</strong></h3>
+        <h3><strong>Admin Board</strong></h3>
       </div>
       <div class="jumbotron">
         <table style="width : 96%">
@@ -28,6 +28,39 @@
                   <strong>Account Type:</strong>
                   {{ userDetails.roles}}
                 </tr>
+                <tr>
+                  <strong>Change User Password:</strong>
+                </tr>
+
+                <br>
+                <input type="text" placeholder="mail utente">
+                <br>
+                <input type="password" placeholder="password">
+                <br>
+                <input type="submit" class="btn btn-primary" value="Change Password" >
+                <br>
+                <br>
+                <input type="text" class="setUserRole" placeholder="mail utente">
+                <br>
+                <input type="text" class="userRole" placeholder="ruolo">
+                <br>
+                <input type="submit" class="btn btn-primary" value="Change Rule" >
+                <br>
+                <br>
+                <input type="text" class="setUserActive" placeholder="mail utente">
+                <br>
+                <input type="text" class="setActive" placeholder="set true or false">
+                <br>
+                <input type="submit" class="btn btn-primary" value="Activate/Deactivate User" >
+                <br>
+                <br>
+                <div>
+                  <input type="email" class="deleteAccount" placeholder="mail utente">
+                  <br>
+                  <button class="btn btn-danger" (click)="deleteAccount()" >
+                    Delete account
+                  </button>
+                </div>
               </table>
             </th>
           </tr>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {profilePayload} from "../utils/profilePayloads/profilePayload";
+import {Router} from "@angular/router";
+import {AdminService} from "../_services/admin.service";
 
 @Component({
   selector: 'app-board-admin',
@@ -13,7 +15,7 @@ export class BoardAdminComponent implements OnInit {
   currentUser: string;
 
 
-constructor(private token: TokenStorageService, private userService: UserService) { }
+constructor(private token: TokenStorageService, private userService: UserService,private router: Router,private adminService: AdminService) { }
 
 ngOnInit() {
   let allData: string;
@@ -23,5 +25,14 @@ ngOnInit() {
     this.userDetails = JSON.parse(allData);
   });
 }
+
+
+  deleteAccount() {
+    if (confirm("Are you sure ?")) {
+      this.adminService.delUserAcc().subscribe();
+
+      this.router.navigateByUrl('/admin');
+    }
+  }
 
 }
