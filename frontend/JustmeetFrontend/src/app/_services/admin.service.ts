@@ -32,7 +32,14 @@ export class AdminService {
   changeUserRole(payload): Observable<any> {
     return this.http.post(API_URL + 'setRole' , {
       username: payload.username,
-      roles: payload.password,
+      roles: payload.roles,
+    },httpOptions);
+  }
+
+  changeUserStatus(payload): Observable<any> {
+    return this.http.post(API_URL + 'setStatus' , {
+      username: payload.username,
+      active: payload.active,
     },httpOptions);
   }
 

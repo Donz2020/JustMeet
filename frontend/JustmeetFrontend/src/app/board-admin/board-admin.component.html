@@ -32,52 +32,87 @@
                   <strong>Change User Password:</strong>
                 </tr>
               </table>
-              <form [formGroup]="formAdmin" #ngFormAdmin="ngForm" (ngSubmit)="changeUserPass()"
-                    (keydown.enter)=ngFormAdmin.onSubmit($event)>
+
+              <form [formGroup]="formEmail" #ngFormEmail="ngForm"
+                    (keydown.enter)=ngFormEmail.onSubmit($event)>
                 <div class="form-group" id="person">
                   <label>Set username to apply changes</label>
-                  <input type="email" class="form-control" formControlName="email" placeholder="user mail" required email>
-
+                  <input type="email" class="form-control" formControlName="email" placeholder="user mail" required
+                         email>
                   <div class="alert alert-danger"
-                       *ngIf="((formAdmin && ngFormAdmin.submitted && formAdmin.get('email').touched && formAdmin.get('email').errors))">
-                    <div *ngIf="formAdmin.get('email').hasError('required'); else emailValid">
+                       *ngIf="((formEmail && ngFormEmail.submitted && formEmail.get('email').touched && formEmail.get('email').errors))">
+                    <div *ngIf="formEmail.get('email').hasError('required'); else emailValid">
                       Email is required
                     </div>
                     <ng-template #emailValid>Email must be a valid email address</ng-template>
                   </div>
                 </div>
+              </form>
 
+              <form [formGroup]="formPass" #ngFormPass="ngForm"
+                    (keydown.enter)=ngFormPass.onSubmit($event)>
                 <div class="form-group">
                   <label>Change user Password</label>
-                  <input type="password" class="form-control" formControlName="pass" placeholder="new password" required minlength="6">
-                  <div class="alert alert-danger" *ngIf="(ngFormAdmin.submitted && formAdmin.get('pass').errors)">
-                    <div *ngIf="formAdmin.get('pass').hasError('required'); else lengthError">
+                  <input type="password" class="form-control" formControlName="pass" placeholder="new password" required
+                         minlength="6">
+                  <div class="alert alert-danger" *ngIf="(ngFormPass.submitted && formPass.get('pass').errors)">
+                    <div *ngIf="formPass.get('pass').hasError('required'); else lengthError">
                       Password is required
                     </div>
                     <ng-template #lengthError>Password must be at least 6 characters</ng-template>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-block" >Change User Password</button>
+                  <button class="btn btn-primary btn-block" (click)="changeUserPass()">Change User Password</button>
                 </div>
               </form>
 
-              <form [formGroup]="formAdmin" #ngFormAdmin="ngForm" (ngSubmit)="changeUserRole()"
-                    (keydown.enter)=ngFormAdmin.onSubmit($event)>
+              <form [formGroup]="formRole" #ngFormRole="ngForm"
+                    (keydown.enter)=ngFormRole.onSubmit($event)>
                 <div class="form-group">
-                  <label>Change user Role</label>
-                  <input type="text" class="form-control" formControlName="role" placeholder="new role" required maxlength="5">
-                  <div class="alert alert-danger" *ngIf="(ngFormAdmin.submitted && formAdmin.get('role').errors)">
-                    <div *ngIf="formAdmin.get('role').hasError('required'); else lengthError">
+                  <label for="roles" class="form-control" formControlName="roles">Change user Role</label>
+                  <select name="roles" id="roles">
+                    <option value="MOD" class="form-control" formControlName="roles">Mod1</option>
+                    <option value=[MOD] class="form-control" formControlName="roles">Mod2</option>
+
+                  </select>
+
+                  <div class="alert alert-danger" *ngIf="(ngFormRole.submitted && formRole.get('roles').errors)">
+                    <div *ngIf="formRole.get('roles').hasError('required'); else lengthError">
                       Role is required
                     </div>
                     <ng-template #lengthError>Role must be MOD , STD , VRF , ADMIN</ng-template>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-block" >Change User Role</button>
+                  <button class="btn btn-primary btn-block" (click)="changeUserRole()">Change User Role</button>
                 </div>
               </form>
+
+              <form [formGroup]="formActive" #ngFormActive="ngForm"
+                    (keydown.enter)=ngFormActive.onSubmit($event)>
+                <div class="form-group">
+                  <label for="active" class="form-control" formControlName="active">Deactivate / Deactivate user</label>
+                  <select name="active" id="active">
+                    <option value="true" class="form-control" formControlName="active">Activate</option>
+                    <option value="false" class="form-control" formControlName="active">Deactivate</option>
+                  </select>
+
+                  <div class="alert alert-danger" *ngIf="(ngFormActive.submitted && formActive.get('roles').errors)">
+                    <div *ngIf="formActive.get('active').hasError('required'); else lengthError">
+                      active is required
+                    </div>
+                    <ng-template #lengthError>Active must be set</ng-template>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block" (click)="changeUserActive()">Change User Status</button>
+                </div>
+              </form>
+
+
+
+
             </th>
           </tr>
         </table>

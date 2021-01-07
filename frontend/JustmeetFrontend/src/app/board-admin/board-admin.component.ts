@@ -6,7 +6,8 @@ import {Router} from "@angular/router";
 import {AdminService} from "../_services/admin.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {idPayload} from "../utils/registerPayloads/identificatorPayload";
-
+import {changeUserRolePayload} from "../utils/profilePayloads/changeUserRolePayload";
+import {activePayload} from "../utils/profilePayloads/activePayload";
 
 @Component({
   selector: 'app-board-admin',
@@ -16,9 +17,12 @@ import {idPayload} from "../utils/registerPayloads/identificatorPayload";
 export class BoardAdminComponent implements OnInit {
   userDetails: profilePayload;
   currentUser: string;
-  formAdmin : FormGroup;
-  checkAdmin : boolean = false;
-  checkMod : boolean = false;
+  formActive: FormGroup;
+  formEmail: FormGroup;
+  formPass: FormGroup;
+  formRole: FormGroup;
+  checkAdmin: boolean = false;
+  checkMod: boolean = false;
 
 
   constructor(private token: TokenStorageService, private userService: UserService, private router: Router, private adminService: AdminService) {
@@ -30,46 +34,112 @@ export class BoardAdminComponent implements OnInit {
     this.userService.getUserDetails().subscribe((data: profilePayload) => {
       allData = JSON.stringify(data);
       this.userDetails = JSON.parse(allData);
-      for(let i of this.userDetails.roles){
-        if(i == "ADMIN" ){
+      for (let i of this.userDetails.roles) {
+        if (i == "ADMIN") {
           this.checkAdmin = true;
         }
-        if (i =="MOD"){
+        if (i == "MOD") {
           this.checkMod = true;
         }
       }
 
     });
-    this.initForm();
+
+
+    this.initEmail();
+    this.initPass();
+    this.initRole();
+    this.initActive();
+    //this.formEmail = this.formPass = this.formRole = this.initForm();
+
+
   }
+/*
+  initForm(): FormGroup {
+    return new FormGroup({
+      ciccio: new FormControl(''),
+    });
 
-  initForm(): void {
+  }
+*/
 
-    this.formAdmin = new FormGroup({
+  initEmail(): void {
+
+    this.formEmail = new FormGroup({
       email: new FormControl(''),
-      pass: new FormControl(''),
-      name: new FormControl(''),
-      surname: new FormControl(''),
-      birthDate: new FormControl(''),
     });
   }
 
-  changeUserPass() {
+  initPass(): void {
 
-    if (this.formAdmin.valid) {
-      let idPayload : idPayload = {
-        username: this.formAdmin.get('email').value,
-        password: this.formAdmin.get('pass').value,
-      };
-      this.adminService.changeUserPass(idPayload).subscribe(
-        (data : idPayload ) => {
-          data = idPayload;
+    this.formPass = new FormGroup({
+      pass: new FormControl(''),
+    });
+  }
 
-        });
-    };
+  initRole(): void {
+
+    this.formRole = new FormGroup({
+      roles: new FormControl([]),
+    });
+  }
+
+  initActive(): void {
+
+    this.formActive = new FormGroup({
+      active: new FormControl(''),
+    });
   }
 
 
+  changeUserPass() {
+
+    if (this.formEmail.valid) {
+      let idPayload: idPayload = {
+        username: this.formEmail.get("email").value,
+        password: this.formPass.get("pass").value,
+      };
+      this.adminService.changeUserPass(idPayload).subscribe(
+        (data: idPayload) => {
+          data = idPayload;
+
+        });
+    }
+  }
+
+
+  changeUserRole() {
+    if (this.formEmail.valid) {
+      let changeUserRolePayload: changeUserRolePayload = {
+        username: this.formEmail.get('email').value,
+        roles: this.formRole.get("roles").value,
+
+      };
+
+      this.adminService.changeUserRole(changeUserRolePayload).subscribe(
+        (data: changeUserRolePayload) => {
+          data = changeUserRolePayload;
+
+        });
+    }
+
+  }
+
+  changeUserActive() {
+
+    if (this.formEmail.valid) {
+      let activePayload: activePayload = {
+        username: this.formEmail.get("email").value,
+        active: this.formActive.get("active").value,
+      };
+      alert(this.formActive.get("active").value);
+      this.adminService.changeUserStatus(activePayload).subscribe(
+        (data: activePayload) => {
+          data = activePayload;
+
+        });
+    }
+  }
 
 
   deleteAccount() {

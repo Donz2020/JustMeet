@@ -1,6 +1,6 @@
-export interface profilePayload {
-  username: string;
+import {changeUserRolePayload} from "./changeUserRolePayload";
+
+export interface profilePayload extends changeUserRolePayload {
   details: string;
-  roles: string[];
   name: string;
 }
