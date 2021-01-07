@@ -70,10 +70,11 @@
               <form [formGroup]="formRole" #ngFormRole="ngForm"
                     (keydown.enter)=ngFormRole.onSubmit($event)>
                 <div class="form-group">
-                  <label for="roles" class="form-control" formControlName="roles">Change user Role</label>
-                  <select name="roles" id="roles">
+                  <label>Change user Role</label>
+                  <select name="roles" id="roles" class="form-control" formControlName="roles">
                     <option value="MOD" class="form-control" formControlName="roles">Mod1</option>
                     <option value=[MOD] class="form-control" formControlName="roles">Mod2</option>
+                    <option value="[MOD]" class="form-control" formControlName="roles">Mod3</option>
 
                   </select>
 
@@ -92,11 +93,14 @@
               <form [formGroup]="formActive" #ngFormActive="ngForm"
                     (keydown.enter)=ngFormActive.onSubmit($event)>
                 <div class="form-group">
-                  <label for="active" class="form-control" formControlName="active">Deactivate / Deactivate user</label>
-                  <select name="active" id="active">
-                    <option value="true" class="form-control" formControlName="active">Activate</option>
-                    <option value="false" class="form-control" formControlName="active">Deactivate</option>
-                  </select>
+                  <p>Deactivate / Deactivate user</p>
+
+                  <input type="radio" id="true" name="active" value="true" class="form-control" formControlName="active"/>
+                  <label for="active"> Activate</label><br>
+
+                  <input type="radio" id="false" name="active" value="false" class="form-control" formControlName="active"/>
+                  <label for="active"> Deactivate</label><br>
+
 
                   <div class="alert alert-danger" *ngIf="(ngFormActive.submitted && formActive.get('roles').errors)">
                     <div *ngIf="formActive.get('active').hasError('required'); else lengthError">
@@ -109,6 +113,17 @@
                   <button class="btn btn-primary btn-block" (click)="changeUserActive()">Change User Status</button>
                 </div>
               </form>
+
+              <br>
+              <div>
+                <div class="form-group">
+                  <label>Delete an user account</label>
+                </div>
+                  <button class="btn btn-danger" (click)="deleteUserAccount()">
+                  Delete account
+                </button>
+              </div>
+
 
 
 

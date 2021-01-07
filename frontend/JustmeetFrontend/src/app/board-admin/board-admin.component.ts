@@ -8,6 +8,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {idPayload} from "../utils/registerPayloads/identificatorPayload";
 import {changeUserRolePayload} from "../utils/profilePayloads/changeUserRolePayload";
 import {activePayload} from "../utils/profilePayloads/activePayload";
+import {deletePayload} from "../utils/profilePayloads/deletePayload";
 
 @Component({
   selector: 'app-board-admin',
@@ -16,6 +17,7 @@ import {activePayload} from "../utils/profilePayloads/activePayload";
 })
 export class BoardAdminComponent implements OnInit {
   userDetails: profilePayload;
+  changeRolePayload: changeUserRolePayload;
   currentUser: string;
   formActive: FormGroup;
   formEmail: FormGroup;
@@ -54,14 +56,15 @@ export class BoardAdminComponent implements OnInit {
 
 
   }
-/*
-  initForm(): FormGroup {
-    return new FormGroup({
-      ciccio: new FormControl(''),
-    });
 
-  }
-*/
+  /*
+    initForm(): FormGroup {
+      return new FormGroup({
+        ciccio: new FormControl(''),
+      });
+
+    }
+  */
 
   initEmail(): void {
 
@@ -109,6 +112,7 @@ export class BoardAdminComponent implements OnInit {
 
 
   changeUserRole() {
+    let allData: string;
     if (this.formEmail.valid) {
       let changeUserRolePayload: changeUserRolePayload = {
         username: this.formEmail.get('email').value,
@@ -118,6 +122,8 @@ export class BoardAdminComponent implements OnInit {
 
       this.adminService.changeUserRole(changeUserRolePayload).subscribe(
         (data: changeUserRolePayload) => {
+          allData = JSON.stringify(data);
+          this.changeRolePayload = JSON.parse(allData);
           data = changeUserRolePayload;
 
         });
@@ -132,7 +138,8 @@ export class BoardAdminComponent implements OnInit {
         username: this.formEmail.get("email").value,
         active: this.formActive.get("active").value,
       };
-      alert(this.formActive.get("active").value);
+
+      //alert(this.formActive.get("active").value);
       this.adminService.changeUserStatus(activePayload).subscribe(
         (data: activePayload) => {
           data = activePayload;
@@ -142,12 +149,22 @@ export class BoardAdminComponent implements OnInit {
   }
 
 
-  deleteAccount() {
-    if (confirm("Are you sure ?")) {
-      this.adminService.delUserAcc().subscribe();
+  deleteUserAccount() {
 
-      this.router.navigateByUrl('/admin');
+    if (this.formEmail.valid) {
+      let deletePayload: deletePayload = {
+        username: this.formEmail.get("email").value,
+
+      };
+      if (confirm("Are you sure ?")) {
+        this.adminService.deleteUserAccount(deletePayload).subscribe(
+          (data: deletePayload) => {
+            data = deletePayload;
+
+          });
+      }
     }
   }
+
 
 }

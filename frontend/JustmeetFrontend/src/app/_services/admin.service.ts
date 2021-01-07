@@ -43,4 +43,10 @@ export class AdminService {
     },httpOptions);
   }
 
+  deleteUserAccount(payload): Observable<any> {
+    return this.http.post(API_URL + 'delete' , {
+      username: payload.username,
+    },httpOptions);
+  }
+
 }
