@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.formSettings.valid && this.formSettings.get('passName').value == this.formSettings.get('confirmPass').value) {
+    if (this.formSettings.valid && this.formSettings.get('newPass').value == this.formSettings.get('confirmPass').value) {
       this.userService.setUserPass(this.formSettings.get('newPass').value).subscribe();
       this.closePassModal();
     }

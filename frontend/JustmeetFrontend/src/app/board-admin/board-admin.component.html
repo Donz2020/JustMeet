@@ -36,7 +36,7 @@
                     (keydown.enter)=ngFormAdmin.onSubmit($event)>
                 <div class="form-group" id="person">
                   <label>Email</label>
-                  <input type="email" class="form-control" formControlName="email" required email>
+                  <input type="email" class="form-control" formControlName="email" placeholder="user mail" required email>
 
                   <div class="alert alert-danger"
                        *ngIf="((formAdmin && ngFormAdmin.submitted && formAdmin.get('email').touched && formAdmin.get('email').errors))">
@@ -45,6 +45,20 @@
                     </div>
                     <ng-template #emailValid>Email must be a valid email address</ng-template>
                   </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" formControlName="pass" placeholder="new password" required minlength="6">
+                  <div class="alert alert-danger" *ngIf="(ngFormAdmin.submitted && formAdmin.get('pass').errors)">
+                    <div *ngIf="formAdmin.get('pass').hasError('required'); else lengthError">
+                      Password is required
+                    </div>
+                    <ng-template #lengthError>Password must be at least 6 characters</ng-template>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block">Change User Password</button>
                 </div>
               </form>
             </th>

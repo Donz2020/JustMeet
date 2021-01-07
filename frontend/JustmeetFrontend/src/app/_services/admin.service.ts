@@ -20,4 +20,8 @@ export class AdminService {
     return this.http.post(API_URL + 'delete', {responseType: 'json'});
   }
 
+  changeUserPass(): Observable<any> {
+    return this.http.post(API_URL + 'setPass', {responseType: 'json'});
+  }
+
 }

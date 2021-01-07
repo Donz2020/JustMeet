@@ -82,12 +82,13 @@
       <br>
       <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card"/>
       <form [formGroup]="formSignup" #ngSignup="ngForm" (ngSubmit)="onSubmit()"
-            (keydown.enter) = ngSignup.onSubmit($event)
+            (keydown.enter)=ngSignup.onSubmit($event)
             (keydown)="keyDownFunction($event)">
         <div class="form-group" id="person">
           <label for="email">Email</label>
           <input type="email" class="form-control" formControlName="email" required email>
-          <div class="alert alert-danger" *ngIf="((formSignup && ngSignup.submitted && formSignup.get('email').touched && formSignup.get('email').errors))">
+          <div class="alert alert-danger"
+               *ngIf="((formSignup && ngSignup.submitted && formSignup.get('email').touched && formSignup.get('email').errors))">
             <div *ngIf="formSignup.get('email').hasError('required'); else emailValid">
               Email is required
             </div>
