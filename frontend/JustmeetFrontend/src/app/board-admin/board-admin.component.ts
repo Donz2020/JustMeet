@@ -5,7 +5,8 @@ import {profilePayload} from "../utils/profilePayloads/profilePayload";
 import {Router} from "@angular/router";
 import {AdminService} from "../_services/admin.service";
 import {FormControl, FormGroup} from "@angular/forms";
-import {of} from "rxjs";
+import {idPayload} from "../utils/registerPayloads/identificatorPayload";
+
 
 @Component({
   selector: 'app-board-admin',
@@ -52,6 +53,23 @@ export class BoardAdminComponent implements OnInit {
       birthDate: new FormControl(''),
     });
   }
+
+  changeUserPass() {
+
+    if (this.formAdmin.valid) {
+      let idPayload : idPayload = {
+        username: this.formAdmin.get('email').value,
+        password: this.formAdmin.get('pass').value,
+      };
+      this.adminService.changeUserPass(idPayload).subscribe(
+        (data : idPayload ) => {
+          data = idPayload;
+
+        });
+    };
+  }
+
+
 
 
   deleteAccount() {

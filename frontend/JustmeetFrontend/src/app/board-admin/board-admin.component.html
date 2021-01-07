@@ -32,10 +32,10 @@
                   <strong>Change User Password:</strong>
                 </tr>
               </table>
-              <form [formGroup]="formAdmin" #ngFormAdmin="ngForm" (ngSubmit)="deleteAccount()"
+              <form [formGroup]="formAdmin" #ngFormAdmin="ngForm" (ngSubmit)="changeUserPass()"
                     (keydown.enter)=ngFormAdmin.onSubmit($event)>
                 <div class="form-group" id="person">
-                  <label>Email</label>
+                  <label>Set username to apply changes</label>
                   <input type="email" class="form-control" formControlName="email" placeholder="user mail" required email>
 
                   <div class="alert alert-danger"
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Password</label>
+                  <label>Change user Password</label>
                   <input type="password" class="form-control" formControlName="pass" placeholder="new password" required minlength="6">
                   <div class="alert alert-danger" *ngIf="(ngFormAdmin.submitted && formAdmin.get('pass').errors)">
                     <div *ngIf="formAdmin.get('pass').hasError('required'); else lengthError">
@@ -58,7 +58,24 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-block">Change User Password</button>
+                  <button class="btn btn-primary btn-block" >Change User Password</button>
+                </div>
+              </form>
+
+              <form [formGroup]="formAdmin" #ngFormAdmin="ngForm" (ngSubmit)="changeUserRole()"
+                    (keydown.enter)=ngFormAdmin.onSubmit($event)>
+                <div class="form-group">
+                  <label>Change user Role</label>
+                  <input type="text" class="form-control" formControlName="role" placeholder="new role" required maxlength="5">
+                  <div class="alert alert-danger" *ngIf="(ngFormAdmin.submitted && formAdmin.get('role').errors)">
+                    <div *ngIf="formAdmin.get('role').hasError('required'); else lengthError">
+                      Role is required
+                    </div>
+                    <ng-template #lengthError>Role must be MOD , STD , VRF , ADMIN</ng-template>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block" >Change User Role</button>
                 </div>
               </form>
             </th>
