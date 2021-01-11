@@ -3,21 +3,22 @@
     <div class="card post_card" *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]" routerLinkActive="active">
 
       <div class="card1">
-        <div class="card_image"><img src="https://i.redd.it/b3esnz5ra34y.jpg"/></div>
+        <div class="card_image">
+          <img src="https://i.redd.it/b3esnz5ra34y.jpg"/>
+        </div>
         <div class="post_info">
           <div class="post_title">
             <h4>{{post.postTitle}}</h4>
           </div>
           <span class="card__by">by {{post.ownerName}}</span>
           <div class="post_category">{{post.postType}} Category</div>
-          <link [routerLink]="['/post/']">
+
         </div>
       </div>
 
     </div>
   </div>
 </div>
-<div class="float-md-right">Float right on viewports sized MD (medium) or wider</div><br>
 
 <ng-template #loggedOut>
   <div class="bg-image">

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-
-
 import {AppComponent} from "../app.component";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TokenStorageService} from "../_services/token-storage.service";
 import {UserService} from "../_services/user.service";
-import {ModalService} from "../_modal";
-
+import {postService} from "../_services/post.service";
+import {postPayload} from "../utils/postPayloads/postPayload";
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -17,18 +16,48 @@ import {ModalService} from "../_modal";
 
 
 export class PostComponent implements OnInit {
+  postPayload: postPayload;
+  currentUser: string;
+  errorMessage: string;
 
 
   constructor(private token: TokenStorageService,
-              private userService: UserService,
               private logoutComponent: AppComponent,
-              private router: Router,
-              private modalService: ModalService) {
+              private route: ActivatedRoute,
+              private postService: postService,
+              private location: Location
+  ) {
 
   }
 
   ngOnInit() {
+    this.getUser();
+    this.route.params.subscribe(
+      params => {
+        let id = params['id'];
+        if (id) {
+          this.getPostDetail(id);
+        }
+      });
 
 
   }
+
+  getUser() {
+    this.currentUser = "";
+    this.currentUser = this.token.getUser();
+  }
+
+  getPostDetail(id: number) {
+    this.postService.getPost(id)
+      .subscribe(
+        response => this.postPayload = response,
+        error => this.errorMessage = <any>error);
+  }
+
+  back() {
+    this.location.back();
+  }
+
+
 }
