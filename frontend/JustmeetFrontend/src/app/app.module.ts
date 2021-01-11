@@ -13,6 +13,8 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PostComponent } from './post/post.component';
+
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {SettingsComponent} from "./settings/settings.component";
@@ -34,6 +36,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     BoardUserComponent,
     BoardModeratorComponent,
     ProfileComponent,
+    PostComponent,
     SettingsComponent
   ],
   imports: [

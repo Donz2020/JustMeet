@@ -9,6 +9,8 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { SettingsComponent } from './settings/settings.component';
+import { PostComponent } from './post/post.component';
+
 
 
 const routes: Routes = [
@@ -19,6 +21,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'post', component: PostComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
