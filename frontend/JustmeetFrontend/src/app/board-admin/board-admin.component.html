@@ -72,9 +72,9 @@
                 <div class="form-group">
                   <label>Change user Role</label>
                   <select name="roles" id="roles" class="form-control" formControlName="roles">
-                    <option value="MOD" class="form-control" formControlName="roles">Mod1</option>
-                    <option value=[MOD] class="form-control" formControlName="roles">Mod2</option>
-                    <option value="[MOD]" class="form-control" formControlName="roles">Mod3</option>
+                    <option value="MOD" class="form-control" formControlName="roles">Moderator</option>
+                    <option value="ADMIN" class="form-control" formControlName="roles">Admin</option>
+                    <option value="STD" class="form-control" formControlName="roles">Standard</option>
 
                   </select>
 
@@ -93,14 +93,12 @@
               <form [formGroup]="formActive" #ngFormActive="ngForm"
                     (keydown.enter)=ngFormActive.onSubmit($event)>
                 <div class="form-group">
-                  <p>Deactivate / Deactivate user</p>
+                  <label>Deactivate / Deactivate user</label>
 
-                  <input type="radio" id="true" name="active" value="true" class="form-control" formControlName="active"/>
-                  <label for="active"> Activate</label><br>
-
-                  <input type="radio" id="false" name="active" value="false" class="form-control" formControlName="active"/>
-                  <label for="active"> Deactivate</label><br>
-
+                  <select name="active" id="active" class="form-control" formControlName="active">
+                    <option value="true" class="form-control" formControlName="active">Activate</option>
+                    <option value="false" class="form-control" formControlName="active">Deactivate</option>
+                  </select>
 
                   <div class="alert alert-danger" *ngIf="(ngFormActive.submitted && formActive.get('roles').errors)">
                     <div *ngIf="formActive.get('active').hasError('required'); else lengthError">

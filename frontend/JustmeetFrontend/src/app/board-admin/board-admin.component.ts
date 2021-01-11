@@ -25,6 +25,7 @@ export class BoardAdminComponent implements OnInit {
   formRole: FormGroup;
   checkAdmin: boolean = false;
   checkMod: boolean = false;
+  roleForm: string[];
 
 
   constructor(private token: TokenStorageService, private userService: UserService, private router: Router, private adminService: AdminService) {
@@ -83,7 +84,7 @@ export class BoardAdminComponent implements OnInit {
   initRole(): void {
 
     this.formRole = new FormGroup({
-      roles: new FormControl([]),
+      roles: new FormControl(''),
     });
   }
 
@@ -113,18 +114,23 @@ export class BoardAdminComponent implements OnInit {
 
   changeUserRole() {
     let allData: string;
+
+    let role = [this.formRole.get('roles').value];
+
     if (this.formEmail.valid) {
       let changeUserRolePayload: changeUserRolePayload = {
         username: this.formEmail.get('email').value,
-        roles: this.formRole.get("roles").value,
+        roles: role
 
       };
 
       this.adminService.changeUserRole(changeUserRolePayload).subscribe(
-        (data: changeUserRolePayload) => {
+        (data: changeUserRolePayload,) => {
           allData = JSON.stringify(data);
+
           this.changeRolePayload = JSON.parse(allData);
           data = changeUserRolePayload;
+
 
         });
     }

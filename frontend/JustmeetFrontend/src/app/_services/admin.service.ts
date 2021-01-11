@@ -18,10 +18,6 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  delUserAcc(): Observable<any> {
-    return this.http.post(API_URL + 'delete', {responseType: 'json'});
-  }
-
   changeUserPass(idPayload): Observable<any> {
     return this.http.post(API_URL + 'setPass' , {
       username: idPayload.username,
