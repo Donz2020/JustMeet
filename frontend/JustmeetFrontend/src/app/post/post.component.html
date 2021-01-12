@@ -1,3 +1,5 @@
+
+<!--
 <div class="ui container" *ngIf="currentUser">
   <h2 class="ui orange header">
     {{ selectedMovie?.title }}
@@ -14,27 +16,26 @@
       <div class="sixteen wide mobile eight wide tablet twelve wide computer column">
         <div class="ui centered grid">
 
-          <!-- gatunki -->
+
           <div class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
             <i *ngFor="let genre of selectedMovie?.genres" class="ui orange label">{{ genre.name }}</i>
           </div>
-          <!-- -->
 
-          <!-- opis -->
+
+
           <div class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
             <div class="ui sub header">
-              <span *ngIf="language == 'pl'">Opis</span>
-              <span *ngIf="language != 'pl'">Overview</span>
+
+              <span >Overview</span>
             </div>
             {{ postPayload?.postTitle }}
           </div>
-          <!-- -->
 
-          <!-- WWW -->
+
+
           <div class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
             <div class="ui sub header">
-              <span *ngIf="language == 'pl'">Dodatkowe informacje</span>
-              <span *ngIf="language != 'pl'">Additional information</span>
+              <span >Additional information</span>
               {{ postPayload?.postDescription }}
             </div>
 
@@ -46,9 +47,9 @@
               <i class="ui label">WWW</i>
             </a>
           </div>
-          <!-- -->
 
-          <!-- statystyki -->
+
+
           <div class="center aligned eight wide mobile eight wide tablet three wide computer column">
             <div class="ui green statistic">
               <div class="label">
@@ -86,10 +87,8 @@
               <div class="text value">{{ selectedMovie?.release_date }}</div>
             </div>
           </div>
-          <!-- -->
-        </div>
-      </div>
-    </div>
+
+
 
     <div class="sixteen wide column">
       <div class="ui large animated fluid button" tabindex="0" (click)="back()">
@@ -104,3 +103,67 @@
     </div>
   </div>
 </div>
+-->
+
+<div class="container" *ngIf="currentUser; else loggedOut">
+  <div class="col-md-12">
+    <div class="card card-container">
+      <div class="title">
+        <h3><strong>Post Details</strong></h3>
+      </div>
+      <div class="jumbotron">
+        <table style="width : 96%">
+          <tr>
+            <th style="width: 63%">
+              <table style="width: 96%">
+                <tr>
+                  <img
+                    id="profile-img"
+                    src="//picsum.photos/192"
+                    class="profile-img-card"
+                  />
+                </tr>
+                <tr>
+                  <h4>{{ postPayload?.postTitle }}</h4>
+                </tr>
+                <br>
+                <tr>
+                  <strong>Descrizione:</strong>
+                  {{ postPayload?.postDescription}}
+                </tr>
+                <tr>
+                  <strong>Location:</strong>
+                  {{ postPayload?.location}}
+                </tr>
+                <tr>
+                  <strong>Category:</strong>
+                  {{ postPayload?.postType}}
+                </tr>
+                <tr>
+                  <strong>Date of event:</strong>
+                  {{ postPayload?.postDate}}
+                </tr>
+                <tr>
+                  <strong>Owner:</strong>
+                  {{ postPayload?.ownerName}}
+                </tr>
+                <tr>
+                  <strong>Subscribers:</strong>
+                  {{ postPayload?.subscribers}}
+                </tr>
+              </table>
+            </th>
+          </tr>
+        </table>
+      </div>
+      <div class="center-obj">
+        <button class="btn btn-primary btn-block">
+          <a (click)="back()" class="btn btn-primary"> Back </a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loggedOut>
+  Please login.
+</ng-template>
