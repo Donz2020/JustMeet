@@ -9,7 +9,7 @@
   border: 2px solid black;
   position: absolute;
   left:40%;
-  top:0px;
+  top:0;
 }
 
 h1:hover{
@@ -155,7 +155,7 @@ img {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: capitalize;
-  margin: 0px;
+  margin: 0;
 }
 
 .card_text {
@@ -188,7 +188,7 @@ img {
 
 .card1{
 
-  margin: 0px auto;
+  margin: 0 auto;
   width: 300px;
   height: 300px;
   border-radius: 40px;
@@ -273,7 +273,7 @@ img {
 }
 
 .post_card:hover {
-  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+  box-shadow: 0 30px 18px -8px rgba(0, 0, 0,0.1);
   transform: scale(1.10, 1.10);
 }
 
