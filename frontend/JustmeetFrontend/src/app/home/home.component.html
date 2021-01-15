@@ -1,4 +1,5 @@
 <div class="postcard container" *ngIf="currentUser; else loggedOut">
+
   <div class="cards-list">
     <div class="card post_card" *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]" routerLinkActive="active">
 
@@ -12,12 +13,11 @@
           </div>
           <span class="card__by">by {{post.ownerName}}</span>
           <div class="post_category">{{post.postType}} Category</div>
-
         </div>
       </div>
-
     </div>
   </div>
+  <div class="fab"> + </div>
 </div>
 
 <ng-template #loggedOut>
