@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card card-container">
       <div class="title">
-        <h3><strong>My Profile</strong></h3>
+        <h3><strong>Profile</strong></h3>
       </div>
       <div class="jumbotron">
         <table style="width : 96%">
@@ -28,6 +28,15 @@
                   <strong>Account Type:</strong>
                   {{ userDetails.roles}}
                 </tr>
+                <br>
+                <tr>
+                  <strong>My Posts:</strong>
+                  <ul *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]" routerLinkActive="active">
+                    <li>
+                      <p style="text-decoration: underline">{{post.postTitle}}</p>
+                    </li>
+                  </ul>
+                </tr>
               </table>
             </th>
           </tr>
@@ -41,6 +50,6 @@
     </div>
   </div>
 </div>
-    <ng-template #loggedOut>
-      Please login.
-    </ng-template>
+<ng-template #loggedOut>
+  Please login.
+</ng-template>

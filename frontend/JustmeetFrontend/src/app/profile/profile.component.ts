@@ -3,6 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {UserService} from "../_services/user.service";
 import {profilePayload} from "../utils/profilePayloads/profilePayload";
+import {postService} from "../_services/post.service";
+import {postPayload} from "../utils/postPayloads/postPayload";
+
+
 
 @Component({
   selector: 'app-profile',
@@ -12,8 +16,12 @@ import {profilePayload} from "../utils/profilePayloads/profilePayload";
 export class ProfileComponent implements OnInit {
   currentUser: string;
   userDetails: profilePayload;
+  postPayload: Array<postPayload>;
+  noPosts: boolean= false;
 
-  constructor(private token: TokenStorageService, private userService: UserService) {
+
+
+  constructor(private token: TokenStorageService, private userService: UserService,private postService: postService) {
   }
 
   ngOnInit() {
@@ -36,6 +44,23 @@ export class ProfileComponent implements OnInit {
       //alert(isAdmin);  //todo
       //alert(isMod);
     });
+
+    this.getUserPosts();
+  }
+
+
+
+  getUserPosts(){
+    if (this.currentUser != ""){
+      this.postService.getMyPosts().subscribe(
+        (data: Array<postPayload>) => {
+          this.postPayload = data;
+        },
+        error => {
+          this.noPosts = true;
+        }
+      );
+    }
   }
 
 }

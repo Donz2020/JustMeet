@@ -22,4 +22,8 @@ export class postService {
   getPost(id): Observable<any> {
     return this.http.get(API_URL + 'getPost/' + id, {responseType: 'json'});
   }
+
+  getMyPosts(): Observable<any> {
+    return this.http.get(API_URL + 'getMyPosts' , {responseType: 'json'});
+  }
 }
