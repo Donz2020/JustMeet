@@ -9,7 +9,7 @@ import {postPayload} from "../utils/postPayloads/postPayload";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  currentUser: string;
+  currentUser: string = null;
   postPayload: Array<postPayload>;
   noPosts: boolean= false;
 
@@ -18,16 +18,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
-    this.getAllPosts();
+    if (this.currentUser != null){
+      this.getAllPosts();
+    }
   }
 
   getUser(){
-    this.currentUser = "";
     this.currentUser = this.token.getUser();
   }
 
   getAllPosts(){
-    if (this.currentUser != ""){
+    if (this.currentUser != null){
       this.postService.getPosts().subscribe(
         (data: Array<postPayload>) => {
           this.postPayload = data;
