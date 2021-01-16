@@ -1,42 +1,9 @@
-/*import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../_services/auth.service';
-
-@Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
-})
-export class RegisterComponent implements OnInit {
-  form: any = {};
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
-
-
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {}
-
-  onSubmit() {
-    this.authService.register(this.form).subscribe(
-      data => {
-        console.log(data);
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-        window.location.href = "/login";
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-      }
-    );
-  }
-}*/
-
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {FormControl, FormGroup} from "@angular/forms";
 import {idPayload} from "../utils/registerPayloads/identificatorPayload";
+import {TokenStorageService} from "../_services/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -49,11 +16,17 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
   formSignup : FormGroup;
   submitted : boolean = true;
+  currentUser: string = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private token: TokenStorageService, private authService: AuthService, public router: Router) {}
 
   ngOnInit() {
-    this.initForm();
+    this.currentUser = this.token.getUser();
+    if (this.currentUser == null){
+      this.initForm();}
+    else{
+      this.router.navigateByUrl('/home');
+    }
   }
 
   initForm(): void {
