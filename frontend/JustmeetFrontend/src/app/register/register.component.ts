@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   errorMessage = '';
   formSignup : FormGroup;
+  formSignupVRF : FormGroup;
   submitted : boolean = true;
   currentUser: string = null;
 
@@ -31,6 +32,12 @@ export class RegisterComponent implements OnInit {
 
   initForm(): void {
     this.submitted = false;
+    this.initSTDForm();
+    this.initVRFForm();
+  }
+
+  //Standard User Form
+  initSTDForm(){
     this.formSignup = new FormGroup({
       email: new FormControl(''),
       pass: new FormControl(''),
@@ -40,8 +47,18 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // BusinessUser Form
+  initVRFForm(){
+    this.formSignupVRF = new FormGroup({
+      VATNumber: new FormControl(''),
+      password: new FormControl(''),
+      VATname: new FormControl(''),
+    });
+  }
+
+  //Submit Standard User form
   onSubmit() {
-    this.submitted = true;
+    this.setSubmitted();
     if (this.formSignup.valid) {
       let idPayload : idPayload = {
         username: this.formSignup.get('email').value,
@@ -50,18 +67,59 @@ export class RegisterComponent implements OnInit {
       this.authService.register(idPayload).subscribe(
         (data : idPayload ) => {
           data = idPayload;
-          console.log(data);
-          this.isSignUpFailed = false;
-          this.isSuccessful = true;
-          window.location.href = "/login";
+          this.setSignupBool();
+          this.redirectLogin();
         },
         err => {
           this.errorMessage = err.error.message;
-          this.isSignUpFailed = true;
+          this.setSignupFail();
         }
       );
     };
   }
+
+  //Sumbit BusinessUser Form
+  onSubmitVRF(){
+    this.setSubmitted();
+    if (this.formSignupVRF.valid) {
+      let idPayloadVRF : idPayload = {
+        username: this.formSignupVRF.get('VATNumber').value,
+        password: this.formSignupVRF.get('password').value,
+      };
+      this.authService.registerBusiness(idPayloadVRF).subscribe(
+        (data : idPayload ) => {
+          data = idPayloadVRF;
+          this.setSignupBool();
+          this.redirectLogin();
+        },
+        err => {
+          this.errorMessage = err.error.message;
+          this.setSignupFail();
+        }
+      );
+    };
+  }
+
+  setSubmitted(){
+    this.submitted = true;
+  }
+
+  setSignupBool(){
+    this.isSignUpFailed = false;
+    this.isSuccessful = true;
+  }
+
+  setSignupFail(){
+    this.isSignUpFailed = true;
+  }
+
+  redirectLogin(){
+    window.location.href = "/login";
+  }
+
+
+//Gestione Eventi
+
   keyDownFunction(event){
     if (this.submitted){
       this.submitted = false;
@@ -75,7 +133,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  setSubmitted(){
-    this.submitted = true;
+  onTabChanged($event){
+    this.submitted = false;
+    this.isSignUpFailed = false;
+    this.isSuccessful = false;
   }
+
 }

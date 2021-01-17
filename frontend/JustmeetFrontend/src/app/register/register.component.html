@@ -1,5 +1,5 @@
 <div class="card card-custom" *ngIf="!currentUser">
-  <mat-tab-group disableRipple>
+  <mat-tab-group disableRipple (selectedTabChange)="onTabChanged($event);">
     <!------------------- User Signup ---------------------------->
     <mat-tab label="User">
       <br>
@@ -65,9 +65,48 @@
     </mat-tab>
     <!------------------- Business user Signup ---------------------------->
     <mat-tab label="Business User" class="tab-title">
-      <div class="example-large-box mat-elevation-z4">
-        Large content
-      </div>
+      <br>
+      <img id="profile-img " src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card"/>
+      <form [formGroup]="formSignupVRF" #ngSignupVRF="ngForm" (ngSubmit)="onSubmitVRF()"
+            (keydown.enter)=ngSignupVRF.onSubmit($event)
+            (keydown)="keyDownFunction($event)">
+        <div class="form-group" id="Business">
+          <label>VATNumber</label>
+          <input type="text" class="form-control" formControlName="VATNumber" required minlength="8">
+          <div class="alert alert-danger"
+               *ngIf="((formSignupVRF && ngSignupVRF.submitted && formSignupVRF.get('VATNumber').touched && formSignupVRF.get('VATNumber').errors))">
+            <div *ngIf="formSignupVRF.get('VATNumber').hasError('required'); else VATValid">
+              VATNumber is required
+            </div>
+            <ng-template #VATValid>VAT number must be a valid VAT number</ng-template>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" formControlName="password" required minlength="6">
+          <div class="alert alert-danger" *ngIf="(submitted && formSignupVRF.get('password').errors)">
+            <div *ngIf="formSignupVRF.get('password').hasError('required'); else VATpasslengthError">
+              Password is required
+            </div>
+            <ng-template #VATpasslengthError>Password must be at least 6 characters</ng-template>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" formControlName="VATname" required>
+          <div class="alert alert-danger" *ngIf="(submitted && formSignupVRF.get('VATname').errors)">
+            <div *ngIf="formSignupVRF.get('VATname').hasError('required')">
+              Name is required
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-warning" *ngIf="ngSignupVRF.submitted && isSignUpFailed">
+          Signup failed!<br/>{{ errorMessage }}
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">Sign Up</button>
+        </div>
+      </form>
     </mat-tab>
   </mat-tab-group>
   <div class="alert alert-success" *ngIf="isSuccessful">
