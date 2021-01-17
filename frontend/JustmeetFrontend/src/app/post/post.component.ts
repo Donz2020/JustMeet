@@ -39,8 +39,6 @@ export class PostComponent implements OnInit {
           this.getPostDetail(id);
         }
       });
-
-
   }
 
   getUser() {
