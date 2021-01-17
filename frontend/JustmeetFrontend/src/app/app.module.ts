@@ -23,9 +23,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { MatStepperModule } from '@angular/material/stepper';
-import {MatTabsModule} from "@angular/material/tabs";
-import { GoogleMapsModule } from "@angular/google-maps";
 
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -50,7 +49,6 @@ import { GoogleMapsModule } from "@angular/google-maps";
     HttpClientModule,
     ReactiveFormsModule,
     ModalModule,
-    GoogleMapsModule,
     MatTabsModule,
     FormlyModule.forRoot({
       validationMessages: [
