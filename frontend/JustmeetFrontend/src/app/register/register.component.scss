@@ -89,3 +89,21 @@ label {
   width: 60%;
   font-weight: bold;
 }
+
+/* mat-tab properties */
+
+@media only screen and(max-width: 1024px) {
+  .card{
+    min-width: 80%;
+  }
+}
+@media only screen and(max-width: 414px) {
+  .card{
+    min-width: 95%;
+  }
+}
+@media only screen and(max-width: 375px) {
+  .card{
+    min-width: 100%;
+  }
+}

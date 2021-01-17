@@ -1,5 +1,6 @@
 <div class="card card-custom" *ngIf="!currentUser">
-  <mat-tab-group dynamicHeight disableRipple>
+  <mat-tab-group disableRipple>
+    <!------------------- User Signup ---------------------------->
     <mat-tab label="User">
       <br>
       <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card"/>
@@ -7,7 +8,7 @@
             (keydown.enter)=ngSignup.onSubmit($event)
             (keydown)="keyDownFunction($event)">
         <div class="form-group" id="person">
-          <label for="email">Email</label>
+          <label>Email</label>
           <input type="email" class="form-control" formControlName="email" required email>
           <div class="alert alert-danger"
                *ngIf="((formSignup && ngSignup.submitted && formSignup.get('email').touched && formSignup.get('email').errors))">
@@ -18,7 +19,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label>Password</label>
           <input type="password" class="form-control" formControlName="pass" required minlength="6">
           <div class="alert alert-danger" *ngIf="(submitted && formSignup.get('pass').errors)">
             <div *ngIf="formSignup.get('pass').hasError('required'); else lengthError">
@@ -28,7 +29,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="name">Name</label>
+          <label>Name</label>
           <input type="text" class="form-control" formControlName="name" required>
           <div class="alert alert-danger" *ngIf="(submitted && formSignup.get('name').errors)">
             <div *ngIf="formSignup.get('name').hasError('required')">
@@ -37,7 +38,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="surname">Surname</label>
+          <label>Surname</label>
           <input type="text" class="form-control" formControlName="surname" required>
           <div class="alert alert-danger" *ngIf="(submitted && formSignup.get('surname').errors)">
             <div *ngIf="formSignup.get('surname').hasError('required')">
@@ -46,7 +47,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="birthDate">Birth date</label>
+          <label>Birth date</label>
           <input type="date" class="form-control" formControlName="birthDate" required>
           <div class="alert alert-danger" *ngIf="(submitted && formSignup.get('birthDate').errors)">
             <div *ngIf="formSignup.get('birthDate').hasError('required')">
@@ -62,6 +63,7 @@
         </div>
       </form>
     </mat-tab>
+    <!------------------- Business user Signup ---------------------------->
     <mat-tab label="Business User" class="tab-title">
       <div class="example-large-box mat-elevation-z4">
         Large content
