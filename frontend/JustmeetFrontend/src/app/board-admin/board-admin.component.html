@@ -38,8 +38,7 @@
                     (keydown.enter)=ngFormEmail.onSubmit($event)>
                 <div class="form-group" id="person">
                   <label>Set username to apply changes</label>
-                  <input type="email" class="form-control" formControlName="email" placeholder="user mail" required
-                         email>
+                  <input type="text" class="form-control" formControlName="email" placeholder="user mail" required>
                   <div class="alert alert-danger"
                        *ngIf="((formEmail && ngFormEmail.submitted && formEmail.get('email').touched && formEmail.get('email').errors))">
                     <div *ngIf="formEmail.get('email').hasError('required'); else emailValid">
