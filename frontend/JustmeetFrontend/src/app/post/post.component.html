@@ -133,6 +133,9 @@
                 <tr>
                   <strong>Location:</strong>
                   {{ postPayload?.location}}
+                  <agm-map [latitude]="latitude" [longitude]="longitude" [mapTypeId]='googleMapType'>
+                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                  </agm-map>
                 </tr>
                 <tr>
                   <strong>Category:</strong>

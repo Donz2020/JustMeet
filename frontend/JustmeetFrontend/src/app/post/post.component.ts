@@ -6,6 +6,8 @@ import {UserService} from "../_services/user.service";
 import {postService} from "../_services/post.service";
 import {postPayload} from "../utils/postPayloads/postPayload";
 import {Location} from '@angular/common';
+import { google } from '@google/maps';
+
 
 
 @Component({
@@ -19,6 +21,10 @@ export class PostComponent implements OnInit {
   postPayload: postPayload;
   currentUser: string;
   errorMessage: string;
+  latitude = 43.439445;
+  longitude = 13.65975;
+  googleMapType = 'hybrid';
+
 
 
   constructor(private token: TokenStorageService,
