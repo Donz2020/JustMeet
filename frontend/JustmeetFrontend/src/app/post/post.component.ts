@@ -63,9 +63,10 @@ export class PostComponent implements OnInit {
   subscribeToPost(id: number) {
     this.postService.subscribePost(id)
       .subscribe(
-        response => this.postPayload = response,
+        response => this.postPayload.id = response,
         error => this.errorMessage = <any>error);
   }
+
 
 
   back() {
