@@ -58,21 +58,34 @@ public class PostController {
 
         PostDescription postDescription = new PostDescription();
 
-        postDescription.setType(PostCategory.FUN);
+        postDescription.setType(PostCategory.SPORT);
 
         postDescription.setFree(true);
 
-        postDescription.setText("desc 1");
+        postDescription.setText("calcetto");
 
         postDescription.setId(sequenceGenerator.generateSequence(PostDescription.SEQUENCE_NAME));
 
-        post.setPostTitle("demo post");
+        post.setPostTitle("torneo");
 
         post.addSubscriber((IPhysicalUser) findUser("staffolo@staffolo.it"));
 
         postService.savePost(post, location, postDescription);
 
         return ResponseEntity.ok("fatto");
+    }
+
+    @PostMapping(path ="/subscribe/{postId}", produces = "application/json")
+    public ResponseEntity<?> getMyPosts(@PathVariable long postId) {
+        IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
+        IPhysicalUser physicalUser;
+
+        if(Utils.isPhysicalUser(user))
+            physicalUser = (IPhysicalUser) user;
+        else
+            return ResponseEntity.ok("utente non valido");
+
+        return postService.subscribePost(postId, physicalUser) ?  ResponseEntity.ok("ciao") : ResponseEntity.ok("male");
     }
 
     private PostResponse newPostResponse(Post post) {

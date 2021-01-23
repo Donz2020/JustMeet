@@ -10,11 +10,11 @@ import it.unicam.cs.ids.justmeet.backend.repository.LocationRepository;
 import it.unicam.cs.ids.justmeet.backend.repository.PostDescriptionRepository;
 import it.unicam.cs.ids.justmeet.backend.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -29,6 +29,16 @@ public class PostService {
 
     @Autowired
     PostDescriptionRepository postDescriptionRepository;
+
+    private boolean replacePost(Post post)  {
+        if(getPostById(post.getId()) != null) {
+            postRepository.deleteById(post.getId());
+            postRepository.save(post);
+            return true;
+        }
+
+        return false;
+    }
 
     @Transactional
     public void savePost(Post post, Location location, PostDescription postDescription) {
@@ -48,6 +58,12 @@ public class PostService {
         postRepository.save(post);
     }
 
+    public boolean subscribePost(long postId, IPhysicalUser physicalUser) {
+        Post post = getPostById(postId);
+        post.addSubscriber(physicalUser);
+        return replacePost(post);
+    }
+
     public Post getPostById(long id) {
         return postRepository.findById(id).get();
     }
@@ -56,20 +72,20 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    private List<Post> getPostsByPredicate(Object user, Function<Post, Boolean> p) {
-        return postRepository.findAll().stream().filter(x -> p.apply(x)).collect(Collectors.toList());
+    private List<Post> getPostsByPredicate(Function<Post, Boolean> p) {
+        return postRepository.findAll().stream().filter(p::apply).collect(Collectors.toList());
     }
 
     public List<Post> getSubscribedPosts(IPhysicalUser user) {
-        return getPostsByPredicate(user, (Post x) -> x.getSubscribers().contains(user));
+        return getPostsByPredicate(x -> x.getSubscribers().contains(user));
     }
 
     public List<Post> getMyPosts(IUser user) {
-        return getPostsByPredicate(user, (Post x) -> x.getOwner().equals(user));
+        return getPostsByPredicate(x -> x.getOwner().equals(user));
     }
 
     public List<Post> getPostsByCategory(PostCategory cat) {
-        return getPostsByPredicate(cat, (Post x) -> x.getDescription().getType().equals(cat));
+        return getPostsByPredicate(x -> x.getDescription().getType().equals(cat));
     }
 
 }
