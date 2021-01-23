@@ -40,9 +40,6 @@ export class ProfileComponent implements OnInit {
           isMod = true;
         }
       });
-
-      //alert(isAdmin);  //todo
-      //alert(isMod);
     });
 
     this.getUserPosts();

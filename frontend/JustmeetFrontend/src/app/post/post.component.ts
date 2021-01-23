@@ -6,7 +6,7 @@ import {UserService} from "../_services/user.service";
 import {postService} from "../_services/post.service";
 import {postPayload} from "../utils/postPayloads/postPayload";
 import {Location} from '@angular/common';
-import { google } from '@google/maps';
+
 
 
 
@@ -37,6 +37,7 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getUser();
     this.route.params.subscribe(
       params => {
@@ -61,6 +62,21 @@ export class PostComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+
+  getLocation(){
+   const loc =  this.postPayload.location;
+   alert(loc);
+  }
+
+
+  chunkArray(){
+    const array = this.postPayload.location;
+
+    const char = array.splice(Number(","),0);
+
+    alert(char);
+
   }
 
 
