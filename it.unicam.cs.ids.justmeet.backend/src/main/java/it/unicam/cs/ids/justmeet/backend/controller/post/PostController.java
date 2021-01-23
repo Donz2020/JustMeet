@@ -4,6 +4,8 @@ package it.unicam.cs.ids.justmeet.backend.controller.post;
 import it.unicam.cs.ids.justmeet.backend.model.PostDescription;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.PostCategory;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
+import it.unicam.cs.ids.justmeet.backend.payload.request.ActRequest;
+import it.unicam.cs.ids.justmeet.backend.payload.request.PostRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.PostResponse;
 import it.unicam.cs.ids.justmeet.backend.service.PostService;
 import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
@@ -18,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -39,44 +42,52 @@ public class PostController {
         return userService.getUserInstance(name);
     }
 
-    @PostMapping(path ="/demo")
-    public ResponseEntity<?> editUserStatus() {
-
+    @PostMapping(path ="/add", consumes = "application/json")
+    public ResponseEntity<?> add(@Valid @RequestBody PostRequest postRequest) {
         Post post = new Post();
-
-        post.setOwner(findUser("user@user.com"));
-
-        post.setPostDate(LocalDate.now());
-
-        post.setId(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME));
+        post.setOwner(findUser(Utils.getCurrentUser(SecurityContextHolder.getContext())));
+        post.setPostTitle(postRequest.getTitle());
 
         Location location = new Location();
-
-        location.setLatitude(111.2);
-        location.setLongitude(21121.4);
-        location.setId(sequenceGenerator.generateSequence(Location.SEQUENCE_NAME));
+        location.setLatitude(postRequest.getLatitude());
+        location.setLongitude(postRequest.getLongitude());
 
         PostDescription postDescription = new PostDescription();
+        postDescription.setType(postRequest.getDescriptionType());
+        postDescription.setFree(postRequest.isDescriptionFree());
+        postDescription.setText(postRequest.getDescriptionText());
 
-        postDescription.setType(PostCategory.SPORT);
-
-        postDescription.setFree(true);
-
-        postDescription.setText("calcetto");
-
-        postDescription.setId(sequenceGenerator.generateSequence(PostDescription.SEQUENCE_NAME));
-
-        post.setPostTitle("torneo");
-
-        post.addSubscriber((IPhysicalUser) findUser("staffolo@staffolo.it"));
+        post.setPostDate(postRequest.getDate());
 
         postService.savePost(post, location, postDescription);
 
         return ResponseEntity.ok("fatto");
     }
 
+    @PostMapping(path ="/delete/{postId}")
+    public ResponseEntity<?> delete(@PathVariable long postId) {
+        IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
+        if(postService.getPostById(postId).getOwner().equals(user))
+            postService.deletePost(postId);
+
+        return ResponseEntity.ok("fatto");
+    }
+
+    @PostMapping(path ="/delete/{postId}/subscriber")
+    public ResponseEntity<?> deleteSubscriber(@PathVariable long postId) {
+        IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
+        IPhysicalUser physicalUser;
+
+        if(Utils.isPhysicalUser(user))
+            physicalUser = (IPhysicalUser) user;
+        else
+            return ResponseEntity.ok("utente non valido");
+
+        return postService.unsubscribePost(postId, physicalUser) ? ResponseEntity.ok("fatto") : ResponseEntity.ok("male male");
+    }
+
     @PostMapping(path ="/subscribe/{postId}", produces = "application/json")
-    public ResponseEntity<?> getMyPosts(@PathVariable long postId) {
+    public ResponseEntity<?> addSubscriber(@PathVariable long postId) {
         IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));
         IPhysicalUser physicalUser;
 

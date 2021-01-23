@@ -94,5 +94,9 @@ public class Post {
         subscribers.add(physicalUser);
     }
 
+    public void removeSubscriber(IPhysicalUser physicalUser) {
+        subscribers.remove(physicalUser);
+    }
+
     public HashSet<IPhysicalUser> getSubscribers() {return subscribers; }
 }

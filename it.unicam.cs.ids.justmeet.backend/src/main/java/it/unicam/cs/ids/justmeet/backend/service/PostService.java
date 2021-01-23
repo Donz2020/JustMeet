@@ -30,9 +30,12 @@ public class PostService {
     @Autowired
     PostDescriptionRepository postDescriptionRepository;
 
+    @Autowired
+    SequenceGeneratorService sequenceGenerator;
+
     private boolean replacePost(Post post)  {
         if(getPostById(post.getId()) != null) {
-            postRepository.deleteById(post.getId());
+            deletePost(post.getId());
             postRepository.save(post);
             return true;
         }
@@ -40,8 +43,13 @@ public class PostService {
         return false;
     }
 
+    public void deletePost(long postId) {
+        postRepository.deleteById(postId);
+    }
+
     @Transactional
     public void savePost(Post post, Location location, PostDescription postDescription) {
+        postDescription.setId(sequenceGenerator.generateSequence(PostDescription.SEQUENCE_NAME));
         postDescriptionRepository.save(postDescription);
 
         post.setDescription(postDescriptionRepository.findById(postDescription.getId()).get());
@@ -51,8 +59,10 @@ public class PostService {
 
     @Transactional
     public void savePost(Post post, Location location) {
+        location.setId(sequenceGenerator.generateSequence(Location.SEQUENCE_NAME));
         locationRepository.save(location);
 
+        post.setId(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME));
         post.setPostLocation(locationRepository.findById(location.getId()).get());
 
         postRepository.save(post);
@@ -61,6 +71,12 @@ public class PostService {
     public boolean subscribePost(long postId, IPhysicalUser physicalUser) {
         Post post = getPostById(postId);
         post.addSubscriber(physicalUser);
+        return replacePost(post);
+    }
+
+    public boolean unsubscribePost(long postId, IPhysicalUser physicalUser) {
+        Post post = getPostById(postId);
+        post.removeSubscriber(physicalUser);
         return replacePost(post);
     }
 
