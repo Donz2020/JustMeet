@@ -133,9 +133,10 @@
                 <tr>
                   <strong>Location:</strong>
                   {{ postPayload?.location}}
-                  <agm-map [latitude]="latitude" [longitude]="longitude" [mapTypeId]='googleMapType'>
+                  <!--<agm-map [latitude]="latitude" [longitude]="longitude" [mapTypeId]='googleMapType'>
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                   </agm-map>
+                  -->
                 </tr>
                 <tr>
                   <strong>Category:</strong>
@@ -166,6 +167,11 @@
       <div class="center-obj">
         <button class="btn btn-primary btn-block">
           <a (click)="subscribeToPost(postPayload.id)" class="btn btn-primary"> Subscribe </a>
+        </button>
+      </div>
+      <div class="center-obj">
+        <button class="btn btn-primary btn-block">
+          <a (click)="deleteSubscribePost(postPayload.id)" class="btn btn-primary"> Remove me from subscribers </a>
         </button>
       </div>
     </div>

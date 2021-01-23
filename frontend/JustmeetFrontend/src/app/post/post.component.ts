@@ -65,9 +65,21 @@ export class PostComponent implements OnInit {
       .subscribe(
         response => this.postPayload.id = response,
         error => this.errorMessage = <any>error);
+    this.reloadPage();
+
   }
 
+  deleteSubscribePost(id: number) {
+    this.postService.deleteSubPost(id)
+      .subscribe(
+        response => this.postPayload.id = response,
+        error => this.errorMessage = <any>error);
+    this.reloadPage();
+  }
 
+  reloadPage() {
+    window.location.reload();
+  }
 
   back() {
     this.location.back();
