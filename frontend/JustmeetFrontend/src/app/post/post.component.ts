@@ -60,6 +60,14 @@ export class PostComponent implements OnInit {
         error => this.errorMessage = <any>error);
   }
 
+  subscribeToPost(id: number) {
+    this.postService.subscribePost(id)
+      .subscribe(
+        response => this.postPayload = response,
+        error => this.errorMessage = <any>error);
+  }
+
+
   back() {
     this.location.back();
   }
