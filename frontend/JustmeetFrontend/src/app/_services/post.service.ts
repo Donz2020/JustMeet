@@ -34,4 +34,8 @@ export class postService {
   deleteSubPost(id): Observable<any> {
     return this.http.post(API_URL + 'delete/' + id + '/subscriber' , {responseType: 'json'});
   }
+
+  deletePost(id): Observable<any> {
+    return this.http.post(API_URL + 'delete/' + id, {responseType: 'json'});
+  }
 }
