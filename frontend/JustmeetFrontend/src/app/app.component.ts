@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './_services/token-storage.service';
 import {UserService} from "./_services/user.service";
 import {profilePayload} from "./utils/profilePayloads/profilePayload";
-import { google } from '@google/maps';
+//import { google } from '@google/maps';
 
 
 @Component({

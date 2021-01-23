@@ -77,6 +77,10 @@ export class PostComponent implements OnInit {
 
     alert(char);
 
+
+
+
+
   }
 
 
