@@ -30,4 +30,8 @@ export class postService {
   subscribePost(id): Observable<any> {
     return this.http.post(API_URL + 'subscribe/' + id , {responseType: 'json'});
   }
+
+  deleteSubPost(id): Observable<any> {
+    return this.http.post(API_URL + 'delete/' + id + '/subscriber' , {responseType: 'json'});
+  }
 }
