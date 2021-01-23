@@ -52,8 +52,8 @@ public class PostController {
 
         Location location = new Location();
 
-        location.setLatitude(111);
-        location.setLongitude(21121);
+        location.setLatitude(111.2);
+        location.setLongitude(21121.4);
         location.setId(sequenceGenerator.generateSequence(Location.SEQUENCE_NAME));
 
         PostDescription postDescription = new PostDescription();

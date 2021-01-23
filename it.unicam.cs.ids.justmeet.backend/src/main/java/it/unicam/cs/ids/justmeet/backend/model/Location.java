@@ -16,9 +16,9 @@ public class Location {
     @Id
     private long id;
 
-    private float latitude;
+    private double latitude;
 
-    private float longitude;
+    private double longitude;
 
     @NotNull
     @NotBlank
@@ -32,15 +32,15 @@ public class Location {
         this.id = id;
     }
 
-    public float[] getCoordinates(){
-        return new float[]{latitude,longitude};
+    public double[] getCoordinates(){
+        return new double[]{latitude,longitude};
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

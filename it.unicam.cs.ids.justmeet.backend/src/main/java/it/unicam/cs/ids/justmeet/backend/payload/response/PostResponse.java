@@ -9,7 +9,7 @@ public class PostResponse {
     private long id;
     private String ownerName;
     private String postTitle;
-    private float[] location;
+    private double[] location;
     private LocalDate postDate;
     private String postDescription;
     private String postType;
@@ -39,11 +39,11 @@ public class PostResponse {
         this.postTitle = postTitle;
     }
 
-    public float[] getLocation() {
+    public double[] getLocation() {
         return location;
     }
 
-    public void setLocation(float[] location) {
+    public void setLocation(double[] location) {
         this.location = location;
     }
 
