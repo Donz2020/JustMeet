@@ -17,8 +17,66 @@
       </div>
     </div>
   </div>
-  <div class="fab"> + </div>
+  <button class="fab" (click)="openModal()"> + </button>
 </div>
+
+<!-- Modal for create New Post -->
+<jw-modal id="postModal">
+  <div class="form-group">
+    <form [formGroup]="newPostform" #ngPost="ngForm" (ngSubmit)="createPost()"
+          (keydown.enter) = ngPost.onSubmit($event)
+          (keydown)="keyDownFunction($event)">
+      <label>Create a new event</label>
+      <br> <br>
+      <label>Title</label>
+      <input type="text" class="form-control" formControlName="title" required>
+      <div class="alert alert-danger" *ngIf="(submitted && newPostform.get('title').errors)">
+        <div *ngIf="newPostform.get('title').hasError('required')">
+          Title is required
+        </div>
+      </div>
+      <label>Date</label>
+      <input type="date" class="form-control" formControlName="date" required>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('date').touched && newPostform.get('date').errors))">
+        <div *ngIf="newPostform.get('date').hasError('required')">
+          Date is required
+        </div>
+      </div>
+      <label>Latitude</label>
+      <input type="number" class="form-control" formControlName="latitude" required>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('latitude').touched && newPostform.get('latitude').errors))">
+        <div *ngIf="newPostform.get('latitude').hasError('required')">
+          Latitude is required
+        </div>
+      </div>
+      <label>Longitude</label>
+      <input type="number" class="form-control" formControlName="longitude" required>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('longitude').touched && newPostform.get('longitude').errors))">
+        <div *ngIf="newPostform.get('longitude').hasError('longitude')">
+          Longitude is required
+        </div>
+      </div>
+      <div>
+        <label for="free" style="text-align: right">Free Event
+          <input type="checkbox" class="form-control" id="free"  name="free" formControlName="free">
+        </label>
+      </div>
+      <label>Description</label>
+      <textarea class="form-control" formControlName="description" required rows="3"></textarea>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('description').touched && newPostform.get('description').errors))">
+        <div *ngIf="newPostform.get('description').hasError('description')">
+          Description is required
+        </div>
+      </div>
+      <br>
+      <input type="button" (click)="ngPost.onSubmit($event)" class="btn btn-primary" value="Create event">
+      <br><br>
+      <button class="btn btn-danger" (click)="closePassModal()">
+        Close
+      </button>
+    </form>
+  </div>
+</jw-modal>
 
 <ng-template #loggedOut>
   <div class="bg-image">

@@ -10,8 +10,7 @@ jw-modal {
         top: 50%;
         bottom: 0;
         left: 50%;
-        width: auto;
-        height: auto;
+        height: 80%;
         -webkit-transform: translate(-50%,-50%);
         -moz-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -31,6 +30,7 @@ jw-modal {
             /* margin exposes part of the modal background */
 
         }
+
     }
 
     .jw-modal-background {
@@ -54,3 +54,48 @@ body.jw-modal-open {
     /* body overflow is hidden to hide main scrollbar when modal window is open */
     overflow: hidden;
 }
+
+@media all and (max-width: 320px) {
+  .jw-modal{
+    min-width: 100%;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .jw-modal{
+    min-width: 98%;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .jw-modal{
+    min-width: 95%;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .jw-modal{
+    min-width: 90%;
+  }
+}
+
+@media all and (max-width: 700px) {
+  .jw-modal{
+    min-width: 80%;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .jw-modal{
+    min-width: 70%;
+  }
+}
+
+@media all and (min-width: 900px) {
+  .jw-modal{
+    min-width: 50%;
+  }
+}
+
+
+
