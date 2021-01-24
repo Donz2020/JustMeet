@@ -6,6 +6,7 @@ import it.unicam.cs.ids.justmeet.backend.model.enumeration.PostCategory;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.ActRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.PostRequest;
+import it.unicam.cs.ids.justmeet.backend.payload.request.UserRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.PostResponse;
 import it.unicam.cs.ids.justmeet.backend.service.PostService;
 import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
@@ -116,6 +117,13 @@ public class PostController {
     @GetMapping(path ="/getPost/{id}", produces = "application/json")
     public ResponseEntity<?> getPostById(@PathVariable long id) {
         return ResponseEntity.ok(newPostResponse(postService.getPostById(id)));
+    }
+
+    @GetMapping(path ="/getPost/{id}/owner", produces = "application/json")
+    public ResponseEntity<?> getPostOwnerById(@PathVariable long id) {
+        UserRequest userRequest = new UserRequest();
+        userRequest.setUsername(postService.getPostById(id).getOwner().getUsername());
+        return ResponseEntity.ok(userRequest);
     }
 
     @GetMapping(path ="/getPosts", produces = "application/json")
