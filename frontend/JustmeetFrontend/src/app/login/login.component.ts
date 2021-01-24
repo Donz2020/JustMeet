@@ -23,9 +23,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.router.navigateByUrl('/home');
-
     }
-
   }
 
   onSubmit() {

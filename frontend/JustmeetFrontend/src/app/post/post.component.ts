@@ -8,6 +8,7 @@ import {postPayload} from "../utils/postPayloads/postPayload";
 import {Location} from '@angular/common';
 import {profilePayload} from "../utils/profilePayloads/profilePayload";
 import {changeUserRolePayload} from "../utils/profilePayloads/changeUserRolePayload";
+import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
 
 
 @Component({
@@ -19,12 +20,13 @@ import {changeUserRolePayload} from "../utils/profilePayloads/changeUserRolePayl
 
 export class PostComponent implements OnInit {
   postPayload: postPayload;
+  userDetailsPayload: userDetailsPayload;
   currentUser: string;
   errorMessage: string;
   isOwner = false;
   userDetails: changeUserRolePayload;
-  id : number = null;
-  user : string
+  id: number = null;
+  user: string
 
 
   //latitude = 43.439445;
@@ -36,7 +38,8 @@ export class PostComponent implements OnInit {
               private route: ActivatedRoute,
               private postService: postService,
               private location: Location,
-              private userService: UserService
+              private userService: UserService,
+              public router: Router
   ) {
 
   }
@@ -48,12 +51,11 @@ export class PostComponent implements OnInit {
         this.id = params['id'];
         if (this.id != null) {
           this.getPostDetail(this.id);
-          this.checkOwner();
-
         }
       });
 
   }
+
 
   getUser() {
     this.currentUser = "";
@@ -76,6 +78,7 @@ export class PostComponent implements OnInit {
 
   }
 
+
   deleteSubscribePost(id: number) {
     this.postService.deleteSubPost(id)
       .subscribe(
@@ -84,12 +87,54 @@ export class PostComponent implements OnInit {
     this.reloadPage();
   }
 
+
+  checkOwnerPost(id: number) {
+    this.postService.getOwnerPost(id)
+      .subscribe(
+        response => this.postPayload.id = response,
+        error => this.errorMessage = <any>error);
+  }
+
+
+  getCurrentUser() {
+    this.userService.getUserDetails()
+      .subscribe(
+        response => this.userDetailsPayload.username = response,
+        error => this.errorMessage = <any>error);
+  }
+
+  checkOwner(id){
+    return this.checkOwnerPost(id) == this.getCurrentUser();
+
+  }
+
+  deleteMyPost(id) {
+    if (this.checkOwner(id)) {
+      this.postService.deletePost(id)
+        .subscribe(
+          response => this.postPayload.id = response,
+          error => this.errorMessage = <any>error);
+          this.isOwner = true;
+          window.location.href = "/home";
+
+    } else {
+      this.isOwner = false;
+    }
+  }
+
+
   reloadPage() {
     window.location.reload();
   }
 
+  back() {
+    this.location.back();
+  }
 
-  async checkOwner() : Promise<boolean> {
+}
+
+/*
+  checkOwner() {
     let allData : string;
     let Owner : string;
 
@@ -97,13 +142,13 @@ export class PostComponent implements OnInit {
 
     //todo filtrare response con ownername
 
-    let OwnerPost = await this.postService.getPost(this.id).subscribe((data : postPayload) => {
+    let OwnerPost = this.postService.getPost(this.id).subscribe((data : postPayload) => {
       Owner = JSON.stringify(data);
       //this.postPayload.ownerName = JSON.parse(Owner);
     });
 
 
-    let User = await this.userService.getUserDetails().subscribe((data: profilePayload) => {
+    let User = this.userService.getUserDetails().subscribe((data: profilePayload) => {
       allData = JSON.stringify(data);
       this.userDetails = JSON.parse(allData);
       this.userDetails.username;
@@ -112,27 +157,4 @@ export class PostComponent implements OnInit {
     return this.isOwner = OwnerPost == User;
 
   }
-
-
-  back() {
-    this.location.back();
-  }
-
-  getLocation() {
-    const loc = this.postPayload.location;
-    alert(loc);
-  }
-
-
-  chunkArray() {
-    const array = this.postPayload.location;
-
-    const char = array.splice(Number(","), 0);
-
-    alert(char);
-
-
-  }
-
-
-}
+*/

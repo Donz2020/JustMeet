@@ -38,4 +38,8 @@ export class postService {
   deletePost(id): Observable<any> {
     return this.http.post(API_URL + 'delete/' + id, {responseType: 'json'});
   }
+
+  getOwnerPost(id): Observable<any> {
+    return this.http.get(API_URL + 'getPost/' + id + '/owner',{responseType: 'json'});
+  }
 }
