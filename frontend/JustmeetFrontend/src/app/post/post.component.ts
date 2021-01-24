@@ -24,7 +24,6 @@ export class PostComponent implements OnInit {
   currentUser: string;
   errorMessage: string;
   isOwner = false;
-  userDetails: changeUserRolePayload;
   id: number = null;
   user: string
 
@@ -46,6 +45,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+    this.getCurrentUser();
     this.route.params.subscribe(
       params => {
         this.id = params['id'];
@@ -70,53 +70,45 @@ export class PostComponent implements OnInit {
   }
 
   subscribeToPost(id: number) {
-    this.postService.subscribePost(id)
-      .subscribe(
-        response => this.postPayload.id = response,
-        error => this.errorMessage = <any>error);
+    this.postService.subscribePost(id).subscribe();
     this.reloadPage();
 
   }
 
 
   deleteSubscribePost(id: number) {
-    this.postService.deleteSubPost(id)
-      .subscribe(
-        response => this.postPayload.id = response,
-        error => this.errorMessage = <any>error);
+    this.postService.deleteSubPost(id).subscribe();
     this.reloadPage();
   }
 
-
-  checkOwnerPost(id: number) {
-    this.postService.getOwnerPost(id)
-      .subscribe(
-        response => this.postPayload.id = response,
-        error => this.errorMessage = <any>error);
-  }
-
-
   getCurrentUser() {
-    this.userService.getUserDetails()
-      .subscribe(
-        response => this.userDetailsPayload.username = response,
-        error => this.errorMessage = <any>error);
+    let allData : string;
+    this.userService.getUserDetails().subscribe((data: profilePayload) => {
+      allData = JSON.stringify(data);
+      this.userDetailsPayload = JSON.parse(allData);
+    });
+
   }
 
-  checkOwner(id){
-    return this.checkOwnerPost(id) == this.getCurrentUser();
+  checkOwner(){
+    return this.postPayload.ownerName == this.userDetailsPayload.username;
+  }
 
+  checkSub(): boolean{
+    let retValue = false;
+    this.postPayload.subscribers.forEach(value =>{
+      if (value == this.userDetailsPayload.username){
+        retValue = true;
+      }
+    });
+    return retValue;
   }
 
   deleteMyPost(id) {
-    if (this.checkOwner(id)) {
-      this.postService.deletePost(id)
-        .subscribe(
-          response => this.postPayload.id = response,
-          error => this.errorMessage = <any>error);
+    if (this.checkOwner()) {
+      this.postService.deletePost(id).subscribe();
           this.isOwner = true;
           window.location.href = "/home";
-
     } else {
       this.isOwner = false;
     }
@@ -124,7 +116,7 @@ export class PostComponent implements OnInit {
 
 
   reloadPage() {
-    window.location.reload();
+    setTimeout(function(){location.reload()}, 500);
   }
 
   back() {
@@ -132,29 +124,3 @@ export class PostComponent implements OnInit {
   }
 
 }
-
-/*
-  checkOwner() {
-    let allData : string;
-    let Owner : string;
-
-    //this.currentUser = this.token.getUser();
-
-    //todo filtrare response con ownername
-
-    let OwnerPost = this.postService.getPost(this.id).subscribe((data : postPayload) => {
-      Owner = JSON.stringify(data);
-      //this.postPayload.ownerName = JSON.parse(Owner);
-    });
-
-
-    let User = this.userService.getUserDetails().subscribe((data: profilePayload) => {
-      allData = JSON.stringify(data);
-      this.userDetails = JSON.parse(allData);
-      this.userDetails.username;
-    });
-
-    return this.isOwner = OwnerPost == User;
-
-  }
-*/
