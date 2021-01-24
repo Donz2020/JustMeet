@@ -10,37 +10,27 @@
             <th style="width: 63%">
               <table style="width: 96%">
                 <tr>
-                  <img
-                    id="profile-img"
-                    src="//picsum.photos/192"
-                    class="profile-img-card"
-                  />
-
+                  <img id="profile-img" src="//picsum.photos/192" class="profile-img-card"/>
                 </tr>
                 <tr>
                   <strong>{{ userDetails.details }}</strong>
                 </tr>
                 <br>
                 <tr>
-                  <strong>Username:</strong>
-                  {{ userDetails.username }}
+                  <strong>Username:</strong> {{ userDetails.username }}
                 </tr>
                 <tr>
-                  <strong>Account Type:</strong>
-                  {{ userDetails.roles}}
+                  <strong>Account Type:</strong> {{ userDetails.roles}}
                 </tr>
                 <tr>
                   <strong>Change User Password:</strong>
                 </tr>
               </table>
-
-              <form [formGroup]="formEmail" #ngFormEmail="ngForm"
-                    (keydown.enter)=ngFormEmail.onSubmit($event)>
+              <form [formGroup]="formEmail" #ngFormEmail="ngForm" (keydown.enter)=ngFormEmail.onSubmit($event)>
                 <div class="form-group" id="person">
                   <label>Set username to apply changes</label>
                   <input type="text" class="form-control" formControlName="email" placeholder="user mail" required>
-                  <div class="alert alert-danger"
-                       *ngIf="((formEmail && ngFormEmail.submitted && formEmail.get('email').touched && formEmail.get('email').errors))">
+                  <div class="alert alert-danger" *ngIf="((formEmail && ngFormEmail.submitted && formEmail.get('email').touched && formEmail.get('email').errors))">
                     <div *ngIf="formEmail.get('email').hasError('required'); else emailValid">
                       Email is required
                     </div>
@@ -48,7 +38,6 @@
                   </div>
                 </div>
               </form>
-
               <form [formGroup]="formPass" #ngFormPass="ngForm"
                     (keydown.enter)=ngFormPass.onSubmit($event)>
                 <div class="form-group">
@@ -66,7 +55,6 @@
                   <button class="btn btn-primary btn-block" (click)="changeUserPass()">Change User Password</button>
                 </div>
               </form>
-
               <form [formGroup]="formRole" #ngFormRole="ngForm"
                     (keydown.enter)=ngFormRole.onSubmit($event)>
                 <div class="form-group">
@@ -75,9 +63,7 @@
                     <option value="MOD" class="form-control" formControlName="roles">Moderator</option>
                     <option value="ADMIN" class="form-control" formControlName="roles">Admin</option>
                     <option value="STD" class="form-control" formControlName="roles">Standard</option>
-
                   </select>
-
                   <div class="alert alert-danger" *ngIf="(ngFormRole.submitted && formRole.get('roles').errors)">
                     <div *ngIf="formRole.get('roles').hasError('required'); else lengthError">
                       Role is required
@@ -89,17 +75,14 @@
                   <button class="btn btn-primary btn-block" (click)="changeUserRole()">Change User Role</button>
                 </div>
               </form>
-
               <form [formGroup]="formActive" #ngFormActive="ngForm"
                     (keydown.enter)=ngFormActive.onSubmit($event)>
                 <div class="form-group">
                   <label>Deactivate / Deactivate user</label>
-
                   <select name="active" id="active" class="form-control" formControlName="active">
                     <option value="true" class="form-control" formControlName="active">Activate</option>
                     <option value="false" class="form-control" formControlName="active">Deactivate</option>
                   </select>
-
                   <div class="alert alert-danger" *ngIf="(ngFormActive.submitted && formActive.get('roles').errors)">
                     <div *ngIf="formActive.get('active').hasError('required'); else lengthError">
                       active is required
@@ -111,7 +94,6 @@
                   <button class="btn btn-primary btn-block" (click)="changeUserActive()">Change User Status</button>
                 </div>
               </form>
-
               <br>
               <div>
                 <div class="form-group">
@@ -121,11 +103,6 @@
                   Delete account
                 </button>
               </div>
-
-
-
-
-
             </th>
           </tr>
         </table>
