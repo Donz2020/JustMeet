@@ -4,6 +4,7 @@ import {TokenStorageService} from "../_services/token-storage.service";
 import {postPayload} from "../utils/postPayloads/postPayload";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ModalService} from "../_modal";
+import {newPostPaylod} from "../utils/postPayloads/newPostPaylod";
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   noPosts: boolean= false;
   newPostform : FormGroup;
   submitted : boolean = false;
+  errorMessage: string;
 
   constructor(private token: TokenStorageService,
               private postService: postService,
@@ -23,11 +25,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resetSubmitted();
     this.initPostForm();
     this.getUser();
     if (this.currentUser != null){
       this.getAllPosts();
     }
+  }
+
+  setSubmitted(){
+    this.submitted = true;
+  }
+
+  resetSubmitted(){
+    this.submitted = false;
   }
 
   getUser(){
@@ -47,31 +58,50 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  openModal(){
-    this.initPostForm();
-    this.modalService.open('postModal');
-  }
-
   initPostForm(){
     this.newPostform = new FormGroup({
       title: new FormControl(''),
       date: new FormControl(''),
       latitude: new FormControl(''),
       longitude: new FormControl(''),
+      type: new FormControl(''),
       free: new FormControl(true),
       description: new FormControl(''),
     });
   }
 
   // Modal Methods
-  createPost(){
+  openModal(){
+    this.initPostForm();
+    this.modalService.open('postModal');
+  }
 
+  closeModal() {
+    this.modalService.close("postModal");
+  }
+
+  createPost(){
+    this.setSubmitted();
+    if (this.newPostform.valid){
+      let newPostPayloadData : newPostPaylod = {
+        title: this.newPostform.get('title').value,
+        date: this.newPostform.get('date').value,
+        latitude: this.newPostform.get('latitude').value,
+        longitude: this.newPostform.get('longitude').value,
+        descriptionType: this.newPostform.get('type').value,
+        descriptionFree: this.newPostform.get('free').value,
+        descriptionText: this.newPostform.get('description').value,
+      }
+      this.postService.createPost(newPostPayloadData).subscribe();
+      this.closeModal();
+      window.location.href = "/home";
+    }
   }
 
   keyDownFunction(event){
-    this.submitted = false;
+    this.resetSubmitted();
     if (event.keyCode === 13) {
-      this.submitted = true;
+      this.setSubmitted();
       this.newPostform.validator;
       if (this.newPostform.validator) {
         this.createPost();
