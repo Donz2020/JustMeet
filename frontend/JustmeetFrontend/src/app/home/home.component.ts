@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   noPosts: boolean= false;
   newPostform : FormGroup;
   submitted : boolean = false;
-  errorMessage: string;
 
   constructor(private token: TokenStorageService,
               private postService: postService,

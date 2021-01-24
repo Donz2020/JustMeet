@@ -19,8 +19,6 @@ export class ProfileComponent implements OnInit {
   postPayload: Array<postPayload>;
   noPosts: boolean= false;
 
-
-
   constructor(private token: TokenStorageService, private userService: UserService,private postService: postService) {
   }
 
@@ -44,8 +42,6 @@ export class ProfileComponent implements OnInit {
 
     this.getUserPosts();
   }
-
-
 
   getUserPosts(){
     if (this.currentUser != ""){

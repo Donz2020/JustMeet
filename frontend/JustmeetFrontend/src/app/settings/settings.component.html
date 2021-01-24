@@ -10,31 +10,22 @@
             <th style="width: 63%">
               <table style="width: 96%">
                 <tr>
-                  <img
-                    id="profile-img"
-                    src="//picsum.photos/192"
-                    class="profile-img-card"
-                  />
+                  <img id="profile-img" src="//picsum.photos/192" class="profile-img-card"/>
                 </tr>
                 <tr>
-                  <strong>Name:</strong>
-                  {{ userDetails.name }}
+                  <strong>Name:</strong>{{ userDetails.name }}
                 </tr>
                 <tr>
-                  <strong>Username:</strong>
-                  {{ userDetails.username }}
+                  <strong>Username:</strong>{{ userDetails.username }}
                 </tr>
                 <tr>
-                  <strong>Account Type:</strong>
-                  {{ userDetails.roles}}
+                  <strong>Account Type:</strong>{{ userDetails.roles}}
                 </tr>
                 <tr>
                   <strong>Set New Password:</strong>
                 </tr>
                 <input type="submit" class="btn btn-primary" value="Change Password" (click)="openPassModal()">
-
-                <br>
-                <br>
+                <br><br>
                 <div>
                   <button class="btn btn-danger" (click)="deleteAccount()">
                     Delete account
