@@ -1,9 +1,12 @@
 
 export interface locationResponsePayload {
-  geometry: {
-    "location": {
-      "lat": number,
-      "lng": number
+
+  results: {
+    geometry: {
+      "location": {
+        "lat": number,
+        "lng": number
+      }
     }
   }
 }

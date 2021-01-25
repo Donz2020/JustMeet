@@ -9,8 +9,10 @@ const MAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const MAPS_GEO = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
 const httpOptionsGeo = {headers: new HttpHeaders({
-    'Access-Control-Allow-Origin': 'https://maps.googleapis.com',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers' : 'Special-Request-Header'
+
 })};
 
 

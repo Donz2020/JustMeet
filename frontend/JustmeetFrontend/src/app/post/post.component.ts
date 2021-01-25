@@ -111,6 +111,7 @@ export class PostComponent implements OnInit {
       this.isOwner = false;
     }
   }
+
 /*
   getLocationString(lat,long){
     let allData : string;

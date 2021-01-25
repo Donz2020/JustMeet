@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   noPosts: boolean= false;
   newPostform : FormGroup;
   submitted : boolean = false;
-  responseLocation : locationResponsePayload["geometry"];
+  responseLocation : locationResponsePayload["results"];
 
   constructor(private token: TokenStorageService,
               private postService: postService,
@@ -100,8 +100,8 @@ export class HomeComponent implements OnInit {
       let newPostPayloadData : newPostPaylod = {
         title: this.newPostform.get('title').value,
         date: this.newPostform.get('date').value,
-        latitude: this.responseLocation.location.lat,
-        longitude: this.responseLocation.location.lng,
+        latitude: this.responseLocation.geometry.location.lat,
+        longitude: this.responseLocation.geometry.location.lng,
         descriptionType: this.newPostform.get('type').value,
         descriptionFree: this.newPostform.get('free').value,
         descriptionText: this.newPostform.get('description').value,
