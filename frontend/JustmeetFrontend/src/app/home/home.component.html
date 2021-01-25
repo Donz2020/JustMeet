@@ -42,18 +42,25 @@
           Date is required
         </div>
       </div>
-      <label>Latitude</label>
-      <input type="number" class="form-control" formControlName="latitude" required>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('latitude').errors))">
-        <div *ngIf="newPostform.get('latitude').hasError('required')">
-          Latitude is required
+      <label>Civic</label>
+      <input type="number" class="form-control" formControlName="civic" required>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('civic').errors))">
+        <div *ngIf="newPostform.get('civic').hasError('required')">
+          Civic is required
         </div>
       </div>
-      <label>Longitude</label>
-      <input type="number" class="form-control" formControlName="longitude" required>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted  && newPostform.get('longitude').errors))">
-        <div *ngIf="newPostform.get('longitude').hasError('longitude')">
-          Longitude is required
+      <label>Street</label>
+      <input type="text" class="form-control" formControlName="street" required>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted  && newPostform.get('street').errors))">
+        <div *ngIf="newPostform.get('street').hasError('required')">
+          Street is required
+        </div>
+      </div>
+      <label>City</label>
+      <input type="text" class="form-control" formControlName="city" required>
+      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted  && newPostform.get('city').errors))">
+        <div *ngIf="newPostform.get('city').hasError('required')">
+          City is required
         </div>
       </div>
       <label> Category: </label>

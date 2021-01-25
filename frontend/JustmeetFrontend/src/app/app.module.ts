@@ -25,7 +25,7 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { MatStepperModule } from '@angular/material/stepper';
 
 import {MatTabsModule} from "@angular/material/tabs";
-//import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -52,9 +52,9 @@ import {MatTabsModule} from "@angular/material/tabs";
     ReactiveFormsModule,
     ModalModule,
     MatTabsModule,
-    /*AgmCoreModule.forRoot({
+    AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCKmNrNcklAL5GKNzQP6CnnohGkeCPk1sc'
-    }),*/
+    }),
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },

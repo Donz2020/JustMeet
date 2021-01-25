@@ -5,6 +5,8 @@ import {postPayload} from "../utils/postPayloads/postPayload";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ModalService} from "../_modal";
 import {newPostPaylod} from "../utils/postPayloads/newPostPaylod";
+import {locationResponsePayload} from "../utils/postPayloads/locationResponsePayload";
+import {profilePayload} from "../utils/profilePayloads/profilePayload";
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ export class HomeComponent implements OnInit {
   noPosts: boolean= false;
   newPostform : FormGroup;
   submitted : boolean = false;
+  responseLocation : locationResponsePayload["geometry"];
 
   constructor(private token: TokenStorageService,
               private postService: postService,
@@ -61,8 +64,9 @@ export class HomeComponent implements OnInit {
     this.newPostform = new FormGroup({
       title: new FormControl(''),
       date: new FormControl(''),
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
+      civic: new FormControl(''),
+      street: new FormControl(''),
+      city: new FormControl(''),
       type: new FormControl(''),
       free: new FormControl(true),
       description: new FormControl(''),
@@ -80,17 +84,29 @@ export class HomeComponent implements OnInit {
   }
 
   createPost(){
+    let allData;
+
     this.setSubmitted();
+    this.postService.getLocationGeo(
+      this.newPostform.get('civic').value,
+      this.newPostform.get('street').value,
+      this.newPostform.get('city').value
+      ).subscribe((data: locationResponsePayload) => {
+      allData = JSON.stringify(data);
+      this.responseLocation = JSON.parse(allData);
+    });
+
     if (this.newPostform.valid){
       let newPostPayloadData : newPostPaylod = {
         title: this.newPostform.get('title').value,
         date: this.newPostform.get('date').value,
-        latitude: this.newPostform.get('latitude').value,
-        longitude: this.newPostform.get('longitude').value,
+        latitude: this.responseLocation.location.lat,
+        longitude: this.responseLocation.location.lng,
         descriptionType: this.newPostform.get('type').value,
         descriptionFree: this.newPostform.get('free').value,
         descriptionText: this.newPostform.get('description').value,
       }
+
       this.postService.createPost(newPostPayloadData).subscribe();
       this.closeModal();
       window.location.href = "/home";

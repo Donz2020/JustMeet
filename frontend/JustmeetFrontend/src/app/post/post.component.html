@@ -20,7 +20,11 @@
                   <strong>Descrizione:</strong>{{ postPayload?.postDescription}}
                 </tr>
                 <tr>
-                  <strong>Location:</strong>{{ postPayload?.location}}
+                  <strong>Location:</strong>
+                  <agm-map [latitude]="postPayload?.location[0]" [longitude]="postPayload?.location[1]">
+                    <agm-marker [latitude]="postPayload?.location[0]" [longitude]="postPayload?.location[1]"></agm-marker>
+                  </agm-map>
+                  <!--<strong>{{getLocationString(postPayload.location[0],postPayload.location[1])}}</strong>-->
                 </tr>
                 <tr>
                   <strong>Category:</strong>{{ postPayload?.postType}}

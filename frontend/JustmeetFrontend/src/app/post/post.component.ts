@@ -9,6 +9,7 @@ import {Location} from '@angular/common';
 import {profilePayload} from "../utils/profilePayloads/profilePayload";
 import {changeUserRolePayload} from "../utils/profilePayloads/changeUserRolePayload";
 import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
+import {locationPayload} from "../utils/postPayloads/locationPayload";
 
 
 @Component({
@@ -21,16 +22,13 @@ import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
 export class PostComponent implements OnInit {
   postPayload: postPayload;
   userDetailsPayload: userDetailsPayload;
+  locationPayload : locationPayload;
   currentUser: string;
   errorMessage: string;
   isOwner = false;
   id: number = null;
   user: string
 
-
-  //latitude = 43.439445;
-  //longitude = 13.65975;
-  //googleMapType = 'hybrid';
 
   constructor(private token: TokenStorageService,
               private logoutComponent: AppComponent,
@@ -53,7 +51,7 @@ export class PostComponent implements OnInit {
           this.getPostDetail(this.id);
         }
       });
-
+    //this.getLocationString(this.postPayload.location[0],this.postPayload.location[1]);
   }
 
 
@@ -113,7 +111,18 @@ export class PostComponent implements OnInit {
       this.isOwner = false;
     }
   }
+/*
+  getLocationString(lat,long){
+    let allData : string;
+    this.postService.getLocationDetails(lat,long).subscribe((data: profilePayload) => {
+      allData = JSON.stringify(data);
+      this.locationPayload.formatted_address = JSON.parse(allData);
+      //this.locationPayload.formatted_address
+      //alert(this.locationPayload.formatted_address);
 
+  });
+  }
+*/
 
   reloadPage() {
     setTimeout(function(){location.reload()}, 500);
