@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   noPosts: boolean= false;
   newPostform : FormGroup;
   submitted : boolean = false;
-  responseLocation : locationResponsePayload["results"];
+  responseLocation : locationResponsePayload;
 
   constructor(private token: TokenStorageService,
               private postService: postService,
@@ -84,32 +84,30 @@ export class HomeComponent implements OnInit {
   }
 
   createPost(){
-    let allData;
-
     this.setSubmitted();
-    this.postService.getLocationGeo(
-      this.newPostform.get('civic').value,
-      this.newPostform.get('street').value,
-      this.newPostform.get('city').value
-      ).subscribe((data: locationResponsePayload) => {
-      allData = JSON.stringify(data);
-      this.responseLocation = JSON.parse(allData);
-    });
-
     if (this.newPostform.valid){
-      let newPostPayloadData : newPostPaylod = {
-        title: this.newPostform.get('title').value,
-        date: this.newPostform.get('date').value,
-        latitude: this.responseLocation.geometry.location.lat,
-        longitude: this.responseLocation.geometry.location.lng,
-        descriptionType: this.newPostform.get('type').value,
-        descriptionFree: this.newPostform.get('free').value,
-        descriptionText: this.newPostform.get('description').value,
-      }
-
-      this.postService.createPost(newPostPayloadData).subscribe();
-      this.closeModal();
-      window.location.href = "/home";
+      let allData;
+      this.postService.getLocationGeo(
+        this.newPostform.get('civic').value,
+        this.newPostform.get('street').value,
+        this.newPostform.get('city').value).subscribe((data) => {
+        allData = JSON.stringify(data);
+        this.responseLocation= JSON.parse(allData);
+        let lat : any = this.responseLocation.results[0].geometry.location.lat;
+        let lng : any = this.responseLocation.results[0].geometry.location.lng;
+        let newPostPayloadData : newPostPaylod = {
+          title: this.newPostform.get('title').value,
+          date: this.newPostform.get('date').value,
+          latitude:  <number> lat,
+          longitude: <number> lng,
+          descriptionType: this.newPostform.get('type').value,
+          descriptionFree: this.newPostform.get('free').value,
+          descriptionText: this.newPostform.get('description').value,
+        }
+        this.postService.createPost(newPostPayloadData).subscribe();
+        this.closeModal();
+        window.location.href = "/home";
+      });
     }
   }
 
