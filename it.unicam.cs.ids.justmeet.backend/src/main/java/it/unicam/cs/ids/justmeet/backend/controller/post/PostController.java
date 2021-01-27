@@ -7,6 +7,7 @@ import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.ActRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.PostRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.UserRequest;
+import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.PostResponse;
 import it.unicam.cs.ids.justmeet.backend.service.PostService;
 import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
@@ -82,9 +83,10 @@ public class PostController {
         if(Utils.isPhysicalUser(user))
             physicalUser = (IPhysicalUser) user;
         else
-            return ResponseEntity.ok("utente non valido");
+            return ResponseEntity.ok(new MessageResponse("No physical user"));
 
-        return postService.unsubscribePost(postId, physicalUser) ? ResponseEntity.ok("fatto") : ResponseEntity.ok("male male");
+        return postService.unsubscribePost(postId, physicalUser) ?
+                ResponseEntity.ok(new MessageResponse("Deleted")) : ResponseEntity.ok(new MessageResponse("Error"));
     }
 
     @PostMapping(path ="/subscribe/{postId}", produces = "application/json")
@@ -95,9 +97,10 @@ public class PostController {
         if(Utils.isPhysicalUser(user))
             physicalUser = (IPhysicalUser) user;
         else
-            return ResponseEntity.ok("utente non valido");
+            return ResponseEntity.ok(new MessageResponse("No physical user"));
 
-        return postService.subscribePost(postId, physicalUser) ?  ResponseEntity.ok("ciao") : ResponseEntity.ok("male");
+        return postService.subscribePost(postId, physicalUser) ?
+                ResponseEntity.ok(new MessageResponse("Deleted")) : ResponseEntity.ok(new MessageResponse("Error"));
     }
 
     private PostResponse newPostResponse(Post post) {
@@ -117,13 +120,6 @@ public class PostController {
     @GetMapping(path ="/getPost/{id}", produces = "application/json")
     public ResponseEntity<?> getPostById(@PathVariable long id) {
         return ResponseEntity.ok(newPostResponse(postService.getPostById(id)));
-    }
-
-    @GetMapping(path ="/getPost/{id}/owner", produces = "application/json")
-    public ResponseEntity<?> getPostOwnerById(@PathVariable long id) {
-        UserRequest userRequest = new UserRequest();
-        userRequest.setUsername(postService.getPostById(id).getOwner().getUsername());
-        return ResponseEntity.ok(userRequest);
     }
 
     @GetMapping(path ="/getPosts", produces = "application/json")
