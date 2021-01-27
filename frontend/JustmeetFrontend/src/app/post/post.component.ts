@@ -7,9 +7,8 @@ import {postService} from "../_services/post.service";
 import {postPayload} from "../utils/postPayloads/postPayload";
 import {Location} from '@angular/common';
 import {profilePayload} from "../utils/profilePayloads/profilePayload";
-import {changeUserRolePayload} from "../utils/profilePayloads/changeUserRolePayload";
 import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
-import {locationPayload} from "../utils/postPayloads/locationPayload";
+
 
 
 @Component({
@@ -22,7 +21,6 @@ import {locationPayload} from "../utils/postPayloads/locationPayload";
 export class PostComponent implements OnInit {
   postPayload: postPayload;
   userDetailsPayload: userDetailsPayload;
-  locationPayload : locationPayload;
   currentUser: string;
   errorMessage: string;
   isOwner = false;
