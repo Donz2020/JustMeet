@@ -2,8 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {headerGenerator} from "../utils/headerGenerator";
+import {pathManager} from "../utils/pathManager";
 
-const API_URL = 'http://localhost:8080/api/post/';
+const BACKEND_URL = new pathManager().getUrl();
+
+const API_URL = BACKEND_URL+'/api/post/';
 
 const MAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const MAPS_GEO = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
@@ -36,11 +39,11 @@ export class postService {
   }
 
   subscribePost(id): Observable<any> {
-    return this.http.post(API_URL + 'subscribe/' + id , httpOptions);
+    return this.http.post(API_URL + 'subscribe/' + id ,null, httpOptions);
   }
 
   deleteSubPost(id): Observable<any> {
-    return this.http.post(API_URL + 'delete/' + id + '/subscriber' , httpOptions);
+    return this.http.post(API_URL + 'delete/' + id + '/subscriber' ,null, httpOptions);
   }
 
   createPost(post): Observable<any>{
@@ -57,7 +60,7 @@ export class postService {
   }
 
   deletePost(id): Observable<any> {
-    return this.http.post(API_URL + 'delete/' + id, httpOptions);
+    return this.http.post(API_URL + 'delete/' + id,null, httpOptions);
   }
 
   getLocationDetails(lat,long):  Observable<any> {

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import {headerGenerator} from "../utils/headerGenerator";
+import {pathManager} from "../utils/pathManager";
 
 
-const API_URL = 'http://localhost:8080/api/admin/';
+const BACKEND_URL = new pathManager().getUrl();
+
+const API_URL = BACKEND_URL+'/api/admin/';
 
 const httpOptions = new headerGenerator().getHeader();
 

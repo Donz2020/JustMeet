@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {headerGenerator} from "../utils/headerGenerator";
+import {pathManager} from "../utils/pathManager";
 
-const API_URL = 'http://localhost:8080/api/usr/';
+
+const BACKEND_URL = new pathManager().getUrl();
+
+const API_URL = BACKEND_URL+'/api/usr/';
 
 const httpOptions = new headerGenerator().getHeader();
 
@@ -27,11 +31,11 @@ export class UserService {
 */
 
   setUserPass(pass): Observable<any> {
-    return this.http.patch(API_URL + 'setPass/' + pass,httpOptions);
+    return this.http.patch(API_URL + 'setPass/' + pass,null,httpOptions);
   }
 
   deleteAcc(): Observable<any> {
-    return this.http.post(API_URL + 'delete', httpOptions);
+    return this.http.post(API_URL + 'delete',null, httpOptions);
   }
 
 }
