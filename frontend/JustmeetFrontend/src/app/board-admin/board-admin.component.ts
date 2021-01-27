@@ -125,7 +125,7 @@ export class BoardAdminComponent implements OnInit {
       };
 
       this.adminService.changeUserRole(changeUserRolePayload).subscribe(
-        (data: changeUserRolePayload,) => {
+        (data: changeUserRolePayload) => {
           allData = JSON.stringify(data);
 
           this.changeRolePayload = JSON.parse(allData);

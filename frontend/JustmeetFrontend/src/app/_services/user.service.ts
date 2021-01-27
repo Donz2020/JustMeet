@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {headerGenerator} from "../utils/headerGenerator";
 
 const API_URL = 'http://localhost:8080/api/usr/';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+const httpOptions = new headerGenerator().getHeader();
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,8 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'usr', {responseType: 'json'});
-  }
-
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', {responseType: 'json'});
-  }
-
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', {responseType: 'json'});
-  }
-
   getUserDetails(): Observable<any> {
-    return this.http.get(API_URL + 'getDetails', {responseType: 'json'});
+    return this.http.get(API_URL + 'getDetails', httpOptions);
   }
 /*
   getUserDetailsPhy(): Observable<any> {
@@ -42,7 +31,7 @@ export class UserService {
   }
 
   deleteAcc(): Observable<any> {
-    return this.http.post(API_URL + 'delete', {responseType: 'json'});
+    return this.http.post(API_URL + 'delete', httpOptions);
   }
 
 }

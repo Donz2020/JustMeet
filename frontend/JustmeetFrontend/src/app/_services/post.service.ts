@@ -1,20 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {headerGenerator} from "../utils/headerGenerator";
 
 const API_URL = 'http://localhost:8080/api/post/';
-const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 const MAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const MAPS_GEO = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+const API_KEY = '&key=AIzaSyCKmNrNcklAL5GKNzQP6CnnohGkeCPk1sc';
 
-const httpOptionsGeo = {headers: new HttpHeaders({
-
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers' : 'Special-Request-Header'
-
-})};
-
+const httpOptions = new headerGenerator().getHeader();
 
 
 @Injectable({
@@ -28,24 +23,24 @@ export class postService {
 
   //Get all JustMeet Posts
   getPosts(): Observable<any> {
-    return this.http.get(API_URL + 'getPosts', {responseType: 'json'});
+    return this.http.get(API_URL + 'getPosts', httpOptions);
   }
 
   //Get Post for ID
   getPost(id): Observable<any> {
-    return this.http.get(API_URL + 'getPost/' + id, {responseType: 'json'});
+    return this.http.get(API_URL + 'getPost/' + id, httpOptions);
   }
 
   getMyPosts(): Observable<any> {
-    return this.http.get(API_URL + 'getMyPosts' , {responseType: 'json'});
+    return this.http.get(API_URL + 'getMyPosts' , httpOptions);
   }
 
   subscribePost(id): Observable<any> {
-    return this.http.post(API_URL + 'subscribe/' + id , {responseType: 'json'});
+    return this.http.post(API_URL + 'subscribe/' + id , httpOptions);
   }
 
   deleteSubPost(id): Observable<any> {
-    return this.http.post(API_URL + 'delete/' + id + '/subscriber' , {responseType: 'json'});
+    return this.http.post(API_URL + 'delete/' + id + '/subscriber' , httpOptions);
   }
 
   createPost(post): Observable<any>{
@@ -58,22 +53,18 @@ export class postService {
         descriptionType: post.descriptionType,
         descriptionFree: post.descriptionFree,
         descriptionText: post.descriptionText,
-      }, httpOptions);
+      },httpOptions);
   }
 
   deletePost(id): Observable<any> {
-    return this.http.post(API_URL + 'delete/' + id, {responseType: 'json'});
-  }
-
-  getOwnerPost(id): Observable<any> {
-    return this.http.get(API_URL + 'getPost/' + id + '/owner',{responseType: 'json'});
+    return this.http.post(API_URL + 'delete/' + id, httpOptions);
   }
 
   getLocationDetails(lat,long):  Observable<any> {
-    return this.http.get(MAPS_URL + lat + ',' + long + '&key=AIzaSyCKmNrNcklAL5GKNzQP6CnnohGkeCPk1sc',{responseType: 'json'});
+    return this.http.get(MAPS_URL + lat + ',' + long + API_KEY,{responseType: 'json'});
   }
 
   getLocationGeo(civic,street,city):  Observable<any> {
-    return this.http.get(MAPS_GEO + civic + street + ',' + city  + ',' +  '&key=AIzaSyCKmNrNcklAL5GKNzQP6CnnohGkeCPk1sc', httpOptionsGeo);
+    return this.http.get(MAPS_GEO + civic + street + ',' + city  + ',' +  API_KEY,{responseType: 'json'});
   }
 }

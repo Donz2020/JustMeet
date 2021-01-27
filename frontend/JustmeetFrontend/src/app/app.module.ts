@@ -10,13 +10,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardUserComponent } from './board-user/board-user.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostComponent } from './post/post.component';
 
 
-import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {SettingsComponent} from "./settings/settings.component";
 import {ModalModule} from "./_modal";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -28,6 +25,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { AgmCoreModule } from '@agm/core';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +33,6 @@ import { AgmCoreModule } from '@agm/core';
     RegisterComponent,
     HomeComponent,
     BoardAdminComponent,
-    BoardUserComponent,
-    BoardModeratorComponent,
     ProfileComponent,
     PostComponent,
     SettingsComponent
@@ -61,7 +57,7 @@ import { AgmCoreModule } from '@agm/core';
       ],
     }),
   ],
-  providers: [authInterceptorProviders],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

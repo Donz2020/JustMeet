@@ -56,7 +56,7 @@ export class PostComponent implements OnInit {
 
 
   getUser() {
-    this.currentUser = "";
+    this.currentUser = null;
     this.currentUser = this.token.getUser();
   }
 
@@ -69,14 +69,14 @@ export class PostComponent implements OnInit {
 
   subscribeToPost(id: number) {
     this.postService.subscribePost(id).subscribe();
-    this.reloadPage();
+    //this.reloadPage();
 
   }
 
 
   deleteSubscribePost(id: number) {
     this.postService.deleteSubPost(id).subscribe();
-    this.reloadPage();
+    //this.reloadPage();
   }
 
   getCurrentUser() {

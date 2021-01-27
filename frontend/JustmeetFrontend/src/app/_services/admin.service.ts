@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {idPayload} from "../utils/registerPayloads/identificatorPayload";
+
+import {headerGenerator} from "../utils/headerGenerator";
 
 
 const API_URL = 'http://localhost:8080/api/admin/';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+const httpOptions = new headerGenerator().getHeader();
+
 
 @Injectable({
   providedIn: 'root'

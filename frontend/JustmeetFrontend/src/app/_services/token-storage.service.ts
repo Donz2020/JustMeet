@@ -29,7 +29,7 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(USER_KEY);
   }
 
-  public getUser() {
+  public getUser(): string {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
 }
