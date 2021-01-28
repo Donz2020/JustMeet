@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {FormControl, FormGroup} from "@angular/forms";
 import {idPayload} from "../utils/registerPayloads/identificatorPayload";
+import {identificatorPayloadUser} from "../utils/registerPayloads/identificatorPayloadUser";
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 
@@ -60,9 +61,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.setSubmitted();
     if (this.formSignup.valid) {
-      let idPayload : idPayload = {
+      let idPayload : identificatorPayloadUser = {
         username: this.formSignup.get('email').value,
         password: this.formSignup.get('pass').value,
+        name:this.formSignup.get('name').value,
+        surname: this.formSignup.get('surname').value,
+        birthDate: this.formSignup.get('birthDate').value,
+
       };
       this.authService.register(idPayload).subscribe(
         (data : idPayload ) => {
@@ -85,6 +90,7 @@ export class RegisterComponent implements OnInit {
       let idPayloadVRF : idPayload = {
         username: this.formSignupVRF.get('VATNumber').value,
         password: this.formSignupVRF.get('password').value,
+        name: this.formSignupVRF.get('VATname').value,
       };
       this.authService.registerBusiness(idPayloadVRF).subscribe(
         (data : idPayload ) => {

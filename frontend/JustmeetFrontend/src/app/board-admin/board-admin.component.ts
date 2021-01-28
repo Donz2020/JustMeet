@@ -99,14 +99,14 @@ export class BoardAdminComponent implements OnInit {
   changeUserPass() {
 
     if (this.formEmail.valid) {
-      let idPayload: idPayload = {
+      let idPayload: { password: any; username: any } = {
         username: this.formEmail.get("email").value,
         password: this.formPass.get("pass").value,
       };
       this.adminService.changeUserPass(idPayload).subscribe(
         (data: idPayload) => {
-          data = idPayload;
-
+          //data = idPayload;
+      // todo cambiare payload nel caso
         });
     }
   }

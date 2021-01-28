@@ -43,6 +43,9 @@ export class AuthService {
     return this.http.post(AUTH_API + 'register', {
       username: user.username,
       password: user.password,
+      name: user.name,
+      surname: user.surname,
+      birthDate: user.birthDate,
     }, httpOptions);
   }
 
@@ -51,6 +54,7 @@ export class AuthService {
     return this.http.post(AUTH_API + 'registerBusiness', {
       username: business.username,
       password: business.password,
+      name: business.name,
     }, httpOptions);
   }
 
