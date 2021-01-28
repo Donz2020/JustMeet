@@ -5,6 +5,7 @@ import it.unicam.cs.ids.justmeet.backend.model.User;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
+import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,7 +41,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void deleteUser(IUser user) {
-        postService.getMyPosts(user).forEach( x -> postService.deletePost(x.getId()));
+
+        if(Utils.isPhysicalUser(user)) {
+            IPhysicalUser temp = (IPhysicalUser) user;
+            postService.getSubscribedPosts(temp).forEach(x -> postService.unsubscribePost(x.getId(), temp));
+        }
+
+        postService.getMyPosts(user).forEach(x -> postService.deletePost(x.getId()));
         userRepository.delete(user);
     }
 
