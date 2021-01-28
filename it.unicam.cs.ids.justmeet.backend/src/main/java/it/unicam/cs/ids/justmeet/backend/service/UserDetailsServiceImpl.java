@@ -21,6 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserRepository userRepository;
 
     @Autowired
+    PostService postService;
+
+    @Autowired
     SequenceGeneratorService sequenceGenerator;
 
     private BiFunction<IUser, String, Boolean> comp = (u, username) -> u.getUsername().equals(username);
@@ -37,6 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public void deleteUser(IUser user) {
+        postService.getMyPosts(user).forEach( x -> postService.deletePost(x.getId()));
         userRepository.delete(user);
     }
 
