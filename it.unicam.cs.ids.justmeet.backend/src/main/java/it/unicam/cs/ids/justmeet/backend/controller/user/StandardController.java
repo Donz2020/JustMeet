@@ -61,36 +61,6 @@ public class StandardController extends UserController{
         );
     }
 
-    @PostMapping(path ="/setDetailsPhy", consumes = "application/json")
-    public ResponseEntity<?> setDetailsPhysical(@Valid @RequestBody PhyDetailsRequest phyDetailsRequest) {
-        IUser user = findUser(phyDetailsRequest.getUsername());
-        IPhysicalUser temp;
-
-        if(Utils.isPhysicalUser(user))
-            temp = (IPhysicalUser) user;
-        else
-            return ResponseEntity.ok(new MessageResponse("No physical user"));
-
-        temp.setName(phyDetailsRequest.getName());
-        temp.setSurname(phyDetailsRequest.getSurname());
-        temp.setBirthDate(phyDetailsRequest.getBirthDate());
-
-        replaceUser(user);
-
-        return ResponseEntity.ok(new MessageResponse("Updated"));
-    }
-
-    @PostMapping(path ="/setDetails", consumes = "application/json")
-    public ResponseEntity<?> setDetails(@Valid @RequestBody DetailsRequest detailsRequest) {
-        IUser user = findUser(detailsRequest.getUsername());
-
-        user.setName(detailsRequest.getName());
-
-        replaceUser(user);
-
-        return ResponseEntity.ok(new MessageResponse("Updated"));
-    }
-
     @PatchMapping(path ="/setPass/{pass}", produces = "application/json")
     public ResponseEntity<?> setPass(@PathVariable String pass) {
         IUser user = findUser(Utils.getCurrentUser(SecurityContextHolder.getContext()));

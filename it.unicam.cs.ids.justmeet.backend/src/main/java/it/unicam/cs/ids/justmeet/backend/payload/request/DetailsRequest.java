@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.justmeet.backend.payload.request;
 
-public class DetailsRequest extends UserRequest {
+public class DetailsRequest extends AuthRequest {
 
     String name;
 

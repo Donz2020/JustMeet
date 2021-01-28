@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.justmeet.backend.service;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsImpl;
+import it.unicam.cs.ids.justmeet.backend.model.User;
+import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SequenceGeneratorService sequenceGenerator;
+
     private BiFunction<IUser, String, Boolean> comp = (u, username) -> u.getUsername().equals(username);
 
     private UserDetails build(IUser user) {
         return UserDetailsImpl.build(user);
     }
 
-    @Transactional
+    //@Transactional
     public void saveUser(IUser user) {
+        user.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
         userRepository.save(user);
     }
 

@@ -2,6 +2,9 @@ package it.unicam.cs.ids.justmeet.backend.controller.login;
 
 import it.unicam.cs.ids.justmeet.backend.configuration.jwt.JwtUtils;
 import it.unicam.cs.ids.justmeet.backend.configuration.service.UserDetailsImpl;
+import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
+import it.unicam.cs.ids.justmeet.backend.payload.request.DetailsRequest;
+import it.unicam.cs.ids.justmeet.backend.payload.request.PhyDetailsRequest;
 import it.unicam.cs.ids.justmeet.backend.service.UserDetailsServiceImpl;
 import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
 import it.unicam.cs.ids.justmeet.backend.model.User;
@@ -15,10 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +39,6 @@ public class AuthController {
     UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
-    SequenceGeneratorService sequenceGenerator;
-
-    @Autowired
     JwtUtils jwtUtils;
 
     private boolean findById(@Valid @RequestBody AuthRequest signUpRequest) {
@@ -49,10 +51,16 @@ public class AuthController {
                 .body(new MessageResponse(String.format("Error: %s is already taken!", username)));
     }
 
-    private IUser buildUser(IUser user, String username, String password) {
-        user.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+    private IPhysicalUser buildUser(IPhysicalUser user, String username, String password, String name, String surname, LocalDate birthDate){
+        user.setSurname(surname);
+        user.setBirthDate(birthDate);
+        return (IPhysicalUser) buildUser(user, username, password, name);
+    }
+
+    private IUser buildUser(IUser user, String username, String password, String name) {
         user.setUsername(username);
         user.setPassword(password);
+        user.setName(name);
         return user;
     }
 
@@ -75,7 +83,7 @@ public class AuthController {
         
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
@@ -84,28 +92,26 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register", consumes = "application/json")
-    public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody AuthRequest signUpRequest) {
-        if (findById(signUpRequest)) {
+    public ResponseEntity<?> registerPhysicalUser(@Valid @RequestBody PhyDetailsRequest signUpRequest) {
+        if (findById(signUpRequest))
             return signUpErr(signUpRequest.getUsername());
-        }
 
         // Create new user's account
         saveUser(buildUser(Utils.newPhysicalUserInst(), signUpRequest.getUsername(),
-                signUpRequest.getPassword()));
+                signUpRequest.getPassword(), signUpRequest.getName(),
+                signUpRequest.getSurname(), signUpRequest.getBirthDate()));
 
         return successReg();
     }
 
-
     @PostMapping(path = "/registerBusiness", consumes = "application/json")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest signUpRequest) {
-        if (findById(signUpRequest)) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody DetailsRequest signUpRequest) {
+        if (findById(signUpRequest))
             return signUpErr(signUpRequest.getUsername());
-        }
 
         // Create new user's account
         saveUser(buildUser(Utils.newBusinessUserInst(), signUpRequest.getUsername(),
-                signUpRequest.getPassword()));
+                signUpRequest.getPassword(), signUpRequest.getName()));
 
         return successReg();
     }
