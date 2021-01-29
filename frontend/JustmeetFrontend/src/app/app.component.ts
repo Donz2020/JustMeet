@@ -4,14 +4,12 @@ import {UserService} from "./_services/user.service";
 import {profilePayload} from "./utils/profilePayloads/profilePayload";
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  //private roles: string[];
   isLoggedIn = false;
   isAdmin = false;
   showModeratorBoard = false;
@@ -26,13 +24,6 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!this.token.getToken();
 
     if (this.isLoggedIn) {
-      //const user = this.token.getUser();
-      //this.roles = user.roles;
-
-      //this.showAdminBoard = this.roles.includes('ADMIN',0);
-      //this.showModeratorBoard = this.roles.includes('MOD', 0);
-
-
       let allData: string;
       this.currentUser = this.token.getUser();
       this.userService.getUserDetails().subscribe((data: profilePayload) => {
@@ -40,8 +31,6 @@ export class AppComponent implements OnInit {
         this.userDetails = JSON.parse(allData);
         this.adminBool();
       });
-
-      // this.username = user.username;
     }
   }
 
@@ -51,6 +40,6 @@ export class AppComponent implements OnInit {
   }
 
   adminBool() {
-      this.isAdmin = this.userDetails.roles.includes('ADMIN');
+    this.isAdmin = this.userDetails.roles.includes('ADMIN');
   }
 }

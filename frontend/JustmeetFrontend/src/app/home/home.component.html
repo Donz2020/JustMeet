@@ -1,7 +1,8 @@
 <div class="postcard container" *ngIf="currentUser; else loggedOut">
 
   <div class="cards-list">
-    <div class="card post_card" *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]" routerLinkActive="active">
+    <div class="card post_card" *ngFor="let post of postPayload" [routerLink]="['/post/'+post.id]"
+         routerLinkActive="active">
 
       <div class="card1">
         <div class="card_image">
@@ -17,14 +18,14 @@
       </div>
     </div>
   </div>
-  <button class="fab" (click)="openModal()"> + </button>
+  <button class="fab" (click)="openModal()"> +</button>
 </div>
 
 <!-- Modal for create New Post -->
 <jw-modal id="postModal">
   <div class="form-group">
     <form [formGroup]="newPostform" #ngPost="ngForm" (ngSubmit)="createPost()"
-          (keydown.enter) = ngPost.onSubmit($event)
+          (keydown.enter)=ngPost.onSubmit($event)
           (keydown)="keyDownFunction($event)">
       <label>Create a new event</label>
       <br> <br>
@@ -65,9 +66,9 @@
       </div>
       <label> Category: </label>
       <select class="form-control" formControlName="type" required>
-        <option value="SPORT" class="form-control">Sport </option>
-        <option value="FUN" class="form-control">Fun </option>
-        <option value="STUDY" class="form-control">Study </option>
+        <option value="SPORT" class="form-control">Sport</option>
+        <option value="FUN" class="form-control">Fun</option>
+        <option value="STUDY" class="form-control">Study</option>
         <option value="PARTY" class="form-control">Party</option>
         <option value="OTHER" class="form-control">Other</option>
       </select>
@@ -78,12 +79,13 @@
       </div>
       <div>
         <label for="free" style="text-align: right">Free Event
-          <input type="checkbox" class="form-control" id="free"  name="free" formControlName="free">
+          <input type="checkbox" class="form-control" id="free" name="free" formControlName="free">
         </label>
       </div>
       <label>Description</label>
       <textarea class="form-control" formControlName="description" required rows="3"></textarea>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted  && newPostform.get('description').errors))">
+      <div class="alert alert-danger"
+           *ngIf="((submitted && ngPost.submitted  && newPostform.get('description').errors))">
         <div *ngIf="newPostform.get('description').hasError('description')">
           Description is required
         </div>

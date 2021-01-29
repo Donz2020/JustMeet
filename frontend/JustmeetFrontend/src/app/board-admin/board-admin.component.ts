@@ -25,7 +25,6 @@ export class BoardAdminComponent implements OnInit {
   formRole: FormGroup;
   checkAdmin: boolean = false;
   checkMod: boolean = false;
-  roleForm: string[];
 
 
   constructor(private token: TokenStorageService, private userService: UserService, private router: Router, private adminService: AdminService) {
@@ -48,48 +47,31 @@ export class BoardAdminComponent implements OnInit {
 
     });
 
-
     this.initEmail();
     this.initPass();
     this.initRole();
     this.initActive();
-    //this.formEmail = this.formPass = this.formRole = this.initForm();
-
-
   }
 
-  /*
-    initForm(): FormGroup {
-      return new FormGroup({
-        ciccio: new FormControl(''),
-      });
-
-    }
-  */
-
   initEmail(): void {
-
     this.formEmail = new FormGroup({
       email: new FormControl(''),
     });
   }
 
   initPass(): void {
-
     this.formPass = new FormGroup({
       pass: new FormControl(''),
     });
   }
 
   initRole(): void {
-
     this.formRole = new FormGroup({
       roles: new FormControl(''),
     });
   }
 
   initActive(): void {
-
     this.formActive = new FormGroup({
       active: new FormControl(''),
     });
@@ -97,7 +79,6 @@ export class BoardAdminComponent implements OnInit {
 
 
   changeUserPass() {
-
     if (this.formEmail.valid) {
       let idPayload: { password: string; username: string } = {
         username: this.formEmail.get("email").value,
@@ -106,7 +87,7 @@ export class BoardAdminComponent implements OnInit {
       this.adminService.changeUserPass(idPayload).subscribe(
         (data: idPayload) => {
           //data = idPayload;
-      // todo cambiare payload nel caso
+          // todo cambiare payload nel caso
         });
     }
   }
@@ -138,14 +119,11 @@ export class BoardAdminComponent implements OnInit {
   }
 
   changeUserActive() {
-
     if (this.formEmail.valid) {
       let activePayload: activePayload = {
         username: this.formEmail.get("email").value,
         active: this.formActive.get("active").value,
       };
-
-      //alert(this.formActive.get("active").value);
       this.adminService.changeUserStatus(activePayload).subscribe(
         (data: activePayload) => {
           data = activePayload;
@@ -156,7 +134,6 @@ export class BoardAdminComponent implements OnInit {
 
 
   deleteUserAccount() {
-
     if (this.formEmail.valid) {
       let deletePayload: deletePayload = {
         username: this.formEmail.get("email").value,
@@ -171,6 +148,5 @@ export class BoardAdminComponent implements OnInit {
       }
     }
   }
-
 
 }

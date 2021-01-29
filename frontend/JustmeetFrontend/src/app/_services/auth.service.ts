@@ -5,7 +5,7 @@ import {pathManager} from "../utils/pathManager";
 
 const BACKEND_URL = new pathManager().getUrl();
 
-const AUTH_API = BACKEND_URL+'/api/auth/';
+const AUTH_API = BACKEND_URL + '/api/auth/';
 
 
 const httpOptions = {
@@ -27,17 +27,6 @@ export class AuthService {
       password: credentials.password
     }, httpOptions);
   }
-/*
-  post(user, url): Observable<any> {
-    return this.http.post(AUTH_API + url, {
-      username: user.username,
-      password: user.password,
-      name: user.name,
-      surname: user.surname,
-      birthDate: user.birthDate,
-    }, httpOptions);
-  }
-*/
 
   register(user): Observable<any> {
     return this.http.post(AUTH_API + 'register', {

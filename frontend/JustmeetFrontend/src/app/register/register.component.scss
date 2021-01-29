@@ -1,7 +1,9 @@
 
-body { padding: 10px; }
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+body {
+  padding: 10px;
+}
 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 
 label {
@@ -58,29 +60,32 @@ label {
 }
 
 
-
-.card-custom{
+.card-custom {
   min-width: 30%;
   max-width: 40%;
   overflow-y: hidden;
 }
-@media only screen and (max-width: 600px){
-  .card-custom{
+
+@media only screen and (max-width: 600px) {
+  .card-custom {
     min-width: 80%;
   }
 }
-@media only screen and (max-width: 1000px){
-  .card-custom{
+
+@media only screen and (max-width: 1000px) {
+  .card-custom {
     min-width: 60%;
   }
 }
-:host ::ng-deep .mat-tab-label{
+
+:host ::ng-deep .mat-tab-label {
   background-color: white;
   border-width: 1px;
   border-style: outset;
   border-color: darkgrey;
   width: 40%;
 }
+
 :host ::ng-deep .mat-tab-label-active {
   border-width: 2px;
   border-style: inset;
@@ -93,17 +98,19 @@ label {
 /* mat-tab properties */
 
 @media only screen and(max-width: 1024px) {
-  .card{
+  .card {
     min-width: 80%;
   }
 }
+
 @media only screen and(max-width: 414px) {
-  .card{
+  .card {
     min-width: 95%;
   }
 }
+
 @media only screen and(max-width: 375px) {
-  .card{
+  .card {
     min-width: 100%;
   }
 }

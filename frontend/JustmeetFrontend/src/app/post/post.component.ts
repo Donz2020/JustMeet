@@ -10,7 +10,6 @@ import {profilePayload} from "../utils/profilePayloads/profilePayload";
 import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
 
 
-
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -49,7 +48,6 @@ export class PostComponent implements OnInit {
           this.getPostDetail(this.id);
         }
       });
-    //this.getLocationString(this.postPayload.location[0],this.postPayload.location[1]);
   }
 
 
@@ -78,7 +76,7 @@ export class PostComponent implements OnInit {
   }
 
   getCurrentUser() {
-    let allData : string;
+    let allData: string;
     this.userService.getUserDetails().subscribe((data: profilePayload) => {
       allData = JSON.stringify(data);
       this.userDetailsPayload = JSON.parse(allData);
@@ -86,14 +84,14 @@ export class PostComponent implements OnInit {
 
   }
 
-  checkOwner(){
+  checkOwner() {
     return this.postPayload.ownerName == this.userDetailsPayload.username;
   }
 
-  checkSub(): boolean{
+  checkSub(): boolean {
     let retValue = false;
-    this.postPayload.subscribers.forEach(value =>{
-      if (value == this.userDetailsPayload.username){
+    this.postPayload.subscribers.forEach(value => {
+      if (value == this.userDetailsPayload.username) {
         retValue = true;
       }
     });
@@ -103,28 +101,30 @@ export class PostComponent implements OnInit {
   deleteMyPost(id) {
     if (this.checkOwner()) {
       this.postService.deletePost(id).subscribe();
-          this.isOwner = true;
-          window.location.href = "/home";
+      this.isOwner = true;
+      window.location.href = "/home";
     } else {
       this.isOwner = false;
     }
   }
 
-/*
-  getLocationString(lat,long){
-    let allData : string;
-    this.postService.getLocationDetails(lat,long).subscribe((data: profilePayload) => {
-      allData = JSON.stringify(data);
-      this.locationPayload.formatted_address = JSON.parse(allData);
-      //this.locationPayload.formatted_address
-      //alert(this.locationPayload.formatted_address);
+  /*
+    getLocationString(lat,long){
+      let allData : string;
+      this.postService.getLocationDetails(lat,long).subscribe((data: profilePayload) => {
+        allData = JSON.stringify(data);
+        this.locationPayload.formatted_address = JSON.parse(allData);
+        //this.locationPayload.formatted_address
+        //alert(this.locationPayload.formatted_address);
 
-  });
-  }
-*/
+    });
+    }
+  */
 
   reloadPage() {
-    setTimeout(function(){location.reload()}, 500);
+    setTimeout(function () {
+      location.reload()
+    }, 500);
   }
 
   back() {

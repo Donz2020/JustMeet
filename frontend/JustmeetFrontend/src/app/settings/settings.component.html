@@ -49,19 +49,20 @@
 <jw-modal id="passwordModal">
   <div class="form-group">
     <form [formGroup]="formSettings" #ngSettings="ngForm" (ngSubmit)="onSubmit()"
-          (keydown.enter) = ngSettings.onSubmit($event)
+          (keydown.enter)=ngSettings.onSubmit($event)
           (keydown)="keyDownFunction($event)">
       <label>New password</label>
       <input type="password" class="form-control" formControlName="newPass" required minlength="6">
       <div class="alert alert-danger" *ngIf="(submitted && formSettings.get('newPass').errors)">
         <div *ngIf="formSettings.get('newPass').hasError('required'); else lengthError">
-            New password is required
+          New password is required
         </div>
         <ng-template #lengthError>Password must be at least 6 characters</ng-template>
       </div>
       <label>Confirm new password</label>
       <input type="password" class="form-control" formControlName="confirmPass" required minlength="6">
-      <div class="alert alert-danger" *ngIf="((submitted && ngSettings.submitted && formSettings.get('confirmPass').touched && formSettings.get('confirmPass').errors))">
+      <div class="alert alert-danger"
+           *ngIf="((submitted && ngSettings.submitted && formSettings.get('confirmPass').touched && formSettings.get('confirmPass').errors))">
         <div *ngIf="formSettings.get('confirmPass').hasError('required'); else lengthError">
           New password is required
         </div>
@@ -69,10 +70,11 @@
       </div>
       <div class="alert alert-danger"
            *ngIf="submitted && ngSettings.submitted && formSettings.get('confirmPass').value != formSettings.get('newPass').value">
-          Passwords don't match!
+        Passwords don't match!
       </div>
       <br>
-      <input type="button" (click)="ngSettings.onSubmit($event)" class="btn btn-primary form-control" value="Change Password">
+      <input type="button" (click)="ngSettings.onSubmit($event)" class="btn btn-primary form-control"
+             value="Change Password">
       <br><br>
       <button class="btn btn-danger form-control" (click)="closePassModal()">
         Close

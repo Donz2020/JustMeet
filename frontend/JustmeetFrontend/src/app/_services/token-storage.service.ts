@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 const TOKEN_KEY = 'accessToken';
 const USER_KEY = 'Authorization';
@@ -8,7 +8,8 @@ const USER_KEY = 'Authorization';
 })
 export class TokenStorageService {
 
-  constructor() { }
+  constructor() {
+  }
 
   signOut() {
     window.sessionStorage.clear();

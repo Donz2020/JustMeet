@@ -6,7 +6,7 @@ import {pathManager} from "../utils/pathManager";
 
 const BACKEND_URL = new pathManager().getUrl();
 
-const API_URL = BACKEND_URL+'/api/post/';
+const API_URL = BACKEND_URL + '/api/post/';
 
 const MAPS_URL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const MAPS_GEO = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
@@ -35,18 +35,18 @@ export class postService {
   }
 
   getMyPosts(): Observable<any> {
-    return this.http.get(API_URL + 'getMyPosts' , httpOptions);
+    return this.http.get(API_URL + 'getMyPosts', httpOptions);
   }
 
   subscribePost(id): Observable<any> {
-    return this.http.post(API_URL + 'subscribe/' + id ,null, httpOptions);
+    return this.http.post(API_URL + 'subscribe/' + id, null, httpOptions);
   }
 
   deleteSubPost(id): Observable<any> {
-    return this.http.post(API_URL + 'delete/' + id + '/subscriber' ,null, httpOptions);
+    return this.http.post(API_URL + 'delete/' + id + '/subscriber', null, httpOptions);
   }
 
-  createPost(post): Observable<any>{
+  createPost(post): Observable<any> {
     return this.http.post(API_URL + 'add',
       {
         title: post.title,
@@ -56,18 +56,18 @@ export class postService {
         descriptionType: post.descriptionType,
         descriptionFree: post.descriptionFree,
         descriptionText: post.descriptionText,
-      },httpOptions);
+      }, httpOptions);
   }
 
   deletePost(id): Observable<any> {
-    return this.http.post(API_URL + 'delete/' + id,null, httpOptions);
+    return this.http.post(API_URL + 'delete/' + id, null, httpOptions);
   }
 
-  getLocationDetails(lat,long):  Observable<any> {
-    return this.http.get(MAPS_URL + lat + ',' + long + API_KEY,{responseType: 'json'});
+  getLocationDetails(lat, long): Observable<any> {
+    return this.http.get(MAPS_URL + lat + ',' + long + API_KEY, {responseType: 'json'});
   }
 
-  getLocationGeo(civic,street,city):  Observable<any> {
-    return this.http.get(MAPS_GEO + civic + street + ',' + city  + ',' +  API_KEY,{responseType: 'json'});
+  getLocationGeo(civic, street, city): Observable<any> {
+    return this.http.get(MAPS_GEO + civic + street + ',' + city + ',' + API_KEY, {responseType: 'json'});
   }
 }

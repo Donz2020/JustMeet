@@ -6,7 +6,6 @@ import {postService} from "../_services/post.service";
 import {postPayload} from "../utils/postPayloads/postPayload";
 
 
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -16,9 +15,9 @@ export class ProfileComponent implements OnInit {
   currentUser: string;
   userDetails: profilePayload;
   postPayload: Array<postPayload>;
-  noPosts: boolean= false;
+  noPosts: boolean = false;
 
-  constructor(private token: TokenStorageService, private userService: UserService,private postService: postService) {
+  constructor(private token: TokenStorageService, private userService: UserService, private postService: postService) {
   }
 
   ngOnInit() {
@@ -33,7 +32,7 @@ export class ProfileComponent implements OnInit {
         if (value == "ADMIN") {
           isAdmin = true;
 
-        }else if (value == "MOD"){
+        } else if (value == "MOD") {
           isMod = true;
         }
       });
@@ -42,8 +41,8 @@ export class ProfileComponent implements OnInit {
     this.getUserPosts();
   }
 
-  getUserPosts(){
-    if (this.currentUser != ""){
+  getUserPosts() {
+    if (this.currentUser != "") {
       this.postService.getMyPosts().subscribe(
         (data: Array<postPayload>) => {
           this.postPayload = data;

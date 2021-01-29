@@ -6,7 +6,6 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {ModalService} from "../_modal";
 import {newPostPaylod} from "../utils/postPayloads/newPostPaylod";
 import {locationResponsePayload} from "../utils/postPayloads/locationResponsePayload";
-import {profilePayload} from "../utils/profilePayloads/profilePayload";
 
 @Component({
   selector: 'app-home',
@@ -16,10 +15,10 @@ import {profilePayload} from "../utils/profilePayloads/profilePayload";
 export class HomeComponent implements OnInit {
   currentUser: string = null;
   postPayload: Array<postPayload>;
-  noPosts: boolean= false;
-  newPostform : FormGroup;
-  submitted : boolean = false;
-  responseLocation : locationResponsePayload;
+  noPosts: boolean = false;
+  newPostform: FormGroup;
+  submitted: boolean = false;
+  responseLocation: locationResponsePayload;
 
   constructor(private token: TokenStorageService,
               private postService: postService,
@@ -30,25 +29,25 @@ export class HomeComponent implements OnInit {
     this.resetSubmitted();
     this.initPostForm();
     this.getUser();
-    if (this.currentUser != null){
+    if (this.currentUser != null) {
       this.getAllPosts();
     }
   }
 
-  setSubmitted(){
+  setSubmitted() {
     this.submitted = true;
   }
 
-  resetSubmitted(){
+  resetSubmitted() {
     this.submitted = false;
   }
 
-  getUser(){
+  getUser() {
     this.currentUser = this.token.getUser();
   }
 
-  getAllPosts(){
-    if (this.currentUser != null){
+  getAllPosts() {
+    if (this.currentUser != null) {
       this.postService.getPosts().subscribe(
         (data: Array<postPayload>) => {
           this.postPayload = data;
@@ -60,7 +59,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  initPostForm(){
+  initPostForm() {
     this.newPostform = new FormGroup({
       title: new FormControl(''),
       date: new FormControl(''),
@@ -74,7 +73,7 @@ export class HomeComponent implements OnInit {
   }
 
   // Modal Methods
-  openModal(){
+  openModal() {
     this.initPostForm();
     this.modalService.open('postModal');
   }
@@ -83,23 +82,23 @@ export class HomeComponent implements OnInit {
     this.modalService.close("postModal");
   }
 
-  createPost(){
+  createPost() {
     this.setSubmitted();
-    if (this.newPostform.valid){
+    if (this.newPostform.valid) {
       let allData;
       this.postService.getLocationGeo(
         this.newPostform.get('civic').value,
         this.newPostform.get('street').value,
         this.newPostform.get('city').value).subscribe((data) => {
         allData = JSON.stringify(data);
-        this.responseLocation= JSON.parse(allData);
-        let lat : any = this.responseLocation.results[0].geometry.location.lat;
-        let lng : any = this.responseLocation.results[0].geometry.location.lng;
-        let newPostPayloadData : newPostPaylod = {
+        this.responseLocation = JSON.parse(allData);
+        let lat: any = this.responseLocation.results[0].geometry.location.lat;
+        let lng: any = this.responseLocation.results[0].geometry.location.lng;
+        let newPostPayloadData: newPostPaylod = {
           title: this.newPostform.get('title').value,
           date: this.newPostform.get('date').value,
-          latitude:  <number> lat,
-          longitude: <number> lng,
+          latitude: <number>lat,
+          longitude: <number>lng,
           descriptionType: this.newPostform.get('type').value,
           descriptionFree: this.newPostform.get('free').value,
           descriptionText: this.newPostform.get('description').value,
@@ -111,7 +110,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  keyDownFunction(event){
+  keyDownFunction(event) {
     this.resetSubmitted();
     if (event.keyCode === 13) {
       this.setSubmitted();

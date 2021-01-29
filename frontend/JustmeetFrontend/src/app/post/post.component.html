@@ -22,9 +22,9 @@
                 <tr>
                   <strong>Location:</strong>
                   <agm-map [latitude]="postPayload?.location[0]" [longitude]="postPayload?.location[1]">
-                    <agm-marker [latitude]="postPayload?.location[0]" [longitude]="postPayload?.location[1]"></agm-marker>
+                    <agm-marker [latitude]="postPayload?.location[0]"
+                                [longitude]="postPayload?.location[1]"></agm-marker>
                   </agm-map>
-                  <!--<strong>{{getLocationString(postPayload.location[0],postPayload.location[1])}}</strong>-->
                 </tr>
                 <tr>
                   <strong>Category:</strong>{{ postPayload?.postType}}
@@ -59,7 +59,7 @@
         </button>
       </div>
       <div class="center-obj" *ngIf="checkOwner()">
-        <button class="btn btn-primary btn-block" >
+        <button class="btn btn-primary btn-block">
           <a (click)="deleteMyPost(postPayload.id)" class="btn btn-primary"> Remove my post </a>
         </button>
       </div>
