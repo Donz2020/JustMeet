@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   newPostform: FormGroup;
   submitted: boolean = false;
   responseLocation: locationResponsePayload;
+  validLocation : boolean = true;
 
   constructor(private token: TokenStorageService,
               private postService: postService,
@@ -40,6 +41,10 @@ export class HomeComponent implements OnInit {
 
   resetSubmitted() {
     this.submitted = false;
+  }
+
+  setValidLocation(){
+    this.validLocation = true;
   }
 
   getUser() {
@@ -74,6 +79,7 @@ export class HomeComponent implements OnInit {
 
   // Modal Methods
   openModal() {
+    this.setValidLocation();
     this.initPostForm();
     this.modalService.open('postModal');
   }
@@ -92,33 +98,36 @@ export class HomeComponent implements OnInit {
         this.newPostform.get('city').value).subscribe((data) => {
         allData = JSON.stringify(data);
         this.responseLocation = JSON.parse(allData);
-        let lat: any = this.responseLocation.results[0].geometry.location.lat;
-        let lng: any = this.responseLocation.results[0].geometry.location.lng;
-        let newPostPayloadData: newPostPaylod = {
-          title: this.newPostform.get('title').value,
-          date: this.newPostform.get('date').value,
-          latitude: <number>lat,
-          longitude: <number>lng,
-          descriptionType: this.newPostform.get('type').value,
-          descriptionFree: this.newPostform.get('free').value,
-          descriptionText: this.newPostform.get('description').value,
+        if (this.responseLocation.status == 'OK'){
+          let lat: any = this.responseLocation.results[0].geometry.location.lat;
+          let lng: any = this.responseLocation.results[0].geometry.location.lng;
+          let newPostPayloadData: newPostPaylod = {
+            title: this.newPostform.get('title').value,
+            date: this.newPostform.get('date').value,
+            latitude: <number>lat,
+            longitude: <number>lng,
+            descriptionType: this.newPostform.get('type').value,
+            descriptionFree: this.newPostform.get('free').value,
+            descriptionText: this.newPostform.get('description').value,
+          }
+          this.postService.createPost(newPostPayloadData).subscribe();
+          this.closeModal();
+          window.location.href = "/home";
+        } else {
+          this.validLocation = false;
         }
-        this.postService.createPost(newPostPayloadData).subscribe();
-        this.closeModal();
-        window.location.href = "/home";
       });
     }
   }
 
   keyDownFunction(event) {
     this.resetSubmitted();
-    if (event.keyCode === 13) {
+    this.setValidLocation();
+    if (event.keyCode == 13) {
       this.setSubmitted();
-      this.newPostform.validator;
-      if (this.newPostform.validator) {
+      if (this.newPostform.valid) {
         this.createPost();
       }
     }
   }
-
 }

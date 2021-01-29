@@ -1,66 +1,67 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
+<div *ngIf="currentUser; else loggedOut">
   <div class="col-md-12">
     <div class="card card-container">
       <div class="title">
-        <h3><strong>Post Details</strong></h3>
+        <h3 class="center-obj center-div"><strong>Post Details</strong></h3>
       </div>
-      <div class="jumbotron">
-        <table style="width : 96%">
+      <div class="jumbotron center-obj">
+        <table style="width: 96%">
+          <tr class="center-div">
+            <h1 class="a wbreak">{{ postPayload?.postTitle }}</h1>
+          </tr>
+          <br>
+          <tr class="center-div">
+            <strong class="a">Description</strong>
+            <a class="wbreak">{{ postPayload?.postDescription}}</a>
+          </tr>
+          <tr class="center-div">
+            <strong class="a">Location:</strong>
+            <div class="container" fxLayout="column">
+              <div class="map" fxFlex="1 1 100%" #map>
+                <agm-map style="width: 100%" [latitude]="postPayload?.location[0]"
+                         [longitude]="postPayload?.location[1]">
+                  <agm-marker [latitude]="postPayload?.location[0]"
+                              [longitude]="postPayload?.location[1]"
+                              href="https://www.google.com/maps/dir//43.3454762,12.9061842/@43.345476,12.906184,10z?hl=it-IT">
+                  </agm-marker>
+                </agm-map>
+              </div>
+            </div>
+          </tr>
           <tr>
-            <th style="width: 63%">
-              <table style="width: 96%">
-                <tr>
-                  <img id="profile-img" src="//picsum.photos/192" class="profile-img-card"/>
-                </tr>
-                <tr>
-                  <h4>{{ postPayload?.postTitle }}</h4>
-                </tr>
-                <br>
-                <tr>
-                  <strong>Descrizione:</strong>{{ postPayload?.postDescription}}
-                </tr>
-                <tr>
-                  <strong>Location:</strong>
-                  <agm-map [latitude]="postPayload?.location[0]" [longitude]="postPayload?.location[1]">
-                    <agm-marker [latitude]="postPayload?.location[0]"
-                                [longitude]="postPayload?.location[1]"></agm-marker>
-                  </agm-map>
-                </tr>
-                <tr>
-                  <strong>Category:</strong>{{ postPayload?.postType}}
-                </tr>
-                <tr>
-                  <strong>Date of event:</strong>{{ postPayload?.postDate}}
-                </tr>
-                <tr>
-                  <strong>Owner:</strong>{{ postPayload?.ownerName}}
-                </tr>
-                <tr>
-                  <strong>Subscribers:</strong>{{ postPayload?.subscribers}}
-                </tr>
-              </table>
-            </th>
+            <strong>Category:</strong>{{ postPayload?.postType}}
+          </tr>
+          <tr>
+            <strong>Date of event:</strong>{{ postPayload?.postDate}}
+          </tr>
+          <tr>
+            <strong>Owner:</strong>{{ postPayload?.ownerName}}
+          </tr>
+          <tr>
+            <strong>Subscribers:</strong>{{ postPayload?.subscribers}}
           </tr>
         </table>
+        <br>
+        <div class="center-div" *ngIf="!checkSub()">
+          <button class="btn btn-primary">
+            <a (click)="subscribeToPost(postPayload.id)" class="btn btn-primary"> Subscribe </a>
+          </button>
+        </div>
+        <br>
+        <div class="center-div" *ngIf="checkOwner()">
+          <button class="btn btn-danger">
+            <a (click)="deleteMyPost(postPayload.id)" class="btn btn-danger"> Remove my post </a>
+          </button>
+        </div>
+        <div class="center-div" *ngIf="checkSub()">
+          <button class="btn btn-primary">
+            <a (click)="deleteSubscribePost(postPayload.id)" class="btn btn-primary"> Remove me from subscribers </a>
+          </button>
+        </div>
       </div>
       <div class="center-obj">
-        <button class="btn btn-primary btn-block">
-          <a (click)="back()" class="btn btn-primary"> Back </a>
-        </button>
-      </div>
-      <div class="center-obj" *ngIf="!checkSub()">
-        <button class="btn btn-primary btn-block">
-          <a (click)="subscribeToPost(postPayload.id)" class="btn btn-primary"> Subscribe </a>
-        </button>
-      </div>
-      <div class="center-obj" *ngIf="checkSub()">
-        <button class="btn btn-primary btn-block">
-          <a (click)="deleteSubscribePost(postPayload.id)" class="btn btn-primary"> Remove me from subscribers </a>
-        </button>
-      </div>
-      <div class="center-obj" *ngIf="checkOwner()">
-        <button class="btn btn-primary btn-block">
-          <a (click)="deleteMyPost(postPayload.id)" class="btn btn-primary"> Remove my post </a>
+        <button class="btn btn-primary">
+          <a (click)="back()"> Back </a>
         </button>
       </div>
     </div>

@@ -248,6 +248,9 @@ img {
   margin-bottom: 5px;
   font-family: 'Roboto Slab', serif;
   font-weight: bold;
+  width: 30ch;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .post_by {

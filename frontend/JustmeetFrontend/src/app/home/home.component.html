@@ -24,56 +24,54 @@
 <!-- Modal for create New Post -->
 <jw-modal id="postModal">
   <div class="form-group">
-    <form [formGroup]="newPostform" #ngPost="ngForm" (ngSubmit)="createPost()"
-          (keydown.enter)=ngPost.onSubmit($event)
-          (keydown)="keyDownFunction($event)">
+    <form [formGroup]="newPostform" #ngPost="ngForm" (ngSubmit)="createPost()">
       <label>Create a new event</label>
       <br> <br>
       <label>Title</label>
-      <input type="text" class="form-control" formControlName="title" required>
+      <input type="text" class="form-control" formControlName="title" required (keydown)="keyDownFunction($event)">
       <div class="alert alert-danger" *ngIf="(submitted && newPostform.get('title').errors)">
         <div *ngIf="newPostform.get('title').hasError('required')">
           Title is required
         </div>
       </div>
       <label>Date</label>
-      <input type="date" class="form-control" formControlName="date" required>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('date').errors))">
+      <input type="date" class="form-control" formControlName="date" required (keydown)="keyDownFunction($event)">
+      <div class="alert alert-danger" *ngIf="((submitted && newPostform.get('date').errors))">
         <div *ngIf="newPostform.get('date').hasError('required')">
           Date is required
         </div>
       </div>
-      <label>Civic</label>
-      <input type="number" class="form-control" formControlName="civic" required>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('civic').errors))">
-        <div *ngIf="newPostform.get('civic').hasError('required')">
-          Civic is required
-        </div>
-      </div>
-      <label>Street</label>
-      <input type="text" class="form-control" formControlName="street" required>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted  && newPostform.get('street').errors))">
-        <div *ngIf="newPostform.get('street').hasError('required')">
-          Street is required
-        </div>
-      </div>
       <label>City</label>
-      <input type="text" class="form-control" formControlName="city" required>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted  && newPostform.get('city').errors))">
+      <input type="text" class="form-control" formControlName="city" required (keydown)="keyDownFunction($event)">
+      <div class="alert alert-danger" *ngIf="((submitted && newPostform.get('city').errors))">
         <div *ngIf="newPostform.get('city').hasError('required')">
           City is required
         </div>
       </div>
+      <label>Street</label>
+      <input type="text" class="form-control" formControlName="street" required (keydown)="keyDownFunction($event)">
+      <div class="alert alert-danger" *ngIf="((submitted && newPostform.get('street').errors))">
+        <div *ngIf="newPostform.get('street').hasError('required')">
+          Street is required
+        </div>
+      </div>
+      <label>Civic</label>
+      <input type="number" class="form-control" formControlName="civic" required (keydown)="keyDownFunction($event)">
+      <div class="alert alert-danger" *ngIf="((submitted && newPostform.get('civic').errors));">
+        <div *ngIf="newPostform.get('civic').hasError('required')">
+          Civic is required
+        </div>
+      </div>
       <label> Category: </label>
-      <select class="form-control" formControlName="type" required>
+      <select class="form-control" formControlName="type" required (keydown)="keyDownFunction($event)">
         <option value="SPORT" class="form-control">Sport</option>
         <option value="FUN" class="form-control">Fun</option>
         <option value="STUDY" class="form-control">Study</option>
         <option value="PARTY" class="form-control">Party</option>
         <option value="OTHER" class="form-control">Other</option>
       </select>
-      <div class="alert alert-danger" *ngIf="((submitted && ngPost.submitted && newPostform.get('type').errors))">
-        <div *ngIf="newPostform.get('type').hasError('type')">
+      <div class="alert alert-danger" *ngIf="((submitted && newPostform.get('type').errors))">
+        <div *ngIf="newPostform.get('type').hasError('required')">
           Category is required
         </div>
       </div>
@@ -85,12 +83,15 @@
       <label>Description</label>
       <textarea class="form-control" formControlName="description" required rows="3"></textarea>
       <div class="alert alert-danger"
-           *ngIf="((submitted && ngPost.submitted  && newPostform.get('description').errors))">
-        <div *ngIf="newPostform.get('description').hasError('description')">
+           *ngIf="((submitted && newPostform.get('description').errors))">
+        <div *ngIf="newPostform.get('description').hasError('required')">
           Description is required
         </div>
       </div>
       <br>
+      <div class="alert alert-danger" *ngIf="submitted && !validLocation">
+        Invalid address
+      </div>
       <input type="button" (click)="ngPost.onSubmit($event)" class="btn btn-primary" value="Create event">
       <br>
     </form>
