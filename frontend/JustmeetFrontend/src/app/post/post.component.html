@@ -41,22 +41,19 @@
             <strong>Subscribers:</strong>{{ postPayload?.subscribers}}
           </tr>
         </table>
-        <br>
-        <div class="center-div" *ngIf="!checkSub()">
-          <button class="btn btn-primary">
-            <a (click)="subscribeToPost(postPayload.id)" class="btn btn-primary"> Subscribe </a>
-          </button>
+        <div *ngIf="checkVRF()">
+          <div class="center-div" *ngIf="!checkSub()">
+            <br>
+            <button class="btn btn-primary" (click)="subscribeToPost(postPayload.id)"> Subscribe </button>
+          </div>
+          <div class="center-div" *ngIf="checkSub()">
+            <br>
+            <button class="btn btn-primary" (click)="deleteSubscribePost(postPayload.id)" > Remove me from subscribers </button>
+          </div>
         </div>
-        <br>
         <div class="center-div" *ngIf="checkOwner()">
-          <button class="btn btn-danger">
-            <a (click)="deleteMyPost(postPayload.id)" class="btn btn-danger"> Remove my post </a>
-          </button>
-        </div>
-        <div class="center-div" *ngIf="checkSub()">
-          <button class="btn btn-primary">
-            <a (click)="deleteSubscribePost(postPayload.id)" class="btn btn-primary"> Remove me from subscribers </a>
-          </button>
+          <br>
+          <button class="btn btn-danger" (click)="deleteMyPost(postPayload.id)">Remove my post </button>
         </div>
       </div>
       <div class="center-obj">

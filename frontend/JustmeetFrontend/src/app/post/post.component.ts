@@ -7,7 +7,6 @@ import {postService} from "../_services/post.service";
 import {postPayload} from "../utils/postPayloads/postPayload";
 import {Location} from '@angular/common';
 import {profilePayload} from "../utils/profilePayloads/profilePayload";
-import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
 
 
 @Component({
@@ -19,7 +18,7 @@ import {userDetailsPayload} from "../utils/postPayloads/userDetailsPayload";
 
 export class PostComponent implements OnInit {
   postPayload: postPayload;
-  userDetailsPayload: userDetailsPayload;
+  userDetailsPayload: profilePayload;
   currentUser: string;
   errorMessage: string;
   isOwner = false;
@@ -98,6 +97,16 @@ export class PostComponent implements OnInit {
     return retValue;
   }
 
+  checkVRF(): boolean {
+    let retValue = true;
+    this.userDetailsPayload.roles.forEach(value => {
+      if (value == "VRF") {
+        retValue = false;
+      }
+    });
+    return retValue;
+  }
+
   deleteMyPost(id) {
     if (this.checkOwner()) {
       this.postService.deletePost(id).subscribe();
@@ -108,23 +117,10 @@ export class PostComponent implements OnInit {
     }
   }
 
-  /*
-    getLocationString(lat,long){
-      let allData : string;
-      this.postService.getLocationDetails(lat,long).subscribe((data: profilePayload) => {
-        allData = JSON.stringify(data);
-        this.locationPayload.formatted_address = JSON.parse(allData);
-        //this.locationPayload.formatted_address
-        //alert(this.locationPayload.formatted_address);
-
-    });
-    }
-  */
-
   reloadPage() {
     setTimeout(function () {
       location.reload()
-    }, 500);
+    }, 1000);
   }
 
   back() {
