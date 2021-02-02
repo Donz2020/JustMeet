@@ -48,7 +48,7 @@ import {AgmCoreModule} from '@agm/core';
     ModalModule,
     MatTabsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCKmNrNcklAL5GKNzQP6CnnohGkeCPk1sc'
+
     }),
     FormlyModule.forRoot({
       validationMessages: [
