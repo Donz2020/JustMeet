@@ -16,5 +16,7 @@ arlind.canga@studenti.unicam.it
 ## Sviluppato in
 
 - **Angular/Ionic** per la parte frontend,
-- **Spring Boot** per la parte backend,
-- **MongoDB** per l'autenticazione e lo storage dei Post
+- **Spring Boot** per la parte backend
+
+## Database
+- **MongoDB** per lo storage dei dati
