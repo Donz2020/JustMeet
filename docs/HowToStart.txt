@@ -1,6 +1,6 @@
 frontend esposto : ng serve --host 0.0.0.0 --disableHostCheck
 
-cambiare API URL su PathManager con l'indirizzo ip pubblico
+cambiare API URL su PathManager.ts con l'indirizzo ip pubblico
 
 
 backend : su application.properties :   server.address=<ipPrivato>

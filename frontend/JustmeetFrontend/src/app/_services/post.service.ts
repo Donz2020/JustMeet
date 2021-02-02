@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {headerGenerator} from "../utils/headerGenerator";
-import {pathManager} from "../utils/pathManager";
+import {headerGenerator} from "../utils/headerRequest/headerGenerator";
+import {pathManager} from "../utils/connection/pathManager";
 
 const BACKEND_URL = new pathManager().getUrl();
 

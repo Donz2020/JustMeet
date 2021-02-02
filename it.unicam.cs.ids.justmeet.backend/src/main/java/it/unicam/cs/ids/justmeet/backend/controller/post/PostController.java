@@ -2,11 +2,8 @@ package it.unicam.cs.ids.justmeet.backend.controller.post;
 
 
 import it.unicam.cs.ids.justmeet.backend.model.PostDescription;
-import it.unicam.cs.ids.justmeet.backend.model.enumeration.PostCategory;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
-import it.unicam.cs.ids.justmeet.backend.payload.request.ActRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.PostRequest;
-import it.unicam.cs.ids.justmeet.backend.payload.request.UserRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.MessageResponse;
 import it.unicam.cs.ids.justmeet.backend.payload.response.PostResponse;
 import it.unicam.cs.ids.justmeet.backend.service.PostService;
@@ -19,11 +16,9 @@ import it.unicam.cs.ids.justmeet.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -63,7 +58,7 @@ public class PostController {
 
         postService.savePost(post, location, postDescription);
 
-        return ResponseEntity.ok("fatto");
+        return ResponseEntity.ok(new MessageResponse("Added"));
     }
 
     @PostMapping(path ="/delete/{postId}")
@@ -72,7 +67,7 @@ public class PostController {
         if(postService.getPostById(postId).getOwner().equals(user))
             postService.deletePost(postId);
 
-        return ResponseEntity.ok("fatto");
+        return ResponseEntity.ok(new MessageResponse("Deleted"));
     }
 
     @PostMapping(path ="/delete/{postId}/subscriber")
