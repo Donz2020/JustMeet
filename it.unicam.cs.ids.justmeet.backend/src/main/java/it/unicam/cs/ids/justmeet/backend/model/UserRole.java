@@ -3,12 +3,9 @@ package it.unicam.cs.ids.justmeet.backend.model;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Document(collection = "roles")
 public class UserRole {

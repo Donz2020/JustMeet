@@ -3,7 +3,6 @@ package it.unicam.cs.ids.justmeet.backend.model;
 import it.unicam.cs.ids.justmeet.backend.model.enumeration.EnumUserRole;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.utils.Utils;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

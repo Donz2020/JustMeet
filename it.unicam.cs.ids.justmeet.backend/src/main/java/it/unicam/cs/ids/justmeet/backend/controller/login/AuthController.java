@@ -6,8 +6,6 @@ import it.unicam.cs.ids.justmeet.backend.model.intfc.IPhysicalUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.DetailsRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.request.PhyDetailsRequest;
 import it.unicam.cs.ids.justmeet.backend.service.UserDetailsServiceImpl;
-import it.unicam.cs.ids.justmeet.backend.service.SequenceGeneratorService;
-import it.unicam.cs.ids.justmeet.backend.model.User;
 import it.unicam.cs.ids.justmeet.backend.model.intfc.IUser;
 import it.unicam.cs.ids.justmeet.backend.payload.request.AuthRequest;
 import it.unicam.cs.ids.justmeet.backend.payload.response.JwtResponse;
