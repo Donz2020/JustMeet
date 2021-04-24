@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
           this.closeModal();
           setTimeout(function () {
             window.location.href = "/home"
-          }, 500);
+          }, 800);
         } else {
           this.validLocation = false;
         }

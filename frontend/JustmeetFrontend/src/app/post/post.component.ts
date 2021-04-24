@@ -113,7 +113,7 @@ export class PostComponent implements OnInit {
       this.isOwner = true;
       setTimeout(function () {
         window.location.href = "/home"
-      }, 500);
+      }, 800);
     } else {
       this.isOwner = false;
     }
