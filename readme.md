@@ -1,7 +1,7 @@
 JustMeet IDS A.A. 19/20
 
 # :ticket: JustMeet
-Progetto realizzato per l'esame di Ingegneria del Software dell'Università di Camerino.
+Progetto realizzato per gli esami di Ingegneria del Software e Progettazione applicazioni Web e Mobili dell'Università di Camerino.
 
 ## Componenti gruppo:
 
@@ -15,8 +15,8 @@ arlind.canga@studenti.unicam.it
 
 ## Sviluppato in
 
-- **Angular/Ionic** per la parte frontend,
-- **Spring Boot** per la parte backend
+- **Angular** per la parte frontend,
+- **Java con framework Spring Boot** per la parte backend
 
 ## Database
 - **MongoDB** per lo storage dei dati
