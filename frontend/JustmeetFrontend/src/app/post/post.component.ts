@@ -119,7 +119,7 @@ export class PostComponent implements OnInit {
 
   reloadPage() {
     setTimeout(function () {
-      location.reload()
+      window.location.reload()
     }, 1000);
   }
 
