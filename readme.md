@@ -30,19 +30,19 @@ arlind.canga@studenti.unicam.it
 Modalità development:
 
 git clone https://github.com/Donz2020/JustMeet
-npm i     
-cd ./frontend
+cd .\frontend\JustmeetFrontend
+npm install
 ng serve
 
 
 Modalità produzione:
 
 
-cd ./frontend
-
+cd .\frontend\JustmeetFrontend
 npm install
+npm install -g http-server
 ng build --prod
-ng serve
+http-server -p 4200 -c-1 dist\JustMeetFrontend
 
 ```
 
@@ -52,7 +52,7 @@ ng serve
 Modalità development:
 
 git clone https://github.com/Donz2020/JustMeet
-cd it.unicam.cs.ids.justmeet.backend
+cd .\it.unicam.cs.ids.justmeet.backend
 mvn spring-boot:run
 
 
@@ -60,8 +60,16 @@ mvn spring-boot:run
 Modalità produzione :
 
 cd it.unicam.cs.ids.justmeet.backend
+mvn install 
+
+```
+
+**Or**
+
+```
+cd .\it.unicam.cs.ids.justmeet.backend
 mvn package 
-cd ./target
+cd .\target
 java -jar backend-0.0.1-SNAPSHOT.jar
 
 ```
