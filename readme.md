@@ -28,6 +28,7 @@ Le istruzioni seguenti ti permetteranno di eseguire il sistema sulla tua macchin
 ### Prerequisiti
 
 Di seguito troverai tutto quello che ti occorre per preparare il tuo ambiente per eseguire JustMeet :
+- NodeJS
 - JDK 1.8 (versione minima)
 - Maven
 - Il tuo IDE preferito ( si consiglia Intellij )
