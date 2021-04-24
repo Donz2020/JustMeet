@@ -111,7 +111,9 @@ export class PostComponent implements OnInit {
     if (this.checkOwner()) {
       this.postService.deletePost(id).subscribe();
       this.isOwner = true;
-      window.location.href = "/home";
+      setTimeout(function () {
+        window.location.href = "/home"
+      }, 500);
     } else {
       this.isOwner = false;
     }

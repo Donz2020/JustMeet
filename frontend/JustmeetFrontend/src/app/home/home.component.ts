@@ -112,7 +112,9 @@ export class HomeComponent implements OnInit {
           }
           this.postService.createPost(newPostPayloadData).subscribe();
           this.closeModal();
-          window.location.href = "/home";
+          setTimeout(function () {
+            window.location.href = "/home"
+          }, 500);
         } else {
           this.validLocation = false;
         }
