@@ -21,6 +21,16 @@ arlind.canga@studenti.unicam.it
 ## Database
 - **MongoDB** per lo storage dei dati
 
+## Getting Started
+
+Le istruzioni seguenti ti permetteranno di eseguire il sistema sulla tua macchina.
+
+### Prerequisiti
+
+Di seguito troverai tutto quello che ti occorre per preparare il tuo ambiente per eseguire JustMeet :
+- JDK 1.8 (versione minima)
+- Maven
+- Il tuo IDE preferito ( si consiglia Intellij )
 
 ## Come avviare il sistema
 
@@ -59,7 +69,7 @@ mvn spring-boot:run
 
 Modalità produzione :
 
-cd it.unicam.cs.ids.justmeet.backend
+cd .\it.unicam.cs.ids.justmeet.backend
 mvn install 
 
 ```
