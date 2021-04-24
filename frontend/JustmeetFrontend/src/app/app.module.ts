@@ -23,6 +23,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 
 import {MatTabsModule} from "@angular/material/tabs";
 import {AgmCoreModule} from '@agm/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -55,6 +57,7 @@ import {AgmCoreModule} from '@agm/core';
         {name: 'required', message: 'This field is required'},
       ],
     }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
