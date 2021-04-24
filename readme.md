@@ -20,3 +20,49 @@ arlind.canga@studenti.unicam.it
 
 ## Database
 - **MongoDB** per lo storage dei dati
+
+
+## Come avviare il sistema
+
+**Per il Frontend :**
+
+```
+Modalità development:
+
+git clone https://github.com/Donz2020/JustMeet
+npm i     
+cd ./frontend
+ng serve
+
+
+Modalità produzione:
+
+
+cd ./frontend
+
+npm install
+ng build --prod
+ng serve
+
+```
+
+**Per il Backend :**
+
+```
+Modalità development:
+
+git clone https://github.com/Donz2020/JustMeet
+cd it.unicam.cs.ids.justmeet.backend
+mvn spring-boot:run
+
+
+
+Modalità produzione :
+
+cd it.unicam.cs.ids.justmeet.backend
+mvn package 
+cd ./target
+java -jar backend-0.0.1-SNAPSHOT.jar
+
+```
+
